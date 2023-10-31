@@ -1,0 +1,11 @@
+C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\bin\Debug\FuturesArbitrage.exe.config
+C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\bin\Debug\FuturesArbitrage.exe
+C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\bin\Debug\FuturesArbitrage.pdb
+C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.AssemblyReference.cache
+C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.Form1.resources
+C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.Properties.Resources.resources
+C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.GenerateResource.cache
+C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.CoreCompileInputs.cache
+C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.exe
+C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.pdb
+C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.StartForm.resources
