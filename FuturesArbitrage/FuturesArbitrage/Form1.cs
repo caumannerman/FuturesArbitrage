@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -60,9 +61,14 @@ namespace FuturesArbitrage
 
 		}
 
+		public void Alert(string msg)
+		{
+			ShowAlert frm = new ShowAlert();
+			frm.showAlert(msg);
+		}
 		private void button2_Click(object sender, EventArgs e)
 		{
-
+			this.Alert("Test MEssage");
 		}
 
 		private void button3_Click(object sender, EventArgs e)

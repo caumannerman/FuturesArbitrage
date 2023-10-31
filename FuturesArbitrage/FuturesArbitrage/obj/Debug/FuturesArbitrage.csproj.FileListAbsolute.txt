@@ -9,3 +9,15 @@ C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArb
 C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.exe
 C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.pdb
 C:\Users\ymp\source\repos\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.StartForm.resources
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\bin\Debug\FuturesArbitrage.exe.config
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\bin\Debug\FuturesArbitrage.exe
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\bin\Debug\FuturesArbitrage.pdb
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.AssemblyReference.cache
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.Form1.resources
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.Properties.Resources.resources
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.ShowAlert.resources
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.StartForm.resources
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.GenerateResource.cache
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.CoreCompileInputs.cache
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.exe
+C:\Users\바모스\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.pdb

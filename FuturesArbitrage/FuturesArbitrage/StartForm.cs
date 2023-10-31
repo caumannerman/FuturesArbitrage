@@ -16,8 +16,8 @@ namespace FuturesArbitrage
 		{
 			InitializeComponent();
 		}
-
-		private void StartForm_Load(object sender, EventArgs e)
+ 
+        private void StartForm_Load(object sender, EventArgs e)
 		{
 
 		}
@@ -28,6 +28,8 @@ namespace FuturesArbitrage
 			form1.Tag = this;
 			form1.Show();
 			this.Hide();
+
+
 		}
 	}
 }
