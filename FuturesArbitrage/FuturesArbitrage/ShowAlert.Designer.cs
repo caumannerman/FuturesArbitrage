@@ -29,32 +29,10 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            this.ignore_button = new System.Windows.Forms.Button();
-            this.boom_button = new System.Windows.Forms.Button();
             this.exit_button = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // ignore_button
-            // 
-            this.ignore_button.BackColor = System.Drawing.Color.Firebrick;
-            this.ignore_button.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.ignore_button.Location = new System.Drawing.Point(52, 32);
-            this.ignore_button.Name = "ignore_button";
-            this.ignore_button.Size = new System.Drawing.Size(94, 32);
-            this.ignore_button.TabIndex = 0;
-            this.ignore_button.Text = "무시";
-            this.ignore_button.UseVisualStyleBackColor = false;
-            // 
-            // boom_button
-            // 
-            this.boom_button.BackColor = System.Drawing.Color.Lime;
-            this.boom_button.Location = new System.Drawing.Point(188, 32);
-            this.boom_button.Name = "boom_button";
-            this.boom_button.Size = new System.Drawing.Size(82, 32);
-            this.boom_button.TabIndex = 1;
-            this.boom_button.Text = "발사";
-            this.boom_button.UseVisualStyleBackColor = false;
             // 
             // exit_button
             // 
@@ -71,27 +49,35 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(2, 34);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(378, 68);
+            this.textBox1.TabIndex = 4;
+            this.textBox1.Text = "~~선물이 매도되었습니다.";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // ShowAlert
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.ClientSize = new System.Drawing.Size(382, 105);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.exit_button);
-            this.Controls.Add(this.boom_button);
-            this.Controls.Add(this.ignore_button);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ShowAlert";
             this.Text = "ShowAlert";
             this.Load += new System.EventHandler(this.ShowAlert_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.Button ignore_button;
-		private System.Windows.Forms.Button boom_button;
 		private System.Windows.Forms.Button exit_button;
 		private System.Windows.Forms.Timer timer1;
-	}
+        private System.Windows.Forms.TextBox textBox1;
+    }
 }

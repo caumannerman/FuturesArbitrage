@@ -75,7 +75,12 @@ namespace FuturesArbitrage
 			}
 		}
 
-		public void showAlert(string msg)
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public void showAlert(string msg)
 		{
 			this.Opacity = 0.0;
 			this.StartPosition = FormStartPosition.Manual;
@@ -90,14 +95,14 @@ namespace FuturesArbitrage
 				{
 					this.Name = fname;
 					this.x = Screen.PrimaryScreen.WorkingArea.Width - this.Width + 15;
-					this.y = Screen.PrimaryScreen.WorkingArea.Height - this.Height * i;
+					this.y = Screen.PrimaryScreen.WorkingArea.Height - this.Height * (i+1);
 					this.Location = new Point(this.x, this.y);
 					break;
 				}
 			}
 			this.x = Screen.PrimaryScreen.WorkingArea.Width - base.Width - 5;
 
-			this.ignore_button.Text = msg;
+			
 			this.Show();
 			this.action = enmAction.boom;
 
