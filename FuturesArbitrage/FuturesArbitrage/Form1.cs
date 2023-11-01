@@ -62,14 +62,14 @@ namespace FuturesArbitrage
             chart3.Series.Add("Futures");
             chart3.Series["Futures"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             chart3.Series["Futures"].Color = Color.Blue;
+
             //numbers 초기화
             for (int i = 0; i < 1000; i++)
             {
 				numbers[i] = i + 10;
 				futures[i] = 1100 - i;
             }
-            System.Console.WriteLine("kkkkkkk,");
-            System.Console.WriteLine(filePath);
+            
             Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
             Workbook workbook = application.Workbooks.Open(Filename: @filePath);
             Worksheet worksheet1 = workbook.Worksheets.get_Item(1);
@@ -77,10 +77,6 @@ namespace FuturesArbitrage
             Range range = worksheet1.UsedRange;
             //Form 멤버로 있는 mydata에 저장
             mydata = range.Value;
-            System.Console.WriteLine("kdjflsjflksjklsf");
-            System.Console.WriteLine(mydata.GetLength(0));
-            System.Console.WriteLine(mydata.GetLength(1));
-
 
         }
 
@@ -100,8 +96,12 @@ namespace FuturesArbitrage
 			//chart2 엑셀데이터 뿌리기
 			chart2.Series[0].Points.AddXY(x2, numbers[x2idx]);
 			chart2.Series["Futures"].Points.AddXY(x2, futures[x2idx]);
+            if (numbers[x2idx] > futures[x2idx])
+            {
+                showAlert("");
+            }
 
-			if (chart2.Series[0].Points.Count > 100)
+            if (chart2.Series[0].Points.Count > 1000)
 			{
                 chart2.Series[0].Points.RemoveAt(0);
 				chart2.Series["Futures"].Points.RemoveAt(0);
@@ -126,12 +126,15 @@ namespace FuturesArbitrage
             chart3.Series[0].Points.AddXY(x3, mydata[x3idx,2]);
             double temp =  Convert.ToDouble(( (double)mydata[x3idx, 3] + 10000.0).ToString());
             chart3.Series["Futures"].Points.AddXY(x3, temp);
+            if ( (double)mydata[x3idx, 2] > (double)mydata[x3idx, 3])
+            {
+                showAlert("");
+            }
 
-            if (chart3.Series[0].Points.Count > 100)
+            if (chart3.Series[0].Points.Count > 1000)
             {
                 chart3.Series[0].Points.RemoveAt(0);
                 chart3.Series["Futures"].Points.RemoveAt(0);
-
             }
 
             //chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
@@ -220,10 +223,17 @@ namespace FuturesArbitrage
 			ShowAlert frm = new ShowAlert();
 			frm.showAlert(msg);
 		}
+
+        private void showAlert(string msg)
+        {
+            //msg출력해주는 것으로 바꿔야함
+
+            this.Alert("Test MEssage");
+        }
 		private void button2_Click(object sender, EventArgs e)
 		{
-			
-			this.Alert("Test MEssage");
+            showAlert("");
+			///this.Alert("Test MEssage");
 		}
 
 		private void button3_Click(object sender, EventArgs e)
@@ -308,15 +318,6 @@ namespace FuturesArbitrage
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog OFD = new OpenFileDialog();
-            if (OFD.ShowDialog() == DialogResult.OK)
-            {
-                richTextBox1.Clear();
-                richTextBox1.Text = OFD.FileName;
-                filePath = OFD.FileName;
-            }
-        }
+      
     }
 }
