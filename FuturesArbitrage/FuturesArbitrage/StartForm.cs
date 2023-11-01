@@ -19,17 +19,20 @@ namespace FuturesArbitrage
  
         private void StartForm_Load(object sender, EventArgs e)
 		{
-
+			System.Console.WriteLine("시작!!!!!!!");
 		}
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			Form1 form1 = new Form1();
+			/*Form1 form1 = new Form1();
 			form1.Tag = this;
 			form1.Show();
+			this.Hide();*/
+
+			SettingForm settingForm = new SettingForm();
+			settingForm.Tag = this;
+			settingForm.Show();
 			this.Hide();
-
-
 		}
 	}
 }

@@ -8,7 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Runtime.InteropServices;
+using Microsoft.Office.Interop.Excel;
 
 namespace FuturesArbitrage
 {
@@ -21,13 +22,16 @@ namespace FuturesArbitrage
 		// excel 에서 받아온 데이터 저장할 배열
 		int[] numbers = new int[1000];
 		int[] futures = new int[1000];
+
+		private string filePath = "";
 		
 		public Form1()
 		{
 			InitializeComponent();
 		}
 
-		private void Form1_Load(object sender, EventArgs e)
+
+        private void Form1_Load(object sender, EventArgs e)
 		{
 			button1.Text = "Start";
 			timer1.Tick += timer1_Tick;
@@ -110,12 +114,85 @@ namespace FuturesArbitrage
 
 		private void button3_Click(object sender, EventArgs e)
 		{
-
-		}
+            OpenFileDialog OFD = new OpenFileDialog();
+            if (OFD.ShowDialog() == DialogResult.OK)
+            {
+                richTextBox1.Clear();
+                richTextBox1.Text = OFD.FileName;
+                filePath = OFD.FileName;
+            }
+        }
 
 		private void button4_Click(object sender, EventArgs e)
 		{
+            if (filePath != "")
+            {
+				System.Console.WriteLine("들어옴");
+				
+                Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
+                Workbook workbook = application.Workbooks.Open(Filename: @filePath);
+                Worksheet worksheet1 = workbook.Worksheets.get_Item(1);
+                application.Visible = false;
+				Range range = worksheet1.UsedRange;
+/*
+				Range startRange = worksheet1.Cells[3, 0];
+				Range endRange = worksheet1.Cells[10, 10];
+				Range range = worksheet1.get_Range(startRange, endRange);*/
+				object[,] rawData = range.Value;
 
-		}
-	}
+				// 
+				for(int i=1; i<= rawData.GetLength(0); i++)
+				{
+					for(int j=1; j <= rawData.GetLength(1); ++j)
+					{
+						System.Console.Write(rawData[i, j]);
+					}System.Console.WriteLine();
+				}
+
+                String data = "";
+
+                for (int i = 1; i <= rawData.GetLength(0); ++i)
+                {
+                    for (int j = 1; j <= rawData.GetLength(1); ++j)
+                    {
+						if (rawData[i, j] == null) continue;
+						data += (rawData[i, j].ToString() + " ");
+                        //data += ((range.Cells[i, j] as Range).Value2.ToString() + " ");
+                    }
+                    data += "\n";
+                }
+
+
+                richTextBox2.Text = data;
+
+               /* DeleteObject(worksheet1);
+                DeleteObject(workbook);
+                application.Quit();
+                DeleteObject(application);*/
+            }
+			else
+			{
+                System.Console.WriteLine("들어오지 못함");
+            }
+        }
+
+        private void DeleteObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("메모리 할당을 해제하는 중 문제가 발생하였습니다." + ex.ToString(), "경고!");
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+
+    }
 }
