@@ -29,12 +29,17 @@ namespace FuturesArbitrage
 
         object[,] mydata;
 
-		private string filePath = "C:\\Users\\USER\\Desktop\\test.xlsx";
-		
-		public Form1()
+        //private string filePath = "C:\\Users\\USER\\Desktop\\test.xlsx";
+        private string filePath = "";
+
+        public Form1()
 		{
 			InitializeComponent();
-		}
+            filePath = SettingForm.filePath;
+            System.Console.WriteLine("Form1으로 넘어와서 filePath 전달 확인");
+            System.Console.WriteLine(filePath);
+
+        }
 
 
         private void Form1_Load(object sender, EventArgs e)

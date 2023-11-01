@@ -12,6 +12,8 @@ namespace FuturesArbitrage
 {
     public partial class SettingForm : Form
     {
+
+        static public String filePath = "";
         public SettingForm()
         {
             InitializeComponent();
@@ -28,6 +30,17 @@ namespace FuturesArbitrage
             form1.Tag = this;
             form1.Show();
             this.Hide();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OFD = new OpenFileDialog();
+            if (OFD.ShowDialog() == DialogResult.OK)
+            {
+                textBox5.Clear();
+                textBox5.Text = OFD.FileName;
+                filePath = OFD.FileName;
+            }
         }
     }
 }
