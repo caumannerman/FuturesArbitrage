@@ -28,11 +28,19 @@ namespace FuturesArbitrage
 			form1.Tag = this;
 			form1.Show();
 			this.Hide();*/
-
-			SettingForm settingForm = new SettingForm();
-			settingForm.Tag = this;
-			settingForm.Show();
-			this.Hide();
 		}
-	}
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SettingForm settingForm = new SettingForm();
+            settingForm.Tag = this;
+            settingForm.Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
