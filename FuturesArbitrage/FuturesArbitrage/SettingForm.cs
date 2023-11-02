@@ -21,7 +21,7 @@ namespace FuturesArbitrage
         static public String sv_norisk_interest_rate = "";
         static public String sv_borrow_interest_rate = "";
         static public String sv_loan_interest_rate = "";
-        static public String sv_formula = "";
+        static public String sv_enddate = "";
         static public String sv_filePath = "";
         
 
@@ -96,12 +96,17 @@ namespace FuturesArbitrage
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            sv_formula = comboBox1.Text;
+			
         }
 
 		private void SettingForm_Load(object sender, EventArgs e)
 		{
 
+		}
+
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+            sv_enddate = textBox1.Text;
 		}
 	}
 }

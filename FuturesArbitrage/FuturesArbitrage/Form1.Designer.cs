@@ -66,6 +66,12 @@
 			this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.chart5 = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.chart6 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+			this.label11 = new System.Windows.Forms.Label();
+			this.label12 = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
+			this.label14 = new System.Windows.Forms.Label();
+			this.label15 = new System.Windows.Forms.Label();
+			this.label16 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
@@ -80,13 +86,13 @@
 			this.chart1.ChartAreas.Add(chartArea1);
 			legend1.Name = "Legend1";
 			this.chart1.Legends.Add(legend1);
-			this.chart1.Location = new System.Drawing.Point(0, 0);
+			this.chart1.Location = new System.Drawing.Point(0, 54);
 			this.chart1.Name = "chart1";
 			series1.ChartArea = "ChartArea1";
 			series1.Legend = "Legend1";
 			series1.Name = "Series1";
 			this.chart1.Series.Add(series1);
-			this.chart1.Size = new System.Drawing.Size(1150, 600);
+			this.chart1.Size = new System.Drawing.Size(1150, 602);
 			this.chart1.TabIndex = 0;
 			this.chart1.Text = "chart1";
 			// 
@@ -111,7 +117,7 @@
 			this.chart2.ChartAreas.Add(chartArea2);
 			legend2.Name = "Legend1";
 			this.chart2.Legends.Add(legend2);
-			this.chart2.Location = new System.Drawing.Point(1150, 0);
+			this.chart2.Location = new System.Drawing.Point(1150, 52);
 			this.chart2.Name = "chart2";
 			series2.ChartArea = "ChartArea1";
 			series2.Legend = "Legend1";
@@ -127,7 +133,7 @@
 			this.chart3.ChartAreas.Add(chartArea3);
 			legend3.Name = "Legend1";
 			this.chart3.Legends.Add(legend3);
-			this.chart3.Location = new System.Drawing.Point(2300, 0);
+			this.chart3.Location = new System.Drawing.Point(2300, 58);
 			this.chart3.Name = "chart3";
 			series3.ChartArea = "ChartArea1";
 			series3.Legend = "Legend1";
@@ -256,13 +262,13 @@
 			this.chart4.ChartAreas.Add(chartArea4);
 			legend4.Name = "Legend1";
 			this.chart4.Legends.Add(legend4);
-			this.chart4.Location = new System.Drawing.Point(0, 600);
+			this.chart4.Location = new System.Drawing.Point(0, 693);
 			this.chart4.Name = "chart4";
 			series4.ChartArea = "ChartArea1";
 			series4.Legend = "Legend1";
 			series4.Name = "Series1";
 			this.chart4.Series.Add(series4);
-			this.chart4.Size = new System.Drawing.Size(1150, 600);
+			this.chart4.Size = new System.Drawing.Size(1150, 602);
 			this.chart4.TabIndex = 22;
 			this.chart4.Text = "chart4";
 			// 
@@ -272,7 +278,7 @@
 			this.chart5.ChartAreas.Add(chartArea5);
 			legend5.Name = "Legend1";
 			this.chart5.Legends.Add(legend5);
-			this.chart5.Location = new System.Drawing.Point(1150, 600);
+			this.chart5.Location = new System.Drawing.Point(1150, 690);
 			this.chart5.Name = "chart5";
 			series5.ChartArea = "ChartArea1";
 			series5.Legend = "Legend1";
@@ -288,7 +294,7 @@
 			this.chart6.ChartAreas.Add(chartArea6);
 			legend6.Name = "Legend1";
 			this.chart6.Legends.Add(legend6);
-			this.chart6.Location = new System.Drawing.Point(2300, 600);
+			this.chart6.Location = new System.Drawing.Point(2300, 696);
 			this.chart6.Name = "chart6";
 			series6.ChartArea = "ChartArea1";
 			series6.Legend = "Legend1";
@@ -298,11 +304,78 @@
 			this.chart6.TabIndex = 24;
 			this.chart6.Text = "chart6";
 			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.label11.Location = new System.Drawing.Point(56, 35);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(50, 29);
+			this.label11.TabIndex = 25;
+			this.label11.Text = "KT";
+			this.label11.Click += new System.EventHandler(this.label11_Click);
+			// 
+			// label12
+			// 
+			this.label12.AutoSize = true;
+			this.label12.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.label12.Location = new System.Drawing.Point(1211, 20);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(141, 29);
+			this.label12.TabIndex = 26;
+			this.label12.Text = "SK텔레콤";
+			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.label13.Location = new System.Drawing.Point(2362, 20);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(133, 29);
+			this.label13.TabIndex = 27;
+			this.label13.Text = "삼성전자";
+			// 
+			// label14
+			// 
+			this.label14.AutoSize = true;
+			this.label14.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.label14.Location = new System.Drawing.Point(56, 661);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(103, 29);
+			this.label14.TabIndex = 28;
+			this.label14.Text = "현대차";
+			// 
+			// label15
+			// 
+			this.label15.AutoSize = true;
+			this.label15.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.label15.Location = new System.Drawing.Point(1211, 661);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(133, 29);
+			this.label15.TabIndex = 29;
+			this.label15.Text = "한국전력";
+			// 
+			// label16
+			// 
+			this.label16.AutoSize = true;
+			this.label16.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.label16.Location = new System.Drawing.Point(2362, 664);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(123, 29);
+			this.label16.TabIndex = 30;
+			this.label16.Text = "삼성SDI";
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(3424, 1685);
+			this.Controls.Add(this.label16);
+			this.Controls.Add(this.label15);
+			this.Controls.Add(this.label14);
+			this.Controls.Add(this.label13);
+			this.Controls.Add(this.label12);
+			this.Controls.Add(this.label11);
 			this.Controls.Add(this.chart6);
 			this.Controls.Add(this.chart5);
 			this.Controls.Add(this.chart4);
@@ -356,6 +429,12 @@
 		private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
 		private System.Windows.Forms.DataVisualization.Charting.Chart chart5;
 		private System.Windows.Forms.DataVisualization.Charting.Chart chart6;
+		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.Label label12;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.Label label15;
+		private System.Windows.Forms.Label label16;
 	}
 }
 

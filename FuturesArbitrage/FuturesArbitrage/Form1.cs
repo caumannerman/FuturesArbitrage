@@ -38,16 +38,21 @@ namespace FuturesArbitrage
         private string sv_norisk_interest_rate = "";
         private string sv_borrow_interest_rate = "";
         private string sv_loan_interest_rate = "";
-        private string sv_formula = "";
+        private string sv_enddate = "";
         private string sv_filePath = "";
-       
-        //엑셀에서 가져와야하는 것 : 주식 현재가, 만기일까지 남은 일수, 선물 현재가  ( 가격, 수량 )
-        //현재가, 남은 일 수까지 활용해서 이론가격 가져옴. 
-        // 이론가격보다 하나 높은 틱에 선물 매수, 매도 대고있다고 가정.
-        // 매 순간 그 가격에 선물이 매수 혹은 매도될 때, 헷지할 수 있는 현물 가격과 수량을 계속 반복체크
-        // 
 
-        public Form1()
+		int k = 0;
+		double r_lending = 1.04;
+		double r_borrow = 1.06;
+		int T = 6;
+
+		//엑셀에서 가져와야하는 것 : 주식 현재가, 만기일까지 남은 일수, 선물 현재가  ( 가격, 수량 )
+		//현재가, 남은 일 수까지 활용해서 이론가격 가져옴. 
+		// 이론가격보다 하나 높은 틱에 선물 매수, 매도 대고있다고 가정.
+		// 매 순간 그 가격에 선물이 매수 혹은 매도될 때, 헷지할 수 있는 현물 가격과 수량을 계속 반복체크
+		// 
+
+		public Form1()
 		{
 			InitializeComponent();
 
@@ -60,7 +65,7 @@ namespace FuturesArbitrage
             sv_norisk_interest_rate = SettingForm.sv_norisk_interest_rate;
             sv_borrow_interest_rate = SettingForm.sv_borrow_interest_rate;
             sv_loan_interest_rate = SettingForm.sv_loan_interest_rate;
-            sv_formula = SettingForm.sv_formula;
+			sv_enddate = SettingForm.sv_enddate;
             sv_filePath = SettingForm.sv_filePath;
             System.Console.WriteLine("Form1으로 넘어와서 filePath 전달 확인");
             System.Console.WriteLine(sv_myMoney);
@@ -71,9 +76,16 @@ namespace FuturesArbitrage
             System.Console.WriteLine(sv_norisk_interest_rate);
             System.Console.WriteLine(sv_borrow_interest_rate);
             System.Console.WriteLine(sv_loan_interest_rate);
-            System.Console.WriteLine(sv_formula);
+            System.Console.WriteLine(sv_enddate);
             System.Console.WriteLine(sv_filePath);
-        }
+
+			r_borrow = Double.Parse( sv_borrow_interest_rate);
+			r_lending = Double.Parse(sv_loan_interest_rate);
+			T = int.Parse(sv_enddate);
+
+
+
+		}
 
         private void Form1_Load(object sender, EventArgs e)
 		{
@@ -218,15 +230,13 @@ namespace FuturesArbitrage
             mydata = range.Value;*/
 
         }
-        async void test1()
+		//KT
+        async void test1(double r_lending, double r_borrow, int T)
         {
 			try
 			{
 
-                int k = 1;
-                double r_lending = 1.04;
-                double r_borrow = 1.06;
-                int T = 6;
+              
                 
 				//주식 매수매도 호가
 				string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=030200";
@@ -375,13 +385,13 @@ namespace FuturesArbitrage
 
 				//chart3 
 				// 매수차익거래 선물 이론가격
-				chart1.Series["선물매수1호가"].Points.AddXY(x1, futs_bidp[0]* 1.5);
+				chart1.Series["선물매수1호가"].Points.AddXY(x1, futs_bidp[0]);
 
-				chart1.Series["선물매도1호가"].Points.AddXY(x1, futs_askp[0] * 1.5);
+				chart1.Series["선물매도1호가"].Points.AddXY(x1, futs_askp[0]);
 
 				// 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
-				chart1.Series["매수차익 하한(이론가)"].Points.AddXY(x1, book_value * 1.5);
-				chart1.Series["매도차익 상한(이론가)"].Points.AddXY(x1, book_value2 * 1.5);
+				chart1.Series["매수차익 하한(이론가)"].Points.AddXY(x1, book_value );
+				chart1.Series["매도차익 상한(이론가)"].Points.AddXY(x1, book_value2 );
 
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
@@ -395,7 +405,7 @@ namespace FuturesArbitrage
 				}
 
 				
-
+				
 
 
 				if (chart1.Series["선물매수1호가"].Points.Count > 500)
@@ -410,8 +420,8 @@ namespace FuturesArbitrage
 				//chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart1.ChartAreas[0].AxisX.Minimum = chart1.Series["선물매수1호가"].Points[0].XValue;
 				chart1.ChartAreas[0].AxisX.Maximum = 50;
-				chart1.ChartAreas[0].AxisY.Minimum = futs_bidp[0] * 1.4;
-				chart1.ChartAreas[0].AxisY.Maximum = futs_askp[0] * 1.6;
+				chart1.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
+				chart1.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
 
 				x1 += 0.1; //그래프 상 오른쪽에 그려야하므로
 
@@ -429,16 +439,12 @@ namespace FuturesArbitrage
 				Console.WriteLine($"Exception={ex2.Message}");
 			}
 		}
-
-		async void test2()
+		//SK텔레콤
+		async void test2(double r_lending, double r_borrow, int T)
 		{
 			try
 			{
 
-				int k = 1;
-				double r_lending = 1.04;
-				double r_borrow = 1.06;
-				int T = 6;
 
 				//주식 매수매도 호가
 				string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=017670";
@@ -587,13 +593,13 @@ namespace FuturesArbitrage
 
 				//chart3 
 				// 매수차익거래 선물 이론가격
-				chart2.Series["선물매수1호가"].Points.AddXY(x2, futs_bidp[0] * 1.5);
+				chart2.Series["선물매수1호가"].Points.AddXY(x2, futs_bidp[0] );
 
-				chart2.Series["선물매도1호가"].Points.AddXY(x2, futs_askp[0] * 1.5);
+				chart2.Series["선물매도1호가"].Points.AddXY(x2, futs_askp[0] );
 
 				// 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
-				chart2.Series["매수차익 하한(이론가)"].Points.AddXY(x2, book_value * 1.5);
-				chart2.Series["매도차익 상한(이론가)"].Points.AddXY(x2, book_value2 * 1.5);
+				chart2.Series["매수차익 하한(이론가)"].Points.AddXY(x2, book_value );
+				chart2.Series["매도차익 상한(이론가)"].Points.AddXY(x2, book_value2 );
 
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
@@ -621,8 +627,8 @@ namespace FuturesArbitrage
 				//chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart2.ChartAreas[0].AxisX.Maximum = 50;
-				chart2.ChartAreas[0].AxisY.Minimum = futs_bidp[0] * 1.4;
-				chart2.ChartAreas[0].AxisY.Maximum = futs_askp[0] * 1.6;
+				chart2.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
+				chart2.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
 
 				x2 += 0.1; //그래프 상 오른쪽에 그려야하므로
 
@@ -640,16 +646,11 @@ namespace FuturesArbitrage
 				Console.WriteLine($"Exception={ex2.Message}");
 			}
 		}
-
-		async void test3()
+		//삼성전자
+		async void test3(double r_lending, double r_borrow, int T)
 		{
 			try
 			{
-
-				int k = 1;
-				double r_lending = 1.04;
-				double r_borrow = 1.06;
-				int T = 6;
 
 				//주식 매수매도 호가
 				string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=005930";
@@ -798,13 +799,13 @@ namespace FuturesArbitrage
 
 				//chart3 
 				// 매수차익거래 선물 이론가격
-				chart3.Series["선물매수1호가"].Points.AddXY(x3, futs_bidp[0] * 1.5);
+				chart3.Series["선물매수1호가"].Points.AddXY(x3, futs_bidp[0] );
 
-				chart3.Series["선물매도1호가"].Points.AddXY(x3, futs_askp[0] * 1.5);
+				chart3.Series["선물매도1호가"].Points.AddXY(x3, futs_askp[0] );
 
 				// 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
-				chart3.Series["매수차익 하한(이론가)"].Points.AddXY(x3, book_value * 1.5);
-				chart3.Series["매도차익 상한(이론가)"].Points.AddXY(x3, book_value2 * 1.5);
+				chart3.Series["매수차익 하한(이론가)"].Points.AddXY(x3, book_value );
+				chart3.Series["매도차익 상한(이론가)"].Points.AddXY(x3, book_value2 );
 
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
@@ -832,8 +833,8 @@ namespace FuturesArbitrage
 				//chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart3.ChartAreas[0].AxisX.Minimum = chart3.Series["선물매수1호가"].Points[0].XValue;
 				chart3.ChartAreas[0].AxisX.Maximum = 50;
-				chart3.ChartAreas[0].AxisY.Minimum = futs_bidp[0] * 1.4;
-				chart3.ChartAreas[0].AxisY.Maximum = futs_askp[0] * 1.6;
+				chart3.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
+				chart3.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
 
 				x3 += 0.1; //그래프 상 오른쪽에 그려야하므로
 
@@ -852,16 +853,12 @@ namespace FuturesArbitrage
 			}
 		}
 
+		//
 		//현대차
-		async void test4()
+		async void test4(double r_lending, double r_borrow, int T)
 		{
 			try
 			{
-
-				int k = 1;
-				double r_lending = 1.04;
-				double r_borrow = 1.06;
-				int T = 6;
 
 				//주식 매수매도 호가
 				string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=005380";
@@ -1010,13 +1007,13 @@ namespace FuturesArbitrage
 
 				//chart3 
 				// 매수차익거래 선물 이론가격
-				chart4.Series["선물매수1호가"].Points.AddXY(x4, futs_bidp[0] * 1.5);
+				chart4.Series["선물매수1호가"].Points.AddXY(x4, futs_bidp[0] );
 
-				chart4.Series["선물매도1호가"].Points.AddXY(x4, futs_askp[0] * 1.5);
+				chart4.Series["선물매도1호가"].Points.AddXY(x4, futs_askp[0] );
 
 				// 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
-				chart4.Series["매수차익 하한(이론가)"].Points.AddXY(x4, book_value * 1.5);
-				chart4.Series["매도차익 상한(이론가)"].Points.AddXY(x4, book_value2 * 1.5);
+				chart4.Series["매수차익 하한(이론가)"].Points.AddXY(x4, book_value );
+				chart4.Series["매도차익 상한(이론가)"].Points.AddXY(x4, book_value2 );
 
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
@@ -1041,8 +1038,8 @@ namespace FuturesArbitrage
 		
 				chart4.ChartAreas[0].AxisX.Minimum = chart4.Series["선물매수1호가"].Points[0].XValue;
 				chart4.ChartAreas[0].AxisX.Maximum = 50;
-				chart4.ChartAreas[0].AxisY.Minimum = futs_bidp[0] * 1.4;
-				chart4.ChartAreas[0].AxisY.Maximum = futs_askp[0] * 1.6;
+				chart4.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
+				chart4.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
 
 				x4 += 0.1; //그래프 상 오른쪽에 그려야하므로
 
@@ -1063,15 +1060,10 @@ namespace FuturesArbitrage
 
 
 		//한국전력
-		async void test5()
+		async void test5(double r_lending, double r_borrow, int T)
 		{
 			try
 			{
-
-				int k = 1;
-				double r_lending = 1.04;
-				double r_borrow = 1.06;
-				int T = 6;
 
 				//주식 매수매도 호가
 				string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=015760";
@@ -1220,13 +1212,13 @@ namespace FuturesArbitrage
 
 				//chart3 
 				// 매수차익거래 선물 이론가격
-				chart5.Series["선물매수1호가"].Points.AddXY(x5, futs_bidp[0] * 1.5);
+				chart5.Series["선물매수1호가"].Points.AddXY(x5, futs_bidp[0] );
 
-				chart5.Series["선물매도1호가"].Points.AddXY(x5, futs_askp[0] * 1.5);
+				chart5.Series["선물매도1호가"].Points.AddXY(x5, futs_askp[0]);
 
 				// 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
-				chart5.Series["매수차익 하한(이론가)"].Points.AddXY(x5, book_value * 1.5);
-				chart5.Series["매도차익 상한(이론가)"].Points.AddXY(x5, book_value2 * 1.5);
+				chart5.Series["매수차익 하한(이론가)"].Points.AddXY(x5, book_value );
+				chart5.Series["매도차익 상한(이론가)"].Points.AddXY(x5, book_value2 );
 
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
@@ -1250,8 +1242,8 @@ namespace FuturesArbitrage
 
 				chart5.ChartAreas[0].AxisX.Minimum = chart5.Series["선물매수1호가"].Points[0].XValue;
 				chart5.ChartAreas[0].AxisX.Maximum = 50;
-				chart5.ChartAreas[0].AxisY.Minimum = futs_bidp[0] * 1.4;
-				chart5.ChartAreas[0].AxisY.Maximum = futs_askp[0] * 1.6;
+				chart5.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
+				chart5.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
 
 				x5 += 0.1; //그래프 상 오른쪽에 그려야하므로
 
@@ -1272,16 +1264,10 @@ namespace FuturesArbitrage
 
 
 		//삼성SDI
-		async void test6()
+		async void test6(double r_lending, double r_borrow, int T)
 		{
 			try
 			{
-
-				int k = 1;
-				double r_lending = 1.04;
-				double r_borrow = 1.06;
-				int T = 6;
-
 				//주식 매수매도 호가
 				string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=006400";
 				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
@@ -1429,13 +1415,13 @@ namespace FuturesArbitrage
 
 				//chart3 
 				// 매수차익거래 선물 이론가격
-				chart6.Series["선물매수1호가"].Points.AddXY(x6, futs_bidp[0] * 1.5);
+				chart6.Series["선물매수1호가"].Points.AddXY(x6, futs_bidp[0] );
 
-				chart6.Series["선물매도1호가"].Points.AddXY(x6, futs_askp[0] * 1.5);
+				chart6.Series["선물매도1호가"].Points.AddXY(x6, futs_askp[0] );
 
 				// 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
-				chart6.Series["매수차익 하한(이론가)"].Points.AddXY(x6, book_value * 1.5);
-				chart6.Series["매도차익 상한(이론가)"].Points.AddXY(x6, book_value2 * 1.5);
+				chart6.Series["매수차익 하한(이론가)"].Points.AddXY(x6, book_value );
+				chart6.Series["매도차익 상한(이론가)"].Points.AddXY(x6, book_value2 );
 
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
@@ -1458,8 +1444,8 @@ namespace FuturesArbitrage
 				}
 				chart6.ChartAreas[0].AxisX.Minimum = chart6.Series["선물매수1호가"].Points[0].XValue;
 				chart6.ChartAreas[0].AxisX.Maximum = 50;
-				chart6.ChartAreas[0].AxisY.Minimum = futs_bidp[0] * 1.4;
-				chart6.ChartAreas[0].AxisY.Maximum = futs_askp[0] * 1.6;
+				chart6.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
+				chart6.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
 				x6 += 0.1; //그래프 상 오른쪽에 그려야하므로
 			}
 			catch (HttpRequestException ex)
@@ -1479,12 +1465,12 @@ namespace FuturesArbitrage
 			
 			string URL = "http://127.0.0.1:5000/total";
 
-			test1();
-			test2();
-            test3();
-			test4();
-			test5();
-			test6();
+			test1( r_lending,  r_borrow,  T);
+			test2(r_lending, r_borrow, T);
+            test3(r_lending, r_borrow, T);
+			test4(r_lending, r_borrow, T);
+			test5(r_lending, r_borrow, T);
+			test6(r_lending, r_borrow, T);
 
 
 			/*using (WebClient wc = new WebClient())
@@ -1546,6 +1532,11 @@ namespace FuturesArbitrage
             x2idx++;// 다음인덱스 가리켜야하므로
 			x2 += 0.1; //그래프 상 오른쪽에 그려야하므로
 			*/
+
+		}
+
+		private void label11_Click(object sender, EventArgs e)
+		{
 
 		}
 

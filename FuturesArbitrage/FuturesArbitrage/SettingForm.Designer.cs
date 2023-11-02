@@ -53,12 +53,14 @@
 			this.loan_interest_rate = new System.Windows.Forms.TextBox();
 			this.colorDialog1 = new System.Windows.Forms.ColorDialog();
 			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// myMoney
 			// 
 			this.myMoney.Location = new System.Drawing.Point(44, 61);
-			this.myMoney.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.myMoney.Margin = new System.Windows.Forms.Padding(5);
 			this.myMoney.Name = "myMoney";
 			this.myMoney.Size = new System.Drawing.Size(181, 35);
 			this.myMoney.TabIndex = 0;
@@ -67,7 +69,7 @@
 			// fee_stock_buy
 			// 
 			this.fee_stock_buy.Location = new System.Drawing.Point(44, 192);
-			this.fee_stock_buy.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.fee_stock_buy.Margin = new System.Windows.Forms.Padding(5);
 			this.fee_stock_buy.Name = "fee_stock_buy";
 			this.fee_stock_buy.Size = new System.Drawing.Size(209, 35);
 			this.fee_stock_buy.TabIndex = 1;
@@ -105,7 +107,7 @@
 			this.button2.Font = new System.Drawing.Font("굴림", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
 			this.button2.ForeColor = System.Drawing.Color.White;
 			this.button2.Location = new System.Drawing.Point(44, 586);
-			this.button2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.button2.Margin = new System.Windows.Forms.Padding(5);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(382, 115);
 			this.button2.TabIndex = 8;
@@ -132,7 +134,7 @@
 			// fee_futures
 			// 
 			this.fee_futures.Location = new System.Drawing.Point(564, 192);
-			this.fee_futures.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.fee_futures.Margin = new System.Windows.Forms.Padding(5);
 			this.fee_futures.Name = "fee_futures";
 			this.fee_futures.Size = new System.Drawing.Size(183, 35);
 			this.fee_futures.TabIndex = 11;
@@ -141,7 +143,7 @@
 			// button1
 			// 
 			this.button1.Location = new System.Drawing.Point(647, 586);
-			this.button1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.button1.Margin = new System.Windows.Forms.Padding(5);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(213, 37);
 			this.button1.TabIndex = 12;
@@ -152,7 +154,7 @@
 			// textBox5
 			// 
 			this.textBox5.Location = new System.Drawing.Point(645, 632);
-			this.textBox5.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.textBox5.Margin = new System.Windows.Forms.Padding(5);
 			this.textBox5.Name = "textBox5";
 			this.textBox5.Size = new System.Drawing.Size(615, 35);
 			this.textBox5.TabIndex = 13;
@@ -220,7 +222,7 @@
 			// fee_stock_sell
 			// 
 			this.fee_stock_sell.Location = new System.Drawing.Point(289, 192);
-			this.fee_stock_sell.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.fee_stock_sell.Margin = new System.Windows.Forms.Padding(5);
 			this.fee_stock_sell.Name = "fee_stock_sell";
 			this.fee_stock_sell.Size = new System.Drawing.Size(204, 35);
 			this.fee_stock_sell.TabIndex = 22;
@@ -229,7 +231,7 @@
 			// stt_rate
 			// 
 			this.stt_rate.Location = new System.Drawing.Point(806, 192);
-			this.stt_rate.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.stt_rate.Margin = new System.Windows.Forms.Padding(5);
 			this.stt_rate.Name = "stt_rate";
 			this.stt_rate.Size = new System.Drawing.Size(228, 35);
 			this.stt_rate.TabIndex = 23;
@@ -238,7 +240,7 @@
 			// norisk_interest_rate
 			// 
 			this.norisk_interest_rate.Location = new System.Drawing.Point(46, 344);
-			this.norisk_interest_rate.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.norisk_interest_rate.Margin = new System.Windows.Forms.Padding(5);
 			this.norisk_interest_rate.Name = "norisk_interest_rate";
 			this.norisk_interest_rate.Size = new System.Drawing.Size(180, 35);
 			this.norisk_interest_rate.TabIndex = 24;
@@ -247,7 +249,7 @@
 			// borrow_interest_rate
 			// 
 			this.borrow_interest_rate.Location = new System.Drawing.Point(289, 344);
-			this.borrow_interest_rate.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.borrow_interest_rate.Margin = new System.Windows.Forms.Padding(5);
 			this.borrow_interest_rate.Name = "borrow_interest_rate";
 			this.borrow_interest_rate.Size = new System.Drawing.Size(149, 35);
 			this.borrow_interest_rate.TabIndex = 25;
@@ -256,7 +258,7 @@
 			// loan_interest_rate
 			// 
 			this.loan_interest_rate.Location = new System.Drawing.Point(489, 344);
-			this.loan_interest_rate.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.loan_interest_rate.Margin = new System.Windows.Forms.Padding(5);
 			this.loan_interest_rate.Name = "loan_interest_rate";
 			this.loan_interest_rate.Size = new System.Drawing.Size(134, 35);
 			this.loan_interest_rate.TabIndex = 26;
@@ -274,17 +276,38 @@
             "6",
             "7"});
 			this.comboBox1.Location = new System.Drawing.Point(46, 488);
-			this.comboBox1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.comboBox1.Margin = new System.Windows.Forms.Padding(5);
 			this.comboBox1.Name = "comboBox1";
 			this.comboBox1.Size = new System.Drawing.Size(989, 32);
 			this.comboBox1.TabIndex = 27;
 			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(744, 290);
+			this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(106, 24);
+			this.label1.TabIndex = 28;
+			this.label1.Text = "만기까지";
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(746, 344);
+			this.textBox1.Margin = new System.Windows.Forms.Padding(5);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(143, 35);
+			this.textBox1.TabIndex = 29;
+			this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
 			// 
 			// SettingForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1300, 720);
+			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.label1);
 			this.Controls.Add(this.comboBox1);
 			this.Controls.Add(this.loan_interest_rate);
 			this.Controls.Add(this.borrow_interest_rate);
@@ -306,7 +329,7 @@
 			this.Controls.Add(this.labell);
 			this.Controls.Add(this.fee_stock_buy);
 			this.Controls.Add(this.myMoney);
-			this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+			this.Margin = new System.Windows.Forms.Padding(5);
 			this.Name = "SettingForm";
 			this.Text = "SettingForm";
 			this.Load += new System.EventHandler(this.SettingForm_Load);
@@ -341,5 +364,7 @@
         private System.Windows.Forms.TextBox loan_interest_rate;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.ComboBox comboBox1;
-    }
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox textBox1;
+	}
 }
