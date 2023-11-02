@@ -42,8 +42,8 @@ namespace FuturesArbitrage
         private string sv_filePath = "";
 
 		int k = 0;
-		double r_lending = 1.04;
-		double r_borrow = 1.06;
+		double r_lending = 0.04;
+		double r_borrow = 0.06;
 		int T = 6;
 
 		//엑셀에서 가져와야하는 것 : 주식 현재가, 만기일까지 남은 일수, 선물 현재가  ( 가격, 수량 )
@@ -392,16 +392,20 @@ namespace FuturesArbitrage
 				// 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
 				chart1.Series["매수차익 하한(이론가)"].Points.AddXY(x1, book_value );
 				chart1.Series["매도차익 상한(이론가)"].Points.AddXY(x1, book_value2 );
+				System.Console.WriteLine(book_value2);
+				System.Console.WriteLine(futs_askp[0]);
+				System.Console.WriteLine(futs_bidp[0]);
+				System.Console.WriteLine(book_value);
 
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
 				{
-					//showAlert("매수차익거래 가능");
+					showAlert("KT " + "매수차익거래 발생");
 				}
 				//매도차익거래 가능!!
 				if (futs_askp[0] < book_value2)
 				{
-					//showAlert("매도차익거래 가능");
+					showAlert("KT " + "매수차익거래 발생");
 				}
 
 				
@@ -600,16 +604,20 @@ namespace FuturesArbitrage
 				// 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
 				chart2.Series["매수차익 하한(이론가)"].Points.AddXY(x2, book_value );
 				chart2.Series["매도차익 상한(이론가)"].Points.AddXY(x2, book_value2 );
+				System.Console.WriteLine(book_value2);
+				System.Console.WriteLine(futs_askp[0]);
+				System.Console.WriteLine(futs_bidp[0]);
+				System.Console.WriteLine(book_value);
 
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
 				{
-					//showAlert("매수차익거래 가능");
+					showAlert("SK텔레콤 " + "매수차익거래 발생");
 				}
 				//매도차익거래 가능!!
 				if (futs_askp[0] < book_value2)
 				{
-					//showAlert("매도차익거래 가능");
+					showAlert("SK텔레콤 " + "매수차익거래 발생");
 				}
 
 
@@ -807,15 +815,20 @@ namespace FuturesArbitrage
 				chart3.Series["매수차익 하한(이론가)"].Points.AddXY(x3, book_value );
 				chart3.Series["매도차익 상한(이론가)"].Points.AddXY(x3, book_value2 );
 
+				System.Console.WriteLine(book_value2);
+				System.Console.WriteLine(futs_askp[0]);
+				System.Console.WriteLine(futs_bidp[0]);
+				System.Console.WriteLine(book_value);
+
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
 				{
-					//showAlert("매수차익거래 가능");
+					showAlert("삼성전자 " + "매수차익거래 발생");
 				}
 				//매도차익거래 가능!!
 				if (futs_askp[0] < book_value2)
 				{
-					//showAlert("매도차익거래 가능");
+					showAlert("삼성전자 " + "매수차익거래 발생");
 				}
 
 
@@ -1015,15 +1028,20 @@ namespace FuturesArbitrage
 				chart4.Series["매수차익 하한(이론가)"].Points.AddXY(x4, book_value );
 				chart4.Series["매도차익 상한(이론가)"].Points.AddXY(x4, book_value2 );
 
+				System.Console.WriteLine(book_value2);
+				System.Console.WriteLine(futs_askp[0]);
+				System.Console.WriteLine(futs_bidp[0]);
+				System.Console.WriteLine(book_value);
+
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
 				{
-					//showAlert("매수차익거래 가능");
+					showAlert("현대차 " + "매수차익거래 발생");
 				}
 				//매도차익거래 가능!!
 				if (futs_askp[0] < book_value2)
 				{
-					//showAlert("매도차익거래 가능");
+					showAlert("현대차 " + "매수차익거래 발생");
 				}
 
 				if (chart4.Series["선물매수1호가"].Points.Count > 500)
@@ -1220,15 +1238,20 @@ namespace FuturesArbitrage
 				chart5.Series["매수차익 하한(이론가)"].Points.AddXY(x5, book_value );
 				chart5.Series["매도차익 상한(이론가)"].Points.AddXY(x5, book_value2 );
 
+				System.Console.WriteLine(book_value2);
+				System.Console.WriteLine(futs_askp[0]);
+				System.Console.WriteLine(futs_bidp[0]);
+				System.Console.WriteLine(book_value);
+
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
 				{
-					//showAlert("매수차익거래 가능");
+					showAlert("한국전력 " + "매수차익거래 발생");
 				}
 				//매도차익거래 가능!!
 				if (futs_askp[0] < book_value2)
 				{
-					//showAlert("매도차익거래 가능");
+					showAlert("한국전력 " + "매수차익거래 발생");
 				}
 
 				if (chart5.Series["선물매수1호가"].Points.Count > 500)
@@ -1251,14 +1274,14 @@ namespace FuturesArbitrage
 			}
 			catch (HttpRequestException ex)
 			{
-				Console.WriteLine($"ex.Message={ex.Message}");
-				Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+				//Console.WriteLine($"ex.Message={ex.Message}");
+				//Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
 
-				Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+				//Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
 			}
 			catch (Exception ex2)
 			{
-				Console.WriteLine($"Exception={ex2.Message}");
+				//Console.WriteLine($"Exception={ex2.Message}");
 			}
 		}
 
@@ -1423,15 +1446,20 @@ namespace FuturesArbitrage
 				chart6.Series["매수차익 하한(이론가)"].Points.AddXY(x6, book_value );
 				chart6.Series["매도차익 상한(이론가)"].Points.AddXY(x6, book_value2 );
 
+				System.Console.WriteLine(book_value2);
+				System.Console.WriteLine(futs_askp[0]);
+				System.Console.WriteLine(futs_bidp[0]);
+				System.Console.WriteLine(book_value);
+
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
 				{
-					//showAlert("매수차익거래 가능");
+					showAlert("삼성SDI " + "매수차익거래 발생");
 				}
 				//매도차익거래 가능!!
 				if (futs_askp[0] < book_value2)
 				{
-					//showAlert("매도차익거래 가능");
+					showAlert("삼성SDI " + "매도차익거래 발생");
 				}
 
 				if (chart6.Series["선물매수1호가"].Points.Count > 500)
@@ -1557,7 +1585,7 @@ namespace FuturesArbitrage
 
 		public void Alert(string msg)
 		{
-			ShowAlert frm = new ShowAlert();
+			ShowAlert frm = new ShowAlert(msg);
 			frm.showAlert(msg);
 		}
 
@@ -1565,11 +1593,11 @@ namespace FuturesArbitrage
         {
             //msg출력해주는 것으로 바꿔야함
 
-            this.Alert("Test MEssage");
+            this.Alert(msg);
         }
 		private void button2_Click(object sender, EventArgs e)
 		{
-            showAlert("");
+            showAlert("~~ 체결 메세지");
 			///this.Alert("Test MEssage");
 		}
 

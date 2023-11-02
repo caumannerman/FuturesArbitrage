@@ -12,9 +12,10 @@ namespace FuturesArbitrage
 {
 	public partial class ShowAlert : Form
 	{
-		public ShowAlert()
+		public ShowAlert(string msg)
 		{
 			InitializeComponent();
+			textBox1.Text = msg;
 		}
 
 		private void ShowAlert_Load(object sender, EventArgs e)
@@ -75,10 +76,7 @@ namespace FuturesArbitrage
 			}
 		}
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
         public void showAlert(string msg)
 		{

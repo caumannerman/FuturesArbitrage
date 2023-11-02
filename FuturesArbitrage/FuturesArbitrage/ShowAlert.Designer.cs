@@ -57,7 +57,7 @@
             this.textBox1.Size = new System.Drawing.Size(378, 68);
             this.textBox1.TabIndex = 4;
             this.textBox1.Text = "~~선물이 매도되었습니다.";
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            //this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // ShowAlert
             // 
