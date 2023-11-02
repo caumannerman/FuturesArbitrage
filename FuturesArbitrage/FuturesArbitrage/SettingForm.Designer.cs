@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.myMoney = new System.Windows.Forms.TextBox();
+            this.fee_stock_buy = new System.Windows.Forms.TextBox();
+            this.labell = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.fee_futures = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -46,38 +46,39 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.fee_stock_sell = new System.Windows.Forms.TextBox();
+            this.stt_rate = new System.Windows.Forms.TextBox();
+            this.norisk_interest_rate = new System.Windows.Forms.TextBox();
+            this.borrow_interest_rate = new System.Windows.Forms.TextBox();
+            this.loan_interest_rate = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // textBox1
+            // myMoney
             // 
-            this.textBox1.Location = new System.Drawing.Point(27, 38);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(113, 25);
-            this.textBox1.TabIndex = 0;
+            this.myMoney.Location = new System.Drawing.Point(27, 38);
+            this.myMoney.Name = "myMoney";
+            this.myMoney.Size = new System.Drawing.Size(113, 25);
+            this.myMoney.TabIndex = 0;
+            this.myMoney.TextChanged += new System.EventHandler(this.myMoney_TextChanged);
             // 
-            // textBox2
+            // fee_stock_buy
             // 
-            this.textBox2.Location = new System.Drawing.Point(27, 120);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(130, 25);
-            this.textBox2.TabIndex = 1;
+            this.fee_stock_buy.Location = new System.Drawing.Point(27, 120);
+            this.fee_stock_buy.Name = "fee_stock_buy";
+            this.fee_stock_buy.Size = new System.Drawing.Size(130, 25);
+            this.fee_stock_buy.TabIndex = 1;
+            this.fee_stock_buy.TextChanged += new System.EventHandler(this.fee_stock_buy_TextChanged);
             // 
-            // label1
+            // labell
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 15);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "운용자금";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.labell.AutoSize = true;
+            this.labell.Location = new System.Drawing.Point(25, 9);
+            this.labell.Name = "labell";
+            this.labell.Size = new System.Drawing.Size(67, 15);
+            this.labell.TabIndex = 2;
+            this.labell.Text = "운용자금";
             // 
             // label3
             // 
@@ -122,12 +123,13 @@
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
-            // textBox4
+            // fee_futures
             // 
-            this.textBox4.Location = new System.Drawing.Point(347, 120);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(114, 25);
-            this.textBox4.TabIndex = 11;
+            this.fee_futures.Location = new System.Drawing.Point(347, 120);
+            this.fee_futures.Name = "fee_futures";
+            this.fee_futures.Size = new System.Drawing.Size(114, 25);
+            this.fee_futures.TabIndex = 11;
+            this.fee_futures.TextChanged += new System.EventHandler(this.fee_futures_TextChanged);
             // 
             // button1
             // 
@@ -190,7 +192,6 @@
             this.label9.Size = new System.Drawing.Size(87, 15);
             this.label9.TabIndex = 18;
             this.label9.Text = "차입 이자율";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // label10
             // 
@@ -200,51 +201,63 @@
             this.label10.Size = new System.Drawing.Size(87, 15);
             this.label10.TabIndex = 19;
             this.label10.Text = "대출 이자율";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
-            // textBox6
+            // fee_stock_sell
             // 
-            this.textBox6.Location = new System.Drawing.Point(178, 120);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(127, 25);
-            this.textBox6.TabIndex = 22;
+            this.fee_stock_sell.Location = new System.Drawing.Point(178, 120);
+            this.fee_stock_sell.Name = "fee_stock_sell";
+            this.fee_stock_sell.Size = new System.Drawing.Size(127, 25);
+            this.fee_stock_sell.TabIndex = 22;
+            this.fee_stock_sell.TextChanged += new System.EventHandler(this.fee_stock_sell_TextChanged);
             // 
-            // textBox7
+            // stt_rate
             // 
-            this.textBox7.Location = new System.Drawing.Point(496, 120);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(142, 25);
-            this.textBox7.TabIndex = 23;
+            this.stt_rate.Location = new System.Drawing.Point(496, 120);
+            this.stt_rate.Name = "stt_rate";
+            this.stt_rate.Size = new System.Drawing.Size(142, 25);
+            this.stt_rate.TabIndex = 23;
+            this.stt_rate.TextChanged += new System.EventHandler(this.stt_rate_TextChanged);
             // 
-            // textBox8
+            // norisk_interest_rate
             // 
-            this.textBox8.Location = new System.Drawing.Point(28, 215);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(112, 25);
-            this.textBox8.TabIndex = 24;
+            this.norisk_interest_rate.Location = new System.Drawing.Point(28, 215);
+            this.norisk_interest_rate.Name = "norisk_interest_rate";
+            this.norisk_interest_rate.Size = new System.Drawing.Size(112, 25);
+            this.norisk_interest_rate.TabIndex = 24;
+            this.norisk_interest_rate.TextChanged += new System.EventHandler(this.norisk_interest_rate_TextChanged);
             // 
-            // textBox9
+            // borrow_interest_rate
             // 
-            this.textBox9.Location = new System.Drawing.Point(178, 215);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(93, 25);
-            this.textBox9.TabIndex = 25;
+            this.borrow_interest_rate.Location = new System.Drawing.Point(178, 215);
+            this.borrow_interest_rate.Name = "borrow_interest_rate";
+            this.borrow_interest_rate.Size = new System.Drawing.Size(93, 25);
+            this.borrow_interest_rate.TabIndex = 25;
+            this.borrow_interest_rate.TextChanged += new System.EventHandler(this.borrow_interest_rate_TextChanged);
             // 
-            // textBox10
+            // loan_interest_rate
             // 
-            this.textBox10.Location = new System.Drawing.Point(301, 215);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(84, 25);
-            this.textBox10.TabIndex = 26;
-            this.textBox10.TextChanged += new System.EventHandler(this.textBox10_TextChanged);
+            this.loan_interest_rate.Location = new System.Drawing.Point(301, 215);
+            this.loan_interest_rate.Name = "loan_interest_rate";
+            this.loan_interest_rate.Size = new System.Drawing.Size(84, 25);
+            this.loan_interest_rate.TabIndex = 26;
+            this.loan_interest_rate.TextChanged += new System.EventHandler(this.loan_interest_rate_TextChanged);
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"});
             this.comboBox1.Location = new System.Drawing.Point(28, 305);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(610, 23);
             this.comboBox1.TabIndex = 27;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // SettingForm
             // 
@@ -252,11 +265,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox10);
-            this.Controls.Add(this.textBox9);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.loan_interest_rate);
+            this.Controls.Add(this.borrow_interest_rate);
+            this.Controls.Add(this.norisk_interest_rate);
+            this.Controls.Add(this.stt_rate);
+            this.Controls.Add(this.fee_stock_sell);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -265,13 +278,13 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.fee_futures);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.labell);
+            this.Controls.Add(this.fee_stock_buy);
+            this.Controls.Add(this.myMoney);
             this.Name = "SettingForm";
             this.Text = "SettingForm";
             this.ResumeLayout(false);
@@ -281,15 +294,15 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox myMoney;
+        private System.Windows.Forms.TextBox fee_stock_buy;
+        private System.Windows.Forms.Label labell;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox fee_futures;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label5;
@@ -298,11 +311,11 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox fee_stock_sell;
+        private System.Windows.Forms.TextBox stt_rate;
+        private System.Windows.Forms.TextBox norisk_interest_rate;
+        private System.Windows.Forms.TextBox borrow_interest_rate;
+        private System.Windows.Forms.TextBox loan_interest_rate;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.ComboBox comboBox1;
     }

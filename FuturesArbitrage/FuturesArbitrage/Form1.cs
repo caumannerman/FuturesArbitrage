@@ -30,14 +30,44 @@ namespace FuturesArbitrage
         object[,] mydata;
 
         //private string filePath = "C:\\Users\\USER\\Desktop\\test.xlsx";
-        private string filePath = "";
+        private string sv_myMoney = "";
+        private string sv_fee_stock_buy = "";
+        private string sv_fee_stock_sell = "";
+        private string sv_fee_futures = "";
+        private string sv_stt_rate = "";
+        private string sv_norisk_interest_rate = "";
+        private string sv_borrow_interest_rate = "";
+        private string sv_loan_interest_rate = "";
+        private string sv_formula = "";
+        private string sv_filePath = "";
+       
 
         public Form1()
 		{
 			InitializeComponent();
-            filePath = SettingForm.filePath;
+
+            // SettingsForm에서 입력받은 정보 static 변수를 잘 불러왔는지 확인
+            sv_myMoney = SettingForm.sv_myMoney;
+            sv_fee_stock_buy = SettingForm.sv_fee_stock_buy;
+            sv_fee_stock_sell = SettingForm.sv_fee_stock_sell;
+            sv_fee_futures = SettingForm.sv_fee_futures;
+            sv_stt_rate = SettingForm.sv_stt_rate;
+            sv_norisk_interest_rate = SettingForm.sv_norisk_interest_rate;
+            sv_borrow_interest_rate = SettingForm.sv_borrow_interest_rate;
+            sv_loan_interest_rate = SettingForm.sv_loan_interest_rate;
+            sv_formula = SettingForm.sv_formula;
+            sv_filePath = SettingForm.sv_filePath;
             System.Console.WriteLine("Form1으로 넘어와서 filePath 전달 확인");
-            System.Console.WriteLine(filePath);
+            System.Console.WriteLine(sv_myMoney);
+            System.Console.WriteLine(sv_fee_stock_buy);
+            System.Console.WriteLine(sv_fee_stock_sell);
+            System.Console.WriteLine(sv_fee_futures);
+            System.Console.WriteLine(sv_stt_rate);
+            System.Console.WriteLine(sv_norisk_interest_rate);
+            System.Console.WriteLine(sv_borrow_interest_rate);
+            System.Console.WriteLine(sv_loan_interest_rate);
+            System.Console.WriteLine(sv_formula);
+            System.Console.WriteLine(sv_filePath);
 
         }
 
@@ -71,7 +101,7 @@ namespace FuturesArbitrage
             }
             
             Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
-            Workbook workbook = application.Workbooks.Open(Filename: @filePath);
+            Workbook workbook = application.Workbooks.Open(Filename: @sv_filePath);
             Worksheet worksheet1 = workbook.Worksheets.get_Item(1);
             application.Visible = false;
             Range range = worksheet1.UsedRange;
@@ -150,12 +180,12 @@ namespace FuturesArbitrage
 
 		private void read_excel_data()
 		{
-            if (filePath != "")
+            if (sv_filePath != "")
             {
                 System.Console.WriteLine("들어옴");
 
                 Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
-                Workbook workbook = application.Workbooks.Open(Filename: @filePath);
+                Workbook workbook = application.Workbooks.Open(Filename: @sv_filePath);
                 Worksheet worksheet1 = workbook.Worksheets.get_Item(1);
                 application.Visible = false;
                 Range range = worksheet1.UsedRange;
@@ -243,18 +273,18 @@ namespace FuturesArbitrage
             {
                 richTextBox1.Clear();
                 richTextBox1.Text = OFD.FileName;
-                filePath = OFD.FileName;
+                sv_filePath = OFD.FileName;
             }
         }
 
 		private void button4_Click(object sender, EventArgs e)
 		{
-            if (filePath != "")
+            if (sv_filePath != "")
             {
 				System.Console.WriteLine("들어옴");
 				
                 Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
-                Workbook workbook = application.Workbooks.Open(Filename: @filePath);
+                Workbook workbook = application.Workbooks.Open(Filename: @sv_filePath);
                 Worksheet worksheet1 = workbook.Worksheets.get_Item(1);
                 application.Visible = false;
 				Range range = worksheet1.UsedRange;
