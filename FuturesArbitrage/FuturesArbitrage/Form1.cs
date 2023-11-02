@@ -110,13 +110,13 @@ namespace FuturesArbitrage
 				futures[i] = 1100 - i;
             }
             
-            Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
+           /* Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
             Workbook workbook = application.Workbooks.Open(Filename: @sv_filePath);
             Worksheet worksheet1 = workbook.Worksheets.get_Item(1);
             application.Visible = false;
             Range range = worksheet1.UsedRange;
             //Form 멤버로 있는 mydata에 저장
-            mydata = range.Value;
+            mydata = range.Value;*/
 
         }
 
@@ -159,6 +159,7 @@ namespace FuturesArbitrage
             x2idx++;// 다음인덱스 가리켜야하므로
 			x2 += 0.1; //그래프 상 오른쪽에 그려야하므로
 
+            /*
             //chart3 엑셀데이터 뿌리기
             System.Console.WriteLine("출력하는중-------------------------------------------");
             System.Console.WriteLine(x3idx);
@@ -187,6 +188,7 @@ namespace FuturesArbitrage
 
             x3idx++;// 다음인덱스 가리켜야하므로
             x3 += 0.1; //그래프 상 오른쪽에 그려야하므로
+            */
 
         }
 
@@ -229,14 +231,6 @@ namespace FuturesArbitrage
                     }
                     data += "\n";
                 }
-
-
-                richTextBox2.Text = data;
-
-                /* DeleteObject(worksheet1);
-                 DeleteObject(workbook);
-                 application.Quit();
-                 DeleteObject(application);*/
             }
             else
             {
@@ -278,69 +272,7 @@ namespace FuturesArbitrage
 			///this.Alert("Test MEssage");
 		}
 
-		private void button3_Click(object sender, EventArgs e)
-		{
-            OpenFileDialog OFD = new OpenFileDialog();
-            if (OFD.ShowDialog() == DialogResult.OK)
-            {
-                richTextBox1.Clear();
-                richTextBox1.Text = OFD.FileName;
-                sv_filePath = OFD.FileName;
-            }
-        }
-
-		private void button4_Click(object sender, EventArgs e)
-		{
-            if (sv_filePath != "")
-            {
-				System.Console.WriteLine("들어옴");
-				
-                Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
-                Workbook workbook = application.Workbooks.Open(Filename: @sv_filePath);
-                Worksheet worksheet1 = workbook.Worksheets.get_Item(1);
-                application.Visible = false;
-				Range range = worksheet1.UsedRange;
-/*
-				Range startRange = worksheet1.Cells[3, 0];
-				Range endRange = worksheet1.Cells[10, 10];
-				Range range = worksheet1.get_Range(startRange, endRange);*/
-				object[,] rawData = range.Value;
-
-				for(int i=1; i<= rawData.GetLength(1); i++)
-				{
-					for(int j=1; j <= rawData.GetLength(0); ++j)
-					{
-						numbers[i] = (int)rawData[j, i];
-						System.Console.Write(rawData[i, j]);
-					}System.Console.WriteLine();
-				}
-
-                String data = "";
-
-                for (int i = 1; i <= rawData.GetLength(0); ++i)
-                {
-                    for (int j = 1; j <= rawData.GetLength(1); ++j)
-                    {
-						if (rawData[i, j] == null) continue;
-						data += (rawData[i, j].ToString() + " ");
-                        //data += ((range.Cells[i, j] as Range).Value2.ToString() + " ");
-                    }
-                    data += "\n";
-                }
-
-
-                richTextBox2.Text = data;
-
-               /* DeleteObject(worksheet1);
-                DeleteObject(workbook);
-                application.Quit();
-                DeleteObject(application);*/
-            }
-			else
-			{
-                System.Console.WriteLine("들어오지 못함");
-            }
-        }
+       
 
         private void DeleteObject(object obj)
         {

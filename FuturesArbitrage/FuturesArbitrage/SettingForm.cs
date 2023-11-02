@@ -98,5 +98,10 @@ namespace FuturesArbitrage
         {
             sv_formula = comboBox1.Text;
         }
-    }
+
+		private void SettingForm_Load(object sender, EventArgs e)
+		{
+
+		}
+	}
 }

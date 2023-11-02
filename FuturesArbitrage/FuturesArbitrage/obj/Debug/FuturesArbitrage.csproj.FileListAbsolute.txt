@@ -34,3 +34,16 @@ C:\Users\USER\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\F
 C:\Users\USER\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.exe
 C:\Users\USER\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.pdb
 C:\Users\USER\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.SettingForm.resources
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\bin\Debug\FuturesArbitrage.exe.config
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\bin\Debug\FuturesArbitrage.exe
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\bin\Debug\FuturesArbitrage.pdb
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.AssemblyReference.cache
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.Form1.resources
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.Properties.Resources.resources
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.SettingForm.resources
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.ShowAlert.resources
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.StartForm.resources
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.GenerateResource.cache
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.CoreCompileInputs.cache
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.exe
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.pdb
