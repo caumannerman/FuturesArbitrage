@@ -27,13 +27,13 @@ namespace FuturesArbitrage
 		int x2idx;
 
         double x3;
-        int x3idx = 2;
+
 
         // excel 에서 받아온 데이터 저장할 배열
         int[] numbers = new int[1000];
 		int[] futures = new int[1000];
 
-        object[,] mydata;
+
 
         //private string filePath = "C:\\Users\\USER\\Desktop\\test.xlsx";
         private string sv_myMoney = "";
@@ -46,7 +46,7 @@ namespace FuturesArbitrage
         private string sv_loan_interest_rate = "";
         private string sv_formula = "";
         private string sv_filePath = "";
-        private BookValue bv = new BookValue();
+       
 
         //엑셀에서 가져와야하는 것 : 주식 현재가, 만기일까지 남은 일수, 선물 현재가  ( 가격, 수량 )
         
@@ -101,15 +101,27 @@ namespace FuturesArbitrage
             chart2.Series["Futures"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 			chart2.Series["Futures"].Color = Color.Blue;
 
+
+			// 여기서부터 
+			// 얘가 선물 매수 1호가 (나는 매수) -> 매수차익거래
             chart3.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            chart3.Series[0].Color = Color.Red;
+            chart3.Series[0].Color = Color.SkyBlue;
 
-            chart3.Series.Add("Futures");
-            chart3.Series["Futures"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            chart3.Series["Futures"].Color = Color.Blue;
+			// 선물 매도 1호가 (내가매수) -> 매도차익거래
+			chart3.Series.Add("futures_mdcha");
+			chart3.Series["futures_mdcha"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			chart3.Series["futures_mdcha"].Color = Color.DarkBlue;
 
-            //numbers 초기화
-            for (int i = 0; i < 1000; i++)
+			chart3.Series.Add("mscha_hahan");
+            chart3.Series["mscha_hahan"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart3.Series["mscha_hahan"].Color = Color.Red;
+
+			chart3.Series.Add("mdcha_sanghan");
+			chart3.Series["mdcha_sanghan"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			chart3.Series["mdcha_sanghan"].Color = Color.Orange;
+
+			//numbers 초기화
+			for (int i = 0; i < 1000; i++)
             {
 				numbers[i] = i + 10;
 				futures[i] = 1100 - i;
@@ -280,27 +292,48 @@ namespace FuturesArbitrage
 
 				//chart3 
 				// 매수차익거래 선물 이론가격
-				chart3.Series[0].Points.AddXY(x3, book_value);
+				chart3.Series[0].Points.AddXY(x3, futs_bidp[0]* 1.5);
+
+				chart3.Series["futures_mdcha"].Points.AddXY(x3, futs_askp[0] * 1.5);
+
 				// 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
-				chart3.Series["Futures"].Points.AddXY(x3, futs_bidp[0] - 10000);
+				chart3.Series["mscha_hahan"].Points.AddXY(x3, book_value * 1.5);
+				chart3.Series["mdcha_sanghan"].Points.AddXY(x3, book_value2 * 1.5);
+
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
 				{
 					showAlert("매수차익거래 가능");
 				}
+				//매도차익거래 가능!!
+				if (futs_askp[0] < book_value2)
+				{
+					showAlert("매도차익거래 가능");
+				}
 
-				if (chart3.Series[0].Points.Count > 1000)
+				Console.WriteLine(futs_askp[0]);
+				Console.WriteLine(futs_bidp[0]);
+				if (futs_askp[0] > futs_bidp[0])
+				{
+					showAlert("정상 가능");
+				}
+
+
+
+				if (chart3.Series[0].Points.Count > 500)
 				{
 					chart3.Series[0].Points.RemoveAt(0);
-					chart3.Series["Futures"].Points.RemoveAt(0);
+					chart3.Series["futures_mdcha"].Points.RemoveAt(0);
+					chart3.Series["mscha_hahan"].Points.RemoveAt(0);
+					chart3.Series["mdcha_sanghan"].Points.RemoveAt(0);
 
 				}
 
 				//chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
 				chart3.ChartAreas[0].AxisX.Minimum = chart3.Series[0].Points[0].XValue;
-				chart3.ChartAreas[0].AxisX.Maximum = 100;
-				chart3.ChartAreas[0].AxisY.Minimum = 0;
-				chart3.ChartAreas[0].AxisY.Maximum = 200000;
+				chart3.ChartAreas[0].AxisX.Maximum = 50;
+				chart3.ChartAreas[0].AxisY.Minimum = futs_bidp[0] * 1.4;
+				chart3.ChartAreas[0].AxisY.Maximum = futs_askp[0] * 1.6;
 
 				x3 += 0.1; //그래프 상 오른쪽에 그려야하므로
 
