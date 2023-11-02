@@ -23,12 +23,14 @@ namespace FuturesArbitrage
         static public String sv_loan_interest_rate = "";
         static public String sv_formula = "";
         static public String sv_filePath = "";
+        
 
         public SettingForm()
         {
             InitializeComponent();
         }
 
+        // 선물 이론가격 
      
 
         private void button2_Click(object sender, EventArgs e)

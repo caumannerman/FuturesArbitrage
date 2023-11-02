@@ -40,7 +40,8 @@ namespace FuturesArbitrage
         private string sv_loan_interest_rate = "";
         private string sv_formula = "";
         private string sv_filePath = "";
-       
+        private BookValue bv = new BookValue();
+
 
         public Form1()
 		{
