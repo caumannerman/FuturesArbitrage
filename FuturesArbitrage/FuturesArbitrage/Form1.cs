@@ -278,6 +278,33 @@ namespace FuturesArbitrage
 				//얼마의 차익을 얻을 수 있는지 보냄
 
 
+				//chart3 
+				// 매수차익거래 선물 이론가격
+				chart3.Series[0].Points.AddXY(x3, book_value);
+				// 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
+				chart3.Series["Futures"].Points.AddXY(x3, futs_bidp[0] - 10000);
+				//매수차익거래 가능!!!
+				if (futs_bidp[0] > book_value)
+				{
+					showAlert("매수차익거래 가능");
+				}
+
+				if (chart3.Series[0].Points.Count > 1000)
+				{
+					chart3.Series[0].Points.RemoveAt(0);
+					chart3.Series["Futures"].Points.RemoveAt(0);
+
+				}
+
+				//chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
+				chart3.ChartAreas[0].AxisX.Minimum = chart3.Series[0].Points[0].XValue;
+				chart3.ChartAreas[0].AxisX.Maximum = 100;
+				chart3.ChartAreas[0].AxisY.Minimum = 0;
+				chart3.ChartAreas[0].AxisY.Maximum = 200000;
+
+				x3 += 0.1; //그래프 상 오른쪽에 그려야하므로
+
+
 			}
 			catch (HttpRequestException ex)
 			{
