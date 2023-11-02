@@ -42,6 +42,14 @@ namespace FuturesArbitrage
         private string sv_filePath = "";
         private BookValue bv = new BookValue();
 
+        //엑셀에서 가져와야하는 것 : 주식 현재가, 만기일까지 남은 일수, 선물 현재가  ( 가격, 수량 )
+        
+        //현재가, 남은 일 수까지 활용해서 이론가격 가져옴. 
+        // 이론가격보다 하나 높은 틱에 선물 매수, 매도 대고있다고 가정.
+
+        // 매 순간 그 가격에 선물이 매수 혹은 매도될 때, 헷지할 수 있는 현물 가격과 수량을 계속 반복체크
+        // 
+
 
         public Form1()
 		{

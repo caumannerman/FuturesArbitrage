@@ -31,5 +31,15 @@ namespace FuturesArbitrage
         {
             return (s * (1 - sv_fee_stock_buy) - sv_fee_futures) * (1 + sv_loan_interest_rate * (mangi / 365.0));
         }
+
+        public static bool compare_buyArbitrage()
+        {
+            return true;
+        }
+
+        public static bool compare_sellArbitrage()
+        {
+            return true;
+        }
     }
 }
