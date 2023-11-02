@@ -47,3 +47,6 @@ C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\Fu
 C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.CoreCompileInputs.cache
 C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.exe
 C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.pdb
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ymp\dev\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.CopyComplete

@@ -13,6 +13,8 @@ using Microsoft.Office.Interop.Excel;
 using static System.Net.Mime.MediaTypeNames;
 using System.Net;
 using System.Security.Policy;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace FuturesArbitrage
 {
@@ -127,22 +129,28 @@ namespace FuturesArbitrage
 			
 			string URL = "http://127.0.0.1:5000/total";
 
-            /*WebClient webClient = new WebClient();
-            var json = new WebClient().DownloadString(URL);
 
-            Console.WriteLine(json.ToString());*/
 
-			using (WebClient wc = new WebClient())
+            /*using (WebClient wc = new WebClient())
 			{
-				var json = new WebClient().DownloadString(URL);
-				Console.WriteLine(json.ToString());
-			}
+                var json = new WebClient().DownloadString(URL);
+                
+				//Console.WriteLine(json.ToString());
+                Console.WriteLine(json.GetType().Name);
+                Console.WriteLine(json[0]);
+			}*/
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-			/*
-						HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-						request.Method = "GET";
-						request.ContentType = "application/json";
-						request.Timeout = 30* 1000;*/
+            Stream stream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+            string text = reader.ReadToEnd();
+
+            JObject obj = JObject.Parse(text);
+
+            string notice = obj["S_buyingArbitrage"].ToString();
+            Console.WriteLine(notice);
+			
 
 
 
