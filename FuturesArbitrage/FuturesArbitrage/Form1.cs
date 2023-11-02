@@ -15,6 +15,7 @@ using System.Net;
 using System.Security.Policy;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using System.Net.Http;
 
 namespace FuturesArbitrage
 {
@@ -123,12 +124,180 @@ namespace FuturesArbitrage
             mydata = range.Value;*/
 
         }
+        async void test()
+        {
+			try
+			{
+
+                int k = 1;
+                double r_lending = 1.04;
+                double r_borrow = 1.06;
+                int T = 6;
+                //주식 매수매도 호가
+				string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=005930";
+				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                request.Headers.Add("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6ImIyMTkzNTlkLTg1ZjAtNDRiOS1hMjljLWYwYTI5YjY3N2ZhNiIsImlzcyI6InVub2d3IiwiZXhwIjoxNjk5MDEyMDgzLCJpYXQiOjE2OTg5MjU2ODMsImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.881135Prt70_bn7VTGUTK75DYNONuho5uQjzm3nGAD50Bnc5ZMumrrcr_Br-oDXn66AizD7tWFNffqbFbXdCXA");
+				request.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
+				request.Headers.Add("appsecret", "VUn2CzaKPT1oTzwfBiXlY2ASg8SEndHMk/h5ukdZOElQVP5dfnfnv3OiTqw3aKYGR1NRYg17q05zOFlFhW8CdwYzMPI2wmqB9cNgx2f03O1ROveEw6Kr/CeGojxZBPMVU2MMzun4Gapcq1zu+lWYhbkDK/fAfmeCD+ftD2WMWPrJw9UBG0c=");
+				request.Headers.Add("tr_id", "FHKST01010200");
+				HttpWebResponse response_s = (HttpWebResponse)request.GetResponse();
+
+				Stream stream_s = response_s.GetResponseStream();
+				StreamReader reader_s = new StreamReader(stream_s, Encoding.UTF8);
+				string text_s = reader_s.ReadToEnd();
+				JObject obj_s = JObject.Parse(text_s);
+
+
+				//선물 매수매도 호가
+				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=111T11000";
+				HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(URL2);
+				request2.Headers.Add("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6ImIyMTkzNTlkLTg1ZjAtNDRiOS1hMjljLWYwYTI5YjY3N2ZhNiIsImlzcyI6InVub2d3IiwiZXhwIjoxNjk5MDEyMDgzLCJpYXQiOjE2OTg5MjU2ODMsImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.881135Prt70_bn7VTGUTK75DYNONuho5uQjzm3nGAD50Bnc5ZMumrrcr_Br-oDXn66AizD7tWFNffqbFbXdCXA");
+				request2.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
+				request2.Headers.Add("appsecret", "VUn2CzaKPT1oTzwfBiXlY2ASg8SEndHMk/h5ukdZOElQVP5dfnfnv3OiTqw3aKYGR1NRYg17q05zOFlFhW8CdwYzMPI2wmqB9cNgx2f03O1ROveEw6Kr/CeGojxZBPMVU2MMzun4Gapcq1zu+lWYhbkDK/fAfmeCD+ftD2WMWPrJw9UBG0c=");
+				request2.Headers.Add("tr_id", "FHMIF10010000");
+				HttpWebResponse response2 = (HttpWebResponse)request2.GetResponse();
+
+				Stream stream_f = response2.GetResponseStream();
+				StreamReader reader_f = new StreamReader(stream_f, Encoding.UTF8);
+				string text_f = reader_f.ReadToEnd();
+				JObject obj_f = JObject.Parse(text_f);
+
+                //string notice = obj["output1"]["askp1"].ToString();
+                //Console.WriteLine(((int) obj["output1"]["askp1"]).GetType().Name);
+                //Console.WriteLine((int)obj["output1"]["askp1"]);
+
+               
+
+				//선물 매수호가1~5
+				int[] futs_bidp = { (int)obj_f["output2"]["futs_bidp1"], (int)obj_f["output2"]["futs_bidp2"] , (int)obj_f["output2"]["futs_bidp3"] ,
+				(int)obj_f["output2"]["futs_bidp4"], (int)obj_f["output2"]["futs_bidp5"] };
+				//선물 매수호가잔량 1~5
+				int[] futs_bidp_rsqn = { (int)obj_f["output2"]["bidp_rsqn1"], (int)obj_f["output2"]["bidp_rsqn2"] , (int)obj_f["output2"]["bidp_rsqn3"],
+				(int)obj_f["output2"]["bidp_rsqn4"] ,(int)obj_f["output2"]["bidp_rsqn5"] };
+                // 현물 매도호가1~10
+                int[] stock_askp = { (int)obj_s["output1"]["askp1"], (int)obj_s["output1"]["askp2"], (int)obj_s["output1"]["askp3"],
+				(int)obj_s["output1"]["askp4"], (int)obj_s["output1"]["askp5"], (int)obj_s["output1"]["askp6"], (int)obj_s["output1"]["askp7"],
+				(int)obj_s["output1"]["askp8"], (int)obj_s["output1"]["askp9"], (int)obj_s["output1"]["askp10"]};
+				// 현물 매도호가잔량1~10
+				int[] stock_askp_rsqn = { (int)obj_s["output1"]["askp_rsqn1"], (int)obj_s["output1"]["askp_rsqn2"], (int)obj_s["output1"]["askp_rsqn3"],
+				(int)obj_s["output1"]["askp_rsqn4"], (int)obj_s["output1"]["askp_rsqn5"], (int)obj_s["output1"]["askp_rsqn6"], (int)obj_s["output1"]["askp_rsqn7"],
+				(int)obj_s["output1"]["askp_rsqn8"], (int)obj_s["output1"]["askp_rsqn9"], (int)obj_s["output1"]["askp_rsqn10"]};
+
+				//매도호가, 잔량으로 10주 살 때 평단을 S라 할 것임.
+				double S_buyingArbitrage = 0;
+                int count = 0;
+                for(int i = 0; i < 10; i++)
+                {
+                    if (count < 10)
+                    {
+                        count += stock_askp_rsqn[i];
+
+						if (count <= 10)
+                        {
+                            S_buyingArbitrage += stock_askp[i] * stock_askp_rsqn[i];
+						}
+                        else
+                        {
+                            S_buyingArbitrage += stock_askp[i] * (10 - count + stock_askp_rsqn[i]);
+                            break;
+						}
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                //평단 완성
+                S_buyingArbitrage /= 10;
+
+                //현물 매수 평단을 S로 하여 선물이론가격 도출
+                double book_value = (S_buyingArbitrage + 2 * k) * (1 + r_borrow * (T / 365));
+                //이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
+	            if (book_value < futs_bidp[0])
+                {
+                    System.Console.WriteLine("매수차익거래 기회 나옴!!!!!!!!!!!!!!!");
+					System.Console.WriteLine(futs_bidp[0] - book_value);
+				}
+				System.Console.WriteLine("매수차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
+
+				//얼마의 차익을 얻을 수 있는지 보냄
+
+				////////////////////////////////// 매도차익거래  ///////////////////////////////
+				//선물 매도호가1~5
+				int[] futs_askp = { (int)obj_f["output2"]["futs_askp1"], (int)obj_f["output2"]["futs_askp2"] , (int)obj_f["output2"]["futs_askp3"] ,
+				(int)obj_f["output2"]["futs_askp4"], (int)obj_f["output2"]["futs_askp5"] };
+				//선물 매도호가잔량 1~5
+				int[] futs_askp_rsqn = { (int)obj_f["output2"]["askp_rsqn1"], (int)obj_f["output2"]["askp_rsqn2"] , (int)obj_f["output2"]["askp_rsqn3"],
+				(int)obj_f["output2"]["askp_rsqn4"] ,(int)obj_f["output2"]["askp_rsqn5"] };
+				// 현물 매수호가1~10
+				int[] stock_bidp = { (int)obj_s["output1"]["bidp1"], (int)obj_s["output1"]["bidp2"], (int)obj_s["output1"]["bidp3"],
+				(int)obj_s["output1"]["bidp4"], (int)obj_s["output1"]["bidp5"], (int)obj_s["output1"]["bidp6"], (int)obj_s["output1"]["bidp7"],
+				(int)obj_s["output1"]["bidp8"], (int)obj_s["output1"]["bidp9"], (int)obj_s["output1"]["bidp10"]};
+				// 현물 매수호가잔량1~10
+				int[] stock_bidp_rsqn = { (int)obj_s["output1"]["bidp_rsqn1"], (int)obj_s["output1"]["bidp_rsqn2"], (int)obj_s["output1"]["bidp_rsqn3"],
+				(int)obj_s["output1"]["bidp_rsqn4"], (int)obj_s["output1"]["bidp_rsqn5"], (int)obj_s["output1"]["bidp_rsqn6"], (int)obj_s["output1"]["bidp_rsqn7"],
+				(int)obj_s["output1"]["bidp_rsqn8"], (int)obj_s["output1"]["bidp_rsqn9"], (int)obj_s["output1"]["bidp_rsqn10"]};
+
+				//매수호가, 잔량으로 10주 팔 때 평단을 S라 할 것임.
+				double S_sellingArbitrage = 0;
+				int count2 = 0;
+				for (int i = 0; i < 10; i++)
+				{
+					if (count2 < 10)
+					{
+						count2 += stock_bidp_rsqn[i];
+
+						if (count <= 10)
+						{
+							S_sellingArbitrage += stock_bidp[i] * stock_bidp_rsqn[i];
+						}
+						else
+						{
+							S_sellingArbitrage += stock_bidp[i] * (10 - count2 + stock_bidp_rsqn[i]);
+							break;
+						}
+					}
+					else
+					{
+						break;
+					}
+				}
+				//평단 완성
+				S_sellingArbitrage /= 10;
+
+				//현물 매도 평단을 S로 하여 선물이론가격 도출
+				double book_value2 = (S_sellingArbitrage + 2 * k) * (1 + r_lending * (T / 365));
+				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
+				if (book_value2 > futs_askp[0])
+				{
+					System.Console.WriteLine("매도차익거래 기회 나옴!!!!!!!!!!!!!!!");
+					System.Console.WriteLine(book_value2 - futs_askp[0]);
+				}
+				System.Console.WriteLine("매도차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
+
+				//얼마의 차익을 얻을 수 있는지 보냄
+
+
+			}
+			catch (HttpRequestException ex)
+			{
+				Console.WriteLine($"ex.Message={ex.Message}");
+				Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+				Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+			}
+			catch (Exception ex2)
+			{
+				Console.WriteLine($"Exception={ex2.Message}");
+			}
+		}
 
         private void timer1_Tick(object sender, EventArgs e)
 		{
 			
 			string URL = "http://127.0.0.1:5000/total";
 
+            test();
 
 
             /*using (WebClient wc = new WebClient())
@@ -139,23 +308,21 @@ namespace FuturesArbitrage
                 Console.WriteLine(json.GetType().Name);
                 Console.WriteLine(json[0]);
 			}*/
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            Stream stream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(stream, Encoding.UTF8);
-            string text = reader.ReadToEnd();
-
-            JObject obj = JObject.Parse(text);
-
-            string notice = obj["S_buyingArbitrage"].ToString();
-            Console.WriteLine(notice);
-			
 
 
 
+            /* HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+			 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
+			 Stream stream = response.GetResponseStream();
+			 StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+			 string text = reader.ReadToEnd();
 
+			 JObject obj = JObject.Parse(text);
+
+			 string notice = obj["S_buyingArbitrage"].ToString();
+			 Console.WriteLine(notice);*/
+           
 			//chart1관련
 			chart1.Series[0].Points.AddXY(x, 3 * Math.Sin(5 * x) + 5 * Math.Cos(3 * x));
 
