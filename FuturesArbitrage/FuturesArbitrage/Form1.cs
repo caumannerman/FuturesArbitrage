@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Microsoft.Office.Interop.Excel;
 using static System.Net.Mime.MediaTypeNames;
+using System.Net;
+using System.Security.Policy;
 
 namespace FuturesArbitrage
 {
@@ -122,10 +124,32 @@ namespace FuturesArbitrage
 
         private void timer1_Tick(object sender, EventArgs e)
 		{
+			
+			string URL = "http://127.0.0.1:5000/total";
+
+            /*WebClient webClient = new WebClient();
+            var json = new WebClient().DownloadString(URL);
+
+            Console.WriteLine(json.ToString());*/
+
+			using (WebClient wc = new WebClient())
+			{
+				var json = new WebClient().DownloadString(URL);
+				Console.WriteLine(json.ToString());
+			}
+
+			/*
+						HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+						request.Method = "GET";
+						request.ContentType = "application/json";
+						request.Timeout = 30* 1000;*/
 
 
-            //chart1관련
-            chart1.Series[0].Points.AddXY(x, 3 * Math.Sin(5 * x) + 5 * Math.Cos(3 * x));
+
+
+
+			//chart1관련
+			chart1.Series[0].Points.AddXY(x, 3 * Math.Sin(5 * x) + 5 * Math.Cos(3 * x));
 
 			if (chart1.Series[0].Points.Count > 100)
 				chart1.Series[0].Points.RemoveAt(0);
@@ -159,88 +183,10 @@ namespace FuturesArbitrage
             x2idx++;// 다음인덱스 가리켜야하므로
 			x2 += 0.1; //그래프 상 오른쪽에 그려야하므로
 
-            /*
-            //chart3 엑셀데이터 뿌리기
-            System.Console.WriteLine("출력하는중-------------------------------------------");
-            System.Console.WriteLine(x3idx);
-            System.Console.WriteLine(mydata[x3idx, 3]);
-            System.Console.WriteLine(mydata[x3idx, 3].GetType().Name);
-            System.Console.WriteLine();
-            chart3.Series[0].Points.AddXY(x3, mydata[x3idx,2]);
-            double temp =  Convert.ToDouble(( (double)mydata[x3idx, 3] + 10000.0).ToString());
-            chart3.Series["Futures"].Points.AddXY(x3, temp);
-            if ( (double)mydata[x3idx, 2] > (double)mydata[x3idx, 3])
-            {
-                showAlert("");
-            }
-
-            if (chart3.Series[0].Points.Count > 1000)
-            {
-                chart3.Series[0].Points.RemoveAt(0);
-                chart3.Series["Futures"].Points.RemoveAt(0);
-            }
-
-            //chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-            chart3.ChartAreas[0].AxisX.Minimum = 0;
-            chart3.ChartAreas[0].AxisX.Maximum = 100;
-            chart3.ChartAreas[0].AxisY.Minimum = 0;
-            chart3.ChartAreas[0].AxisY.Maximum = 80000;
-
-            x3idx++;// 다음인덱스 가리켜야하므로
-            x3 += 0.1; //그래프 상 오른쪽에 그려야하므로
-            */
-
         }
 
-		private void read_excel_data()
-		{
-            if (sv_filePath != "")
-            {
-                System.Console.WriteLine("들어옴");
-
-                Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
-                Workbook workbook = application.Workbooks.Open(Filename: @sv_filePath);
-                Worksheet worksheet1 = workbook.Worksheets.get_Item(1);
-                application.Visible = false;
-                Range range = worksheet1.UsedRange;
-                /*
-                                Range startRange = worksheet1.Cells[3, 0];
-                                Range endRange = worksheet1.Cells[10, 10];
-                                Range range = worksheet1.get_Range(startRange, endRange);*/
-                object[,] rawData = range.Value;
-
-                for (int i = 1; i <= rawData.GetLength(1); i++)
-                {
-                    for (int j = 1; j <= rawData.GetLength(0); ++j)
-                    {
-                        numbers[i] = (int)rawData[j, i];
-                        //System.Console.Write(rawData[i, j]);
-                    }
-                    System.Console.WriteLine();
-                }
-
-                String data = "";
-
-                for (int i = 1; i <= rawData.GetLength(0); ++i)
-                {
-                    for (int j = 1; j <= rawData.GetLength(1); ++j)
-                    {
-                        if (rawData[i, j] == null) continue;
-                        data += (rawData[i, j].ToString() + " ");
-                        //data += ((range.Cells[i, j] as Range).Value2.ToString() + " ");
-                    }
-                    data += "\n";
-                }
-            }
-            else
-            {
-                System.Console.WriteLine("들어오지 못함");
-            }
-        }
 		private void button1_Click(object sender, EventArgs e)
 		{
-
-
 			if (timer1.Enabled)
 			{
 				timer1.Stop();
