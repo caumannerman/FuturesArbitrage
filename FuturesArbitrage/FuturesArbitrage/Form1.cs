@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Microsoft.Office.Interop.Excel;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FuturesArbitrage
 {
@@ -121,8 +122,10 @@ namespace FuturesArbitrage
 
         private void timer1_Tick(object sender, EventArgs e)
 		{
-			//chart1관련
-			chart1.Series[0].Points.AddXY(x, 3 * Math.Sin(5 * x) + 5 * Math.Cos(3 * x));
+
+
+            //chart1관련
+            chart1.Series[0].Points.AddXY(x, 3 * Math.Sin(5 * x) + 5 * Math.Cos(3 * x));
 
 			if (chart1.Series[0].Points.Count > 100)
 				chart1.Series[0].Points.RemoveAt(0);
