@@ -316,14 +316,10 @@ namespace FuturesArbitrage
                 S_buyingArbitrage /= 10;
 
                 //현물 매수 평단을 S로 하여 선물이론가격 도출
-                double book_value = (S_buyingArbitrage + 2 * k) * (1 + r_borrow * (T / 365));
+                double book_value = (S_buyingArbitrage + 2 * k) * Math.Pow(1 + r_borrow, T / 365);
+				
                 //이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
-	            if (book_value < futs_bidp[0])
-                {
-                    System.Console.WriteLine("매수차익거래 기회 나옴!!!!!!!!!!!!!!!");
-					System.Console.WriteLine(futs_bidp[0] - book_value);
-				}
-				System.Console.WriteLine("매수차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
+	            
 
 				//얼마의 차익을 얻을 수 있는지 보냄
 
@@ -371,7 +367,7 @@ namespace FuturesArbitrage
 				S_sellingArbitrage /= 10;
 
 				//현물 매도 평단을 S로 하여 선물이론가격 도출
-				double book_value2 = (S_sellingArbitrage + 2 * k) * (1 + r_lending * (T / 365));
+				double book_value2 = (S_sellingArbitrage + 2 * k) * Math.Pow(1 + r_lending, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
 				if (book_value2 > futs_askp[0])
 				{
@@ -400,19 +396,19 @@ namespace FuturesArbitrage
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
 				{
-					showAlert("KT " + "매수차익거래 발생");
+					showAlert("KT " + "매수차익거래 발생\n" + "차익 = " + ((futs_bidp[0] - book_value) * 10).ToString());
 				}
 				//매도차익거래 가능!!
 				if (futs_askp[0] < book_value2)
 				{
-					showAlert("KT " + "매수차익거래 발생");
+					showAlert("KT " + "매도차익거래 발생\n" + "차익 = " + ((book_value2 - futs_askp[0]) * 10).ToString());
 				}
 
 				
 				
 
 
-				if (chart1.Series["선물매수1호가"].Points.Count > 500)
+				if (chart1.Series["선물매수1호가"].Points.Count >= 125)
 				{
 					chart1.Series["선물매수1호가"].Points.RemoveAt(0);
 					chart1.Series["선물매도1호가"].Points.RemoveAt(0);
@@ -424,10 +420,10 @@ namespace FuturesArbitrage
 				//chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart1.ChartAreas[0].AxisX.Minimum = chart1.Series["선물매수1호가"].Points[0].XValue;
 				chart1.ChartAreas[0].AxisX.Maximum = 50;
-				chart1.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
-				chart1.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
+				chart1.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
+				chart1.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
 
-				x1 += 0.1; //그래프 상 오른쪽에 그려야하므로
+				x1 += 0.4; //그래프 상 오른쪽에 그려야하므로
 
 
 			}
@@ -528,14 +524,8 @@ namespace FuturesArbitrage
 				S_buyingArbitrage /= 10;
 
 				//현물 매수 평단을 S로 하여 선물이론가격 도출
-				double book_value = (S_buyingArbitrage + 2 * k) * (1 + r_borrow * (T / 365));
+				double book_value = (S_buyingArbitrage + 2 * k) * Math.Pow(1 + r_borrow, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
-				if (book_value < futs_bidp[0])
-				{
-					System.Console.WriteLine("매수차익거래 기회 나옴!!!!!!!!!!!!!!!");
-					System.Console.WriteLine(futs_bidp[0] - book_value);
-				}
-				System.Console.WriteLine("매수차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
 
 				//얼마의 차익을 얻을 수 있는지 보냄
 
@@ -583,7 +573,7 @@ namespace FuturesArbitrage
 				S_sellingArbitrage /= 10;
 
 				//현물 매도 평단을 S로 하여 선물이론가격 도출
-				double book_value2 = (S_sellingArbitrage + 2 * k) * (1 + r_lending * (T / 365));
+				double book_value2 = (S_sellingArbitrage + 2 * k) * Math.Pow(1 + r_lending, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
 				if (book_value2 > futs_askp[0])
 				{
@@ -609,21 +599,21 @@ namespace FuturesArbitrage
 				System.Console.WriteLine(futs_bidp[0]);
 				System.Console.WriteLine(book_value);
 
-				//매수차익거래 가능!!!
-				if (futs_bidp[0] > book_value)
-				{
-					showAlert("SK텔레콤 " + "매수차익거래 발생");
-				}
-				//매도차익거래 가능!!
-				if (futs_askp[0] < book_value2)
-				{
-					showAlert("SK텔레콤 " + "매수차익거래 발생");
-				}
+
+                //매수차익거래 가능!!!
+                if (futs_bidp[0] > book_value)
+                {
+                    showAlert("SK텔레콤 " + "매수차익거래 발생\n" + "차익 = " + ((futs_bidp[0] - book_value) * 10).ToString());
+                }
+                //매도차익거래 가능!!
+                if (futs_askp[0] < book_value2)
+                {
+                    showAlert("SK텔레콤 " + "매도차익거래 발생\n" + "차익 = " + ((book_value2 - futs_askp[0]) * 10).ToString());
+                }
 
 
 
-
-				if (chart2.Series["선물매수1호가"].Points.Count > 500)
+                if (chart2.Series["선물매수1호가"].Points.Count >= 125)
 				{
 					chart2.Series["선물매수1호가"].Points.RemoveAt(0);
 					chart2.Series["선물매도1호가"].Points.RemoveAt(0);
@@ -635,10 +625,10 @@ namespace FuturesArbitrage
 				//chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart2.ChartAreas[0].AxisX.Maximum = 50;
-				chart2.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
-				chart2.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
+				chart2.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
+				chart2.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
 
-				x2 += 0.1; //그래프 상 오른쪽에 그려야하므로
+				x2 += 0.4; //그래프 상 오른쪽에 그려야하므로
 
 
 			}
@@ -738,14 +728,8 @@ namespace FuturesArbitrage
 				S_buyingArbitrage /= 10;
 
 				//현물 매수 평단을 S로 하여 선물이론가격 도출
-				double book_value = (S_buyingArbitrage + 2 * k) * (1 + r_borrow * (T / 365));
+				double book_value = (S_buyingArbitrage + 2 * k) * Math.Pow(1 + r_borrow, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
-				if (book_value < futs_bidp[0])
-				{
-					System.Console.WriteLine("매수차익거래 기회 나옴!!!!!!!!!!!!!!!");
-					System.Console.WriteLine(futs_bidp[0] - book_value);
-				}
-				System.Console.WriteLine("매수차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
 
 				//얼마의 차익을 얻을 수 있는지 보냄
 
@@ -793,7 +777,7 @@ namespace FuturesArbitrage
 				S_sellingArbitrage /= 10;
 
 				//현물 매도 평단을 S로 하여 선물이론가격 도출
-				double book_value2 = (S_sellingArbitrage + 2 * k) * (1 + r_lending * (T / 365));
+				double book_value2 = (S_sellingArbitrage + 2 * k) * Math.Pow(1 + r_lending, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
 				if (book_value2 > futs_askp[0])
 				{
@@ -820,21 +804,20 @@ namespace FuturesArbitrage
 				System.Console.WriteLine(futs_bidp[0]);
 				System.Console.WriteLine(book_value);
 
-				//매수차익거래 가능!!!
-				if (futs_bidp[0] > book_value)
-				{
-					showAlert("삼성전자 " + "매수차익거래 발생");
-				}
-				//매도차익거래 가능!!
-				if (futs_askp[0] < book_value2)
-				{
-					showAlert("삼성전자 " + "매수차익거래 발생");
-				}
+                //매수차익거래 가능!!!
+                if (futs_bidp[0] > book_value)
+                {
+                    showAlert("삼성전자 " + "매수차익거래 발생\n" + "차익 = " + ((futs_bidp[0] - book_value) * 10).ToString());
+                }
+                //매도차익거래 가능!!
+                if (futs_askp[0] < book_value2)
+                {
+                    showAlert("삼성전자 " + "매도차익거래 발생\n" + "차익 = " + ((book_value2 - futs_askp[0]) * 10).ToString());
+                }
 
 
 
-
-				if (chart3.Series["선물매수1호가"].Points.Count > 500)
+                if (chart3.Series["선물매수1호가"].Points.Count >= 125)
 				{
 					chart3.Series["선물매수1호가"].Points.RemoveAt(0);
 					chart3.Series["선물매도1호가"].Points.RemoveAt(0);
@@ -846,10 +829,10 @@ namespace FuturesArbitrage
 				//chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart3.ChartAreas[0].AxisX.Minimum = chart3.Series["선물매수1호가"].Points[0].XValue;
 				chart3.ChartAreas[0].AxisX.Maximum = 50;
-				chart3.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
-				chart3.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
+				chart3.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
+				chart3.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
 
-				x3 += 0.1; //그래프 상 오른쪽에 그려야하므로
+				x3 += 0.4; //그래프 상 오른쪽에 그려야하므로
 
 
 			}
@@ -951,14 +934,9 @@ namespace FuturesArbitrage
 				S_buyingArbitrage /= 10;
 
 				//현물 매수 평단을 S로 하여 선물이론가격 도출
-				double book_value = (S_buyingArbitrage + 2 * k) * (1 + r_borrow * (T / 365));
+				double book_value = (S_buyingArbitrage + 2 * k) * Math.Pow(1 + r_borrow, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
-				if (book_value < futs_bidp[0])
-				{
-					System.Console.WriteLine("매수차익거래 기회 나옴!!!!!!!!!!!!!!!");
-					System.Console.WriteLine(futs_bidp[0] - book_value);
-				}
-				System.Console.WriteLine("매수차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
+				
 
 				//얼마의 차익을 얻을 수 있는지 보냄
 
@@ -1006,7 +984,7 @@ namespace FuturesArbitrage
 				S_sellingArbitrage /= 10;
 
 				//현물 매도 평단을 S로 하여 선물이론가격 도출
-				double book_value2 = (S_sellingArbitrage + 2 * k) * (1 + r_lending * (T / 365));
+				double book_value2 = (S_sellingArbitrage + 2 * k) * Math.Pow(1 + r_lending, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
 				if (book_value2 > futs_askp[0])
 				{
@@ -1033,18 +1011,18 @@ namespace FuturesArbitrage
 				System.Console.WriteLine(futs_bidp[0]);
 				System.Console.WriteLine(book_value);
 
-				//매수차익거래 가능!!!
-				if (futs_bidp[0] > book_value)
-				{
-					showAlert("현대차 " + "매수차익거래 발생");
-				}
-				//매도차익거래 가능!!
-				if (futs_askp[0] < book_value2)
-				{
-					showAlert("현대차 " + "매수차익거래 발생");
-				}
+                //매수차익거래 가능!!!
+                if (futs_bidp[0] > book_value)
+                {
+                    showAlert("현대차 " + "매수차익거래 발생\n" + "차익 = " + ((futs_bidp[0] - book_value) * 10).ToString());
+                }
+                //매도차익거래 가능!!
+                if (futs_askp[0] < book_value2)
+                {
+                    showAlert("현대차 " + "매도차익거래 발생\n" + "차익 = " + ((book_value2 - futs_askp[0]) * 10).ToString());
+                }
 
-				if (chart4.Series["선물매수1호가"].Points.Count > 500)
+                if (chart4.Series["선물매수1호가"].Points.Count >= 125)
 				{
 					chart4.Series["선물매수1호가"].Points.RemoveAt(0);
 					chart4.Series["선물매도1호가"].Points.RemoveAt(0);
@@ -1056,10 +1034,10 @@ namespace FuturesArbitrage
 		
 				chart4.ChartAreas[0].AxisX.Minimum = chart4.Series["선물매수1호가"].Points[0].XValue;
 				chart4.ChartAreas[0].AxisX.Maximum = 50;
-				chart4.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
-				chart4.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
+				chart4.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
+				chart4.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
 
-				x4 += 0.1; //그래프 상 오른쪽에 그려야하므로
+				x4 += 0.4; //그래프 상 오른쪽에 그려야하므로
 
 
 			}
@@ -1161,14 +1139,8 @@ namespace FuturesArbitrage
 				S_buyingArbitrage /= 10;
 
 				//현물 매수 평단을 S로 하여 선물이론가격 도출
-				double book_value = (S_buyingArbitrage + 2 * k) * (1 + r_borrow * (T / 365));
+				double book_value = (S_buyingArbitrage + 2 * k) * Math.Pow(1 + r_borrow, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
-				if (book_value < futs_bidp[0])
-				{
-					System.Console.WriteLine("매수차익거래 기회 나옴!!!!!!!!!!!!!!!");
-					System.Console.WriteLine(futs_bidp[0] - book_value);
-				}
-				System.Console.WriteLine("매수차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
 
 				//얼마의 차익을 얻을 수 있는지 보냄
 
@@ -1216,7 +1188,7 @@ namespace FuturesArbitrage
 				S_sellingArbitrage /= 10;
 
 				//현물 매도 평단을 S로 하여 선물이론가격 도출
-				double book_value2 = (S_sellingArbitrage + 2 * k) * (1 + r_lending * (T / 365));
+				double book_value2 = (S_sellingArbitrage + 2 * k) * Math.Pow(1 + r_lending, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
 				if (book_value2 > futs_askp[0])
 				{
@@ -1243,18 +1215,18 @@ namespace FuturesArbitrage
 				System.Console.WriteLine(futs_bidp[0]);
 				System.Console.WriteLine(book_value);
 
-				//매수차익거래 가능!!!
-				if (futs_bidp[0] > book_value)
-				{
-					showAlert("한국전력 " + "매수차익거래 발생");
-				}
-				//매도차익거래 가능!!
-				if (futs_askp[0] < book_value2)
-				{
-					showAlert("한국전력 " + "매수차익거래 발생");
-				}
+                //매수차익거래 가능!!!
+                if (futs_bidp[0] > book_value)
+                {
+                    showAlert("한국전력 " + "매수차익거래 발생\n" + "차익 = " + ((futs_bidp[0] - book_value) * 10).ToString());
+                }
+                //매도차익거래 가능!!
+                if (futs_askp[0] < book_value2)
+                {
+                    showAlert("한국전력 " + "매도차익거래 발생\n" + "차익 = " + ((book_value2 - futs_askp[0]) * 10).ToString());
+                }
 
-				if (chart5.Series["선물매수1호가"].Points.Count > 500)
+                if (chart5.Series["선물매수1호가"].Points.Count >= 125)
 				{
 					chart5.Series["선물매수1호가"].Points.RemoveAt(0);
 					chart5.Series["선물매도1호가"].Points.RemoveAt(0);
@@ -1265,10 +1237,10 @@ namespace FuturesArbitrage
 
 				chart5.ChartAreas[0].AxisX.Minimum = chart5.Series["선물매수1호가"].Points[0].XValue;
 				chart5.ChartAreas[0].AxisX.Maximum = 50;
-				chart5.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
-				chart5.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
+				chart5.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
+				chart5.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
 
-				x5 += 0.1; //그래프 상 오른쪽에 그려야하므로
+				x5 += 0.4; //그래프 상 오른쪽에 그려야하므로
 
 
 			}
@@ -1369,15 +1341,8 @@ namespace FuturesArbitrage
 				S_buyingArbitrage /= 10;
 
 				//현물 매수 평단을 S로 하여 선물이론가격 도출
-				double book_value = (S_buyingArbitrage + 2 * k) * (1 + r_borrow * (T / 365));
+				double book_value = (S_buyingArbitrage + 2 * k) * Math.Pow(1 + r_borrow, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
-				if (book_value < futs_bidp[0])
-				{
-					System.Console.WriteLine("매수차익거래 기회 나옴!!!!!!!!!!!!!!!");
-					System.Console.WriteLine(futs_bidp[0] - book_value);
-				}
-				System.Console.WriteLine("매수차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
-
 				//얼마의 차익을 얻을 수 있는지 보냄
 
 				////////////////////////////////// 매도차익거래  ///////////////////////////////
@@ -1424,14 +1389,8 @@ namespace FuturesArbitrage
 				S_sellingArbitrage /= 10;
 
 				//현물 매도 평단을 S로 하여 선물이론가격 도출
-				double book_value2 = (S_sellingArbitrage + 2 * k) * (1 + r_lending * (T / 365));
+				double book_value2 = (S_sellingArbitrage + 2 * k) * Math.Pow(1 + r_lending, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
-				if (book_value2 > futs_askp[0])
-				{
-					System.Console.WriteLine("매도차익거래 기회 나옴!!!!!!!!!!!!!!!");
-					System.Console.WriteLine(book_value2 - futs_askp[0]);
-				}
-				System.Console.WriteLine("매도차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
 
 				//얼마의 차익을 얻을 수 있는지 보냄
 
@@ -1451,19 +1410,20 @@ namespace FuturesArbitrage
 				System.Console.WriteLine(futs_bidp[0]);
 				System.Console.WriteLine(book_value);
 
-				//매수차익거래 가능!!!
-				if (futs_bidp[0] > book_value)
-				{
-					showAlert("삼성SDI " + "매수차익거래 발생");
-				}
-				//매도차익거래 가능!!
-				if (futs_askp[0] < book_value2)
-				{
-					showAlert("삼성SDI " + "매도차익거래 발생");
-				}
+                //매수차익거래 가능!!!
+                if (futs_bidp[0] > book_value)
+                {
+                    showAlert("삼성SDI " + "매수차익거래 발생.  " + "차익 = " + ((futs_bidp[0] - book_value)*10).ToString());
+                }
+                //매도차익거래 가능!!
+                if (futs_askp[0] < book_value2)
+                {
+                    showAlert("삼성SDI " + "매도차익거래 발생.  " + "차익 = " + ((book_value2 - futs_askp[0])*10).ToString());
+                }
 
-				if (chart6.Series["선물매수1호가"].Points.Count > 500)
-				{
+                if (chart6.Series["선물매수1호가"].Points.Count >= 125)
+
+                {
 					chart6.Series["선물매수1호가"].Points.RemoveAt(0);
 					chart6.Series["선물매도1호가"].Points.RemoveAt(0);
 					chart6.Series["매수차익 하한(이론가)"].Points.RemoveAt(0);
@@ -1472,9 +1432,9 @@ namespace FuturesArbitrage
 				}
 				chart6.ChartAreas[0].AxisX.Minimum = chart6.Series["선물매수1호가"].Points[0].XValue;
 				chart6.ChartAreas[0].AxisX.Maximum = 50;
-				chart6.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 10000;
-				chart6.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 10000;
-				x6 += 0.1; //그래프 상 오른쪽에 그려야하므로
+				chart6.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
+				chart6.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
+				x6 += 0.4; //그래프 상 오른쪽에 그려야하므로
 			}
 			catch (HttpRequestException ex)
 			{
