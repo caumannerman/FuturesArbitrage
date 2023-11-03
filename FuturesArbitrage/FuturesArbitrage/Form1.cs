@@ -20,10 +20,11 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace FuturesArbitrage
 {
-	public partial class Form1 : Form
+	public partial class aaaasas : Form
 	{
 
 		double x1, x2, x3, x4, x5, x6;
+		double total = 0;
 		
         // excel 에서 받아온 데이터 저장할 배열
         int[] numbers = new int[1000];
@@ -52,7 +53,7 @@ namespace FuturesArbitrage
 		// 매 순간 그 가격에 선물이 매수 혹은 매도될 때, 헷지할 수 있는 현물 가격과 수량을 계속 반복체크
 		// 
 
-		public Form1()
+		public aaaasas()
 		{
 			InitializeComponent();
 
@@ -235,9 +236,6 @@ namespace FuturesArbitrage
         {
 			try
 			{
-
-              
-                
 				//주식 매수매도 호가
 				string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=030200";
 				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
@@ -252,7 +250,6 @@ namespace FuturesArbitrage
 				string text_s = reader_s.ReadToEnd();
 				JObject obj_s = JObject.Parse(text_s);
 
-
 				//선물 매수매도 호가
 				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=114T11000";
 				HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(URL2);
@@ -266,12 +263,6 @@ namespace FuturesArbitrage
 				StreamReader reader_f = new StreamReader(stream_f, Encoding.UTF8);
 				string text_f = reader_f.ReadToEnd();
 				JObject obj_f = JObject.Parse(text_f);
-
-                //string notice = obj["output1"]["askp1"].ToString();
-                //Console.WriteLine(((int) obj["output1"]["askp1"]).GetType().Name);
-                //Console.WriteLine((int)obj["output1"]["askp1"]);
-
-               
 
 				//선물 매수호가1~5
 				int[] futs_bidp = { (int)obj_f["output2"]["futs_bidp1"], (int)obj_f["output2"]["futs_bidp2"] , (int)obj_f["output2"]["futs_bidp3"] ,
@@ -369,13 +360,6 @@ namespace FuturesArbitrage
 				//현물 매도 평단을 S로 하여 선물이론가격 도출
 				double book_value2 = (S_sellingArbitrage + 2 * k) * Math.Pow(1 + r_lending, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
-				if (book_value2 > futs_askp[0])
-				{
-					System.Console.WriteLine("매도차익거래 기회 나옴!!!!!!!!!!!!!!!");
-					System.Console.WriteLine(book_value2 - futs_askp[0]);
-				}
-				System.Console.WriteLine("매도차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
-
 				//얼마의 차익을 얻을 수 있는지 보냄
 
 
@@ -396,17 +380,27 @@ namespace FuturesArbitrage
 				//매수차익거래 가능!!!
 				if (futs_bidp[0] > book_value)
 				{
-					showAlert("KT " + "매수차익거래 발생\n" + "차익 = " + ((futs_bidp[0] - book_value) * 10).ToString());
+					kt_contango.BackColor = Color.HotPink;
+					total += (futs_bidp[0] - book_value) * 10;
+                    totaltext.Text = total.ToString();
+                    showAlert("KT " + "매수차익거래 발생\n" + "차익 = " + ((futs_bidp[0] - book_value) * 10).ToString());
 				}
+				else
+				{
+                    kt_contango.BackColor = Color.DarkGray;
+                }
 				//매도차익거래 가능!!
 				if (futs_askp[0] < book_value2)
 				{
-					showAlert("KT " + "매도차익거래 발생\n" + "차익 = " + ((book_value2 - futs_askp[0]) * 10).ToString());
+                    kt_backwardation.BackColor = Color.HotPink;
+                    total += (book_value2 - futs_askp[0]) * 10;
+                    totaltext.Text = total.ToString();
+                    showAlert("KT " + "매도차익거래 발생\n" + "차익 = " + ((book_value2 - futs_askp[0]) * 10).ToString());
 				}
-
-				
-				
-
+				else
+				{
+                    kt_backwardation.BackColor = Color.DarkGray;
+                }
 
 				if (chart1.Series["선물매수1호가"].Points.Count >= 125)
 				{
@@ -603,12 +597,26 @@ namespace FuturesArbitrage
                 //매수차익거래 가능!!!
                 if (futs_bidp[0] > book_value)
                 {
+                    skt_contango.BackColor = Color.HotPink;
+                    total += (futs_bidp[0] - book_value) * 10;
+                    totaltext.Text = total.ToString();
                     showAlert("SK텔레콤 " + "매수차익거래 발생\n" + "차익 = " + ((futs_bidp[0] - book_value) * 10).ToString());
+                }
+				else
+				{
+                    skt_contango.BackColor = Color.DarkGray;
                 }
                 //매도차익거래 가능!!
                 if (futs_askp[0] < book_value2)
                 {
+                    skt_backwardation.BackColor = Color.HotPink;
+                    total += (book_value2 - futs_askp[0]) * 10;
+                    totaltext.Text = total.ToString();
                     showAlert("SK텔레콤 " + "매도차익거래 발생\n" + "차익 = " + ((book_value2 - futs_askp[0]) * 10).ToString());
+                }
+				else
+				{
+                    skt_backwardation.BackColor = Color.DarkGray;
                 }
 
 
@@ -622,7 +630,6 @@ namespace FuturesArbitrage
 
 				}
 
-				//chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart2.ChartAreas[0].AxisX.Maximum = 50;
 				chart2.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
@@ -779,12 +786,6 @@ namespace FuturesArbitrage
 				//현물 매도 평단을 S로 하여 선물이론가격 도출
 				double book_value2 = (S_sellingArbitrage + 2 * k) * Math.Pow(1 + r_lending, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
-				if (book_value2 > futs_askp[0])
-				{
-					System.Console.WriteLine("매도차익거래 기회 나옴!!!!!!!!!!!!!!!");
-					System.Console.WriteLine(book_value2 - futs_askp[0]);
-				}
-				System.Console.WriteLine("매도차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
 
 				//얼마의 차익을 얻을 수 있는지 보냄
 
@@ -807,14 +808,28 @@ namespace FuturesArbitrage
                 //매수차익거래 가능!!!
                 if (futs_bidp[0] > book_value)
                 {
+                    se_contango.BackColor = Color.HotPink;
+                    total += (futs_bidp[0] - book_value) * 10;
+                    totaltext.Text = total.ToString();
                     showAlert("삼성전자 " + "매수차익거래 발생\n" + "차익 = " + ((futs_bidp[0] - book_value) * 10).ToString());
+                }
+				else
+				{
+                    se_contango.BackColor = Color.DarkGray;
                 }
                 //매도차익거래 가능!!
                 if (futs_askp[0] < book_value2)
                 {
+                    
+                    se_backwardation.BackColor = Color.HotPink;
+                    total += (book_value2 - futs_askp[0]) * 10;
+                    totaltext.Text = total.ToString();
                     showAlert("삼성전자 " + "매도차익거래 발생\n" + "차익 = " + ((book_value2 - futs_askp[0]) * 10).ToString());
                 }
-
+				else
+				{
+                    se_backwardation.BackColor = Color.DarkGray;
+                }
 
 
                 if (chart3.Series["선물매수1호가"].Points.Count >= 125)
@@ -996,7 +1011,7 @@ namespace FuturesArbitrage
 				//얼마의 차익을 얻을 수 있는지 보냄
 
 
-				//chart3 
+				//chart4
 				// 매수차익거래 선물 이론가격
 				chart4.Series["선물매수1호가"].Points.AddXY(x4, futs_bidp[0] );
 
@@ -1014,12 +1029,27 @@ namespace FuturesArbitrage
                 //매수차익거래 가능!!!
                 if (futs_bidp[0] > book_value)
                 {
+                    hdc_contango.BackColor = Color.HotPink;
+                    total += (futs_bidp[0] - book_value) * 10;
+                    totaltext.Text = total.ToString();
                     showAlert("현대차 " + "매수차익거래 발생\n" + "차익 = " + ((futs_bidp[0] - book_value) * 10).ToString());
+                }
+				else
+				{
+                    hdc_contango.BackColor = Color.DarkGray;
                 }
                 //매도차익거래 가능!!
                 if (futs_askp[0] < book_value2)
                 {
+                    
+                    hdc_backwardation.BackColor = Color.HotPink;
+                    total += (book_value2 - futs_askp[0]) * 10;
+                    totaltext.Text = total.ToString();
                     showAlert("현대차 " + "매도차익거래 발생\n" + "차익 = " + ((book_value2 - futs_askp[0]) * 10).ToString());
+				}
+				else
+				{
+                    hdc_backwardation.BackColor = Color.DarkGray;
                 }
 
                 if (chart4.Series["선물매수1호가"].Points.Count >= 125)
@@ -1190,13 +1220,6 @@ namespace FuturesArbitrage
 				//현물 매도 평단을 S로 하여 선물이론가격 도출
 				double book_value2 = (S_sellingArbitrage + 2 * k) * Math.Pow(1 + r_lending, T / 365);
 				//이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
-				if (book_value2 > futs_askp[0])
-				{
-					System.Console.WriteLine("매도차익거래 기회 나옴!!!!!!!!!!!!!!!");
-					System.Console.WriteLine(book_value2 - futs_askp[0]);
-				}
-				System.Console.WriteLine("매도차익거래 기회 나옴을 나옴!!!!!!!!!!!!!!!");
-
 				//얼마의 차익을 얻을 수 있는지 보냄
 
 
@@ -1218,12 +1241,27 @@ namespace FuturesArbitrage
                 //매수차익거래 가능!!!
                 if (futs_bidp[0] > book_value)
                 {
+                    hkjr_contango.BackColor = Color.HotPink;
+                    total += (futs_bidp[0] - book_value) * 10;
+                    totaltext.Text = total.ToString();
                     showAlert("한국전력 " + "매수차익거래 발생\n" + "차익 = " + ((futs_bidp[0] - book_value) * 10).ToString());
+				}
+				else
+				{
+                    hkjr_contango.BackColor = Color.DarkGray;
                 }
                 //매도차익거래 가능!!
                 if (futs_askp[0] < book_value2)
                 {
+                    
+                    hkjr_backwardation.BackColor = Color.HotPink;
+                    total += (book_value2 - futs_askp[0]) * 10;
+                    totaltext.Text = total.ToString();
                     showAlert("한국전력 " + "매도차익거래 발생\n" + "차익 = " + ((book_value2 - futs_askp[0]) * 10).ToString());
+                }
+				else
+				{
+                    hkjr_backwardation.BackColor = Color.DarkGray;
                 }
 
                 if (chart5.Series["선물매수1호가"].Points.Count >= 125)
@@ -1413,16 +1451,29 @@ namespace FuturesArbitrage
                 //매수차익거래 가능!!!
                 if (futs_bidp[0] > book_value)
                 {
+                    sdi_contango.BackColor = Color.HotPink;
+                    total += (futs_bidp[0] - book_value) * 10;
+                    totaltext.Text = total.ToString();
                     showAlert("삼성SDI " + "매수차익거래 발생.  " + "차익 = " + ((futs_bidp[0] - book_value)*10).ToString());
+				}
+				else
+				{
+                    sdi_contango.BackColor = Color.DarkGray;
                 }
                 //매도차익거래 가능!!
                 if (futs_askp[0] < book_value2)
                 {
+                    sdi_backwardation.BackColor = Color.HotPink;
+                    total += (book_value2 - futs_askp[0]) * 10;
+					totaltext.Text = total.ToString();
                     showAlert("삼성SDI " + "매도차익거래 발생.  " + "차익 = " + ((book_value2 - futs_askp[0])*10).ToString());
+                }
+				else
+				{
+                    sdi_backwardation.BackColor = Color.HotPink;
                 }
 
                 if (chart6.Series["선물매수1호가"].Points.Count >= 125)
-
                 {
 					chart6.Series["선물매수1호가"].Points.RemoveAt(0);
 					chart6.Series["선물매도1호가"].Points.RemoveAt(0);
@@ -1432,8 +1483,8 @@ namespace FuturesArbitrage
 				}
 				chart6.ChartAreas[0].AxisX.Minimum = chart6.Series["선물매수1호가"].Points[0].XValue;
 				chart6.ChartAreas[0].AxisX.Maximum = 50;
-				chart6.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
-				chart6.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
+				chart6.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) * 0.9;
+				chart6.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) * 1.1;
 				x6 += 0.4; //그래프 상 오른쪽에 그려야하므로
 			}
 			catch (HttpRequestException ex)

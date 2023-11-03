@@ -56,7 +56,6 @@ C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\bin\Debu
 C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\bin\Debug\Newtonsoft.Json.dll
 C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\bin\Debug\Newtonsoft.Json.xml
 C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.AssemblyReference.cache
-C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.Form1.resources
 C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.Properties.Resources.resources
 C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.SettingForm.resources
 C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.ShowAlert.resources
@@ -66,3 +65,4 @@ C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debu
 C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.CopyComplete
 C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.exe
 C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.pdb
+C:\Users\USER\finall\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.aaaasas.resources

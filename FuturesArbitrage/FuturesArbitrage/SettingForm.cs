@@ -35,23 +35,12 @@ namespace FuturesArbitrage
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
+            aaaasas form1 = new aaaasas();
             form1.Tag = this;
             form1.Show();
             this.Hide();
         }
 
-        //컴퓨터에서 엑셀파일 선택하여 그 경로를 static 변수에 저장한다.
-        private void button1_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog OFD = new OpenFileDialog();
-            if (OFD.ShowDialog() == DialogResult.OK)
-            {
-                textBox5.Clear();
-                textBox5.Text = OFD.FileName;
-                sv_filePath = OFD.FileName;
-            }
-        }
         // 각 항목의 텍스트 입력창 입력내용이 변경될 때마다 static 변수에 변경해서 넣어주는 코드들
 
         private void myMoney_TextChanged(object sender, EventArgs e)
