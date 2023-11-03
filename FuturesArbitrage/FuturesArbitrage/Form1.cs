@@ -18,6 +18,9 @@ using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Windows.Forms.DataVisualization.Charting;
 
+
+ // ( S + k1 + k2  )( 1 + r_borrow)^ T/365
+ // ( S - k1 - k2)(1 + r_lenging)^T/365
 namespace FuturesArbitrage
 {
 	public partial class aaaasas : Form
@@ -83,9 +86,6 @@ namespace FuturesArbitrage
 			r_borrow = Double.Parse( sv_borrow_interest_rate);
 			r_lending = Double.Parse(sv_loan_interest_rate);
 			T = int.Parse(sv_enddate);
-
-
-
 		}
 
         private void Form1_Load(object sender, EventArgs e)
@@ -414,8 +414,8 @@ namespace FuturesArbitrage
 				//chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart1.ChartAreas[0].AxisX.Minimum = chart1.Series["선물매수1호가"].Points[0].XValue;
 				chart1.ChartAreas[0].AxisX.Maximum = 50;
-				chart1.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
-				chart1.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
+				chart1.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 200;
+				chart1.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 200;
 
 				x1 += 0.4; //그래프 상 오른쪽에 그려야하므로
 
@@ -538,7 +538,7 @@ namespace FuturesArbitrage
 				int[] stock_bidp_rsqn = { (int)obj_s["output1"]["bidp_rsqn1"], (int)obj_s["output1"]["bidp_rsqn2"], (int)obj_s["output1"]["bidp_rsqn3"],
 				(int)obj_s["output1"]["bidp_rsqn4"], (int)obj_s["output1"]["bidp_rsqn5"], (int)obj_s["output1"]["bidp_rsqn6"], (int)obj_s["output1"]["bidp_rsqn7"],
 				(int)obj_s["output1"]["bidp_rsqn8"], (int)obj_s["output1"]["bidp_rsqn9"], (int)obj_s["output1"]["bidp_rsqn10"]};
-
+				
 				//매수호가, 잔량으로 10주 팔 때 평단을 S라 할 것임.
 				double S_sellingArbitrage = 0;
 				int count2 = 0;
@@ -632,8 +632,8 @@ namespace FuturesArbitrage
 
 				chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart2.ChartAreas[0].AxisX.Maximum = 50;
-				chart2.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
-				chart2.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
+				chart2.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 200;
+				chart2.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 200;
 
 				x2 += 0.4; //그래프 상 오른쪽에 그려야하므로
 
@@ -844,8 +844,8 @@ namespace FuturesArbitrage
 				//chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
 				chart3.ChartAreas[0].AxisX.Minimum = chart3.Series["선물매수1호가"].Points[0].XValue;
 				chart3.ChartAreas[0].AxisX.Maximum = 50;
-				chart3.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
-				chart3.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
+				chart3.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 200;
+				chart3.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 200;
 
 				x3 += 0.4; //그래프 상 오른쪽에 그려야하므로
 
@@ -1064,8 +1064,8 @@ namespace FuturesArbitrage
 		
 				chart4.ChartAreas[0].AxisX.Minimum = chart4.Series["선물매수1호가"].Points[0].XValue;
 				chart4.ChartAreas[0].AxisX.Maximum = 50;
-				chart4.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
-				chart4.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
+				chart4.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 200;
+				chart4.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 200;
 
 				x4 += 0.4; //그래프 상 오른쪽에 그려야하므로
 
@@ -1275,8 +1275,8 @@ namespace FuturesArbitrage
 
 				chart5.ChartAreas[0].AxisX.Minimum = chart5.Series["선물매수1호가"].Points[0].XValue;
 				chart5.ChartAreas[0].AxisX.Maximum = 50;
-				chart5.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 500;
-				chart5.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 500;
+				chart5.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 200;
+				chart5.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 200;
 
 				x5 += 0.4; //그래프 상 오른쪽에 그려야하므로
 
@@ -1470,7 +1470,7 @@ namespace FuturesArbitrage
                 }
 				else
 				{
-                    sdi_backwardation.BackColor = Color.HotPink;
+                    sdi_backwardation.BackColor = Color.DarkGray;
                 }
 
                 if (chart6.Series["선물매수1호가"].Points.Count >= 125)
@@ -1483,8 +1483,8 @@ namespace FuturesArbitrage
 				}
 				chart6.ChartAreas[0].AxisX.Minimum = chart6.Series["선물매수1호가"].Points[0].XValue;
 				chart6.ChartAreas[0].AxisX.Maximum = 50;
-				chart6.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) * 0.9;
-				chart6.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) * 1.1;
+				chart6.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 200;
+				chart6.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 200;
 				x6 += 0.4; //그래프 상 오른쪽에 그려야하므로
 			}
 			catch (HttpRequestException ex)
