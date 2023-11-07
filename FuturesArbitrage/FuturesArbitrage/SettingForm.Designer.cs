@@ -33,7 +33,7 @@
             this.fee_stock_buy = new System.Windows.Forms.TextBox();
             this.labell = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button2 = new System.Windows.Forms.Button();
+            this.simulbutton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.fee_futures = new System.Windows.Forms.TextBox();
@@ -51,6 +51,7 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.realbutton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // myMoney
@@ -84,18 +85,18 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // button2
+            // simulbutton
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.button2.Font = new System.Drawing.Font("굴림", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(28, 269);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(235, 72);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "시뮬레이션 시작";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.simulbutton.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.simulbutton.Font = new System.Drawing.Font("굴림", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.simulbutton.ForeColor = System.Drawing.Color.White;
+            this.simulbutton.Location = new System.Drawing.Point(28, 269);
+            this.simulbutton.Name = "simulbutton";
+            this.simulbutton.Size = new System.Drawing.Size(235, 72);
+            this.simulbutton.TabIndex = 8;
+            this.simulbutton.Text = "시뮬레이션 시작";
+            this.simulbutton.UseVisualStyleBackColor = false;
+            this.simulbutton.Click += new System.EventHandler(this.button2_Click);
             // 
             // label4
             // 
@@ -231,11 +232,25 @@
             this.textBox1.TabIndex = 29;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
+            // realbutton
+            // 
+            this.realbutton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.realbutton.Font = new System.Drawing.Font("굴림", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.realbutton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.realbutton.Location = new System.Drawing.Point(347, 269);
+            this.realbutton.Name = "realbutton";
+            this.realbutton.Size = new System.Drawing.Size(235, 72);
+            this.realbutton.TabIndex = 30;
+            this.realbutton.Text = "실전 시작";
+            this.realbutton.UseVisualStyleBackColor = false;
+            this.realbutton.Click += new System.EventHandler(this.realbutton_Click);
+            // 
             // SettingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.realbutton);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.loan_interest_rate);
@@ -251,7 +266,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.fee_futures);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.simulbutton);
             this.Controls.Add(this.labell);
             this.Controls.Add(this.fee_stock_buy);
             this.Controls.Add(this.myMoney);
@@ -269,7 +284,7 @@
         private System.Windows.Forms.TextBox fee_stock_buy;
         private System.Windows.Forms.Label labell;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button simulbutton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.TextBox fee_futures;
@@ -287,5 +302,6 @@
         private System.Windows.Forms.ColorDialog colorDialog1;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox textBox1;
-	}
+        private System.Windows.Forms.Button realbutton;
+    }
 }

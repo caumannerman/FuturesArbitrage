@@ -82,3 +82,4 @@ C:\Users\USER\imsi\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\
 C:\Users\USER\imsi\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.csproj.CopyComplete
 C:\Users\USER\imsi\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.exe
 C:\Users\USER\imsi\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.pdb
+C:\Users\USER\imsi\FuturesArbitrage\FuturesArbitrage\FuturesArbitrage\obj\Debug\FuturesArbitrage.myasset.resources

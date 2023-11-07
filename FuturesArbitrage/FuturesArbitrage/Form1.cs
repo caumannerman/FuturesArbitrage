@@ -1320,7 +1320,7 @@ namespace FuturesArbitrage
 				//선물 매수매도 호가
 				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=122T11000";
 				HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(URL2);
-                request.Headers.Add("Authorization", access_token); 
+                request2.Headers.Add("Authorization", access_token); 
 				request2.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
 				request2.Headers.Add("appsecret", "VUn2CzaKPT1oTzwfBiXlY2ASg8SEndHMk/h5ukdZOElQVP5dfnfnv3OiTqw3aKYGR1NRYg17q05zOFlFhW8CdwYzMPI2wmqB9cNgx2f03O1ROveEw6Kr/CeGojxZBPMVU2MMzun4Gapcq1zu+lWYhbkDK/fAfmeCD+ftD2WMWPrJw9UBG0c=");
 				request2.Headers.Add("tr_id", "FHMIF10010000");

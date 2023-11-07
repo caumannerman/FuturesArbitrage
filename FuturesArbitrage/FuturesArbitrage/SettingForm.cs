@@ -97,5 +97,13 @@ namespace FuturesArbitrage
 		{
             sv_enddate = textBox1.Text;
 		}
-	}
+
+        private void realbutton_Click(object sender, EventArgs e)
+        {
+            myasset form = new myasset();
+            form.Tag = this;
+            form.Show();
+            this.Hide();
+        }
+    }
 }
