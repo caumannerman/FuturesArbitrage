@@ -222,15 +222,6 @@ namespace FuturesArbitrage
 				numbers[i] = i + 10;
 				futures[i] = 1100 - i;
             }
-            
-           /* Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
-            Workbook workbook = application.Workbooks.Open(Filename: @sv_filePath);
-            Worksheet worksheet1 = workbook.Worksheets.get_Item(1);
-            application.Visible = false;
-            Range range = worksheet1.UsedRange;
-            //Form 멤버로 있는 mydata에 저장
-            mydata = range.Value;*/
-
         }
 		//KT
         async void test1(double r_lending, double r_borrow, int T)
