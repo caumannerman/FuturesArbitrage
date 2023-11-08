@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.logDataGridView = new System.Windows.Forms.DataGridView();
@@ -43,6 +43,8 @@
             this.stock_buy_listview = new System.Windows.Forms.ListView();
             this.futures_sell_listview = new System.Windows.Forms.ListView();
             this.futures_buy_listview = new System.Windows.Forms.ListView();
+            this.futures_selljr_listview = new System.Windows.Forms.ListView();
+            this.futures_buyjr_listview = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.logDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.myAssetGridView)).BeginInit();
@@ -61,16 +63,16 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(472, 47);
+            chartArea7.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.chart1.Legends.Add(legend7);
+            this.chart1.Location = new System.Drawing.Point(596, 47);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series7.ChartArea = "ChartArea1";
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            this.chart1.Series.Add(series7);
             this.chart1.Size = new System.Drawing.Size(487, 282);
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";
@@ -138,9 +140,13 @@
             // 
             // futures_sell_listview
             // 
+            this.futures_sell_listview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.futures_sell_listview.GridLines = true;
+            this.futures_sell_listview.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.futures_sell_listview.HideSelection = false;
-            this.futures_sell_listview.Location = new System.Drawing.Point(247, 29);
+            this.futures_sell_listview.Location = new System.Drawing.Point(282, 29);
             this.futures_sell_listview.Name = "futures_sell_listview";
+            this.futures_sell_listview.Scrollable = false;
             this.futures_sell_listview.Size = new System.Drawing.Size(78, 147);
             this.futures_sell_listview.TabIndex = 39;
             this.futures_sell_listview.UseCompatibleStateImageBehavior = false;
@@ -148,17 +154,37 @@
             // futures_buy_listview
             // 
             this.futures_buy_listview.HideSelection = false;
-            this.futures_buy_listview.Location = new System.Drawing.Point(332, 182);
+            this.futures_buy_listview.Location = new System.Drawing.Point(367, 182);
             this.futures_buy_listview.Name = "futures_buy_listview";
             this.futures_buy_listview.Size = new System.Drawing.Size(78, 147);
             this.futures_buy_listview.TabIndex = 40;
             this.futures_buy_listview.UseCompatibleStateImageBehavior = false;
+            // 
+            // futures_selljr_listview
+            // 
+            this.futures_selljr_listview.HideSelection = false;
+            this.futures_selljr_listview.Location = new System.Drawing.Point(244, 29);
+            this.futures_selljr_listview.Name = "futures_selljr_listview";
+            this.futures_selljr_listview.Size = new System.Drawing.Size(33, 147);
+            this.futures_selljr_listview.TabIndex = 41;
+            this.futures_selljr_listview.UseCompatibleStateImageBehavior = false;
+            // 
+            // futures_buyjr_listview
+            // 
+            this.futures_buyjr_listview.HideSelection = false;
+            this.futures_buyjr_listview.Location = new System.Drawing.Point(451, 182);
+            this.futures_buyjr_listview.Name = "futures_buyjr_listview";
+            this.futures_buyjr_listview.Size = new System.Drawing.Size(33, 147);
+            this.futures_buyjr_listview.TabIndex = 42;
+            this.futures_buyjr_listview.UseCompatibleStateImageBehavior = false;
             // 
             // myasset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1328, 590);
+            this.Controls.Add(this.futures_buyjr_listview);
+            this.Controls.Add(this.futures_selljr_listview);
             this.Controls.Add(this.futures_buy_listview);
             this.Controls.Add(this.futures_sell_listview);
             this.Controls.Add(this.stock_buy_listview);
@@ -191,5 +217,7 @@
         private System.Windows.Forms.ListView stock_buy_listview;
         private System.Windows.Forms.ListView futures_sell_listview;
         private System.Windows.Forms.ListView futures_buy_listview;
+        private System.Windows.Forms.ListView futures_selljr_listview;
+        private System.Windows.Forms.ListView futures_buyjr_listview;
     }
 }

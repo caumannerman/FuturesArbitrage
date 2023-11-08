@@ -23,12 +23,12 @@ namespace FuturesArbitrage
         private string now_book_code = "KR7035760008";
         private string now_stock_name = "CJ ENM";
         private string now_stock_code = "035760";
-        private string now_futures_code = "1DTTB000";
+        private string now_futures_code = "1DTT11000";
 
         static string[] book_code = { "KR7035760008", "KR7097950000", "KR7002380004", "KR7373220003", "KR7011070000", "KR7011780004", "KR7138040001", "KR7010140002", "KR7066970005", "KR7271560005", "KR7122870009", "KR7039030002", "KR7377300009", "KR7091700005", "KR7015760002", "KR701880005", "KR7064350002", "KR7012330007" };
         static string[] stock_name = { "CJ ENM", "CJ 제일제당", "KCC", "LG에너지솔루션", "LG이노텍", "금호석유", "메리츠금융지주", "삼성중공업", "엘앤에프", "오리온", "와이지엔터테인먼트", "이오테크닉스", "카카오페이", "파트론", "한국전력", "한온시스템", "현대로템", "현대모비스" };
         static string[] stock_code = {"035760", "097950", "002380", "373220", "011070", "011780", "138040", "010140", "066970", "271560", "122870", "039030", "377300", "091700", "015760", "018880", "064350", "012330"};
-        static string[] futures_code = {"1DTTB000", "1D1TB000", "1D3TB000", "1F5TB000", "1BYTB000", "1C3TB000", "1FKTB000", "1BFTB000", "1FMTB000", "1FJTB000", "1CQTB000", "1GCTB000", "1F7TB000", "1E3TB000", "115TB000", "1CYTB000", "1G6TB000", "120TB000" };
+        static string[] futures_code = {"1DTT11000", "1D1T11000", "1D3T11000", "1F5T11000", "1BYT11000", "1C3T11000", "1FKT11000", "1BFT11000", "1FMT11000", "1FJT11000", "1CQT11000", "1GCT11000", "1F7T11000", "1E3T11000", "115T11000", "1CYT11000", "1G6T11000", "120T11000" };
 
         //선물 매수호가1~5
         int[] futs_bidp = { 0,0,0,0,0 };
@@ -117,7 +117,7 @@ namespace FuturesArbitrage
             listBox1.Items.Add("일일 회원");
             listBox1.SelectedIndex = 1;
 
-            stock_sell_listview.GridLines = true;
+            stock_sell_listview.GridLines = false;
             stock_sell_listview.View = View.Details;
             stock_sell_listview.Items.Clear();
             stock_sell_listview.Columns.Clear();
@@ -128,8 +128,9 @@ namespace FuturesArbitrage
             //newitem.SubItems.Add("99");
             stock_sell_listview.Items.Add(newitem);
 
+            //선물매도호가창
             futures_sell_listview.GridLines = true;
-            futures_sell_listview.View = View.Details;
+            futures_sell_listview.View = View.List;
             futures_sell_listview.Items.Clear();
             futures_sell_listview.Columns.Clear();
             futures_sell_listview.Columns.Add("선물매도호가", 150);
@@ -139,11 +140,52 @@ namespace FuturesArbitrage
                 futures_sell_listview.Items.Add(new ListViewItem());
                 futures_sell_listview.Items[i].Text = "0";
             }
-            
+            //선물매도호가 잔량창
+            futures_selljr_listview.GridLines = true;
+            futures_selljr_listview.View = View.List;
+            futures_selljr_listview.Items.Clear();
+            futures_selljr_listview.Columns.Clear();
+            futures_selljr_listview.Columns.Add("선물매도호가", 150);
+            futures_selljr_listview.HeaderStyle = ColumnHeaderStyle.None;
+            futures_selljr_listview.Scrollable = false;
+            for (int i = 0; i < 5; i++)
+            {
+                futures_selljr_listview.Items.Add(new ListViewItem());
+                futures_selljr_listview.Items[i].Text = "0";
+            }
+            //선물매수호가 
+            futures_buy_listview.GridLines = true;
+            futures_buy_listview.View = View.List;
+            futures_buy_listview.Items.Clear();
+            futures_buy_listview.Columns.Clear();
+            futures_buy_listview.Columns.Add("선물매수호가", 150);
+            futures_buy_listview.HeaderStyle = ColumnHeaderStyle.None;
+            futures_buy_listview.Scrollable = false;
+            for (int i = 0; i < 5; i++)
+            {
+                futures_buy_listview.Items.Add(new ListViewItem());
+                futures_buy_listview.Items[i].Text = "0";
+            }
+            //선물매수호가 잔량
+            futures_buyjr_listview.GridLines = true;
+            futures_buyjr_listview.View = View.List;
+            futures_buyjr_listview.Items.Clear();
+            futures_buyjr_listview.Columns.Clear();
+            futures_buyjr_listview.Columns.Add("선물매수호가 잔량", 150);
+            futures_buyjr_listview.HeaderStyle = ColumnHeaderStyle.None;
+            futures_buyjr_listview.Scrollable = false;
+            for (int i = 0; i < 5; i++)
+            {
+                futures_buyjr_listview.Items.Add(new ListViewItem());
+                futures_buyjr_listview.Items[i].Text = "0";
+            }
+
+
 
 
         }
 
+       
         private void button1_Click(object sender, EventArgs e)
         {
             /*SettingForm form = new SettingForm();
@@ -161,15 +203,17 @@ namespace FuturesArbitrage
             this.now_stock_name = stock_name[cb.SelectedIndex];
             this.now_stock_code = stock_code[cb.SelectedIndex];
             this.now_futures_code = futures_code[cb.SelectedIndex];
-    }
+        }
+
         async void test1()
         {
             Console.WriteLine("잘 받고가세요8");
+            Console.WriteLine(this.now_stock_code, this.now_futures_code);
             try
             {
                 //주식 매수매도 호가
-                string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=017670";
-                              
+                //string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=017670";
+                string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=" + this.now_stock_code;
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
                 request.Headers.Add("Authorization", access_token);
                 request.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
@@ -183,7 +227,8 @@ namespace FuturesArbitrage
                 JObject obj_s = JObject.Parse(text_s);
 
                 //선물 매수매도 호가
-                string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=112T11000";
+                //string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=112T11000";
+                string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=" + this.now_futures_code;
                 HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(URL2);
                 request2.Headers.Add("Authorization", access_token);
                 request2.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
@@ -238,11 +283,25 @@ namespace FuturesArbitrage
                 int[] stock_bidp_rsqn = { (int)obj_s["output1"]["bidp_rsqn1"], (int)obj_s["output1"]["bidp_rsqn2"], (int)obj_s["output1"]["bidp_rsqn3"],
                 (int)obj_s["output1"]["bidp_rsqn4"], (int)obj_s["output1"]["bidp_rsqn5"], (int)obj_s["output1"]["bidp_rsqn6"], (int)obj_s["output1"]["bidp_rsqn7"],
                 (int)obj_s["output1"]["bidp_rsqn8"], (int)obj_s["output1"]["bidp_rsqn9"], (int)obj_s["output1"]["bidp_rsqn10"]};
-
+                //선물 매도호가 
                 for (int i = 0; i < 5; i++)
                 {
-                    
-                    futures_sell_listview.Items[i].Text = (futs_askp[i]-testint).ToString();
+                    futures_sell_listview.Items[i].Text = (futs_askp[4-i]).ToString();
+                }
+                //선물 매도호가잔량
+                for (int i = 0; i < 5; i++)
+                {
+                    futures_selljr_listview.Items[i].Text = (futs_askp_rsqn[4 - i]).ToString();
+                }
+                //선물 매수호가
+                for (int i = 0; i < 5; i++)
+                {
+                    futures_buy_listview.Items[i].Text = (futs_bidp[i]).ToString();
+                }
+                //선물 매수호가잔량
+                for (int i = 0; i < 5; i++)
+                {
+                    futures_buyjr_listview.Items[i].Text = (futs_bidp_rsqn[i]).ToString();
                 }
 
 
