@@ -71,7 +71,7 @@ namespace FuturesArbitrage
 
             test1();
             testint++;
-            listView1.Items[0].SubItems[0].Text = testint.ToString();
+            stock_sell_listview.Items[0].SubItems[0].Text = testint.ToString();
         }
 
 
@@ -117,18 +117,31 @@ namespace FuturesArbitrage
             listBox1.Items.Add("일일 회원");
             listBox1.SelectedIndex = 1;
 
-            listView1.GridLines = true;
-            listView1.View = View.Details;
-            listView1.Items.Clear();
-            listView1.Columns.Clear();
-            
-            listView1.Columns.Add("매도호가", 250);
+            stock_sell_listview.GridLines = true;
+            stock_sell_listview.View = View.Details;
+            stock_sell_listview.Items.Clear();
+            stock_sell_listview.Columns.Clear();
+            stock_sell_listview.Columns.Add("매도호가", 150);
 
             String[] aa = { "10" };
             ListViewItem newitem = new ListViewItem(aa);
-            newitem.SubItems.Add("99");
-            newitem.SubItems.Add("88");
-            listView1.Items.Add(newitem);
+            //newitem.SubItems.Add("99");
+            stock_sell_listview.Items.Add(newitem);
+
+            futures_sell_listview.GridLines = true;
+            futures_sell_listview.View = View.Details;
+            futures_sell_listview.Items.Clear();
+            futures_sell_listview.Columns.Clear();
+            futures_sell_listview.Columns.Add("선물매도호가", 150);
+            futures_sell_listview.Scrollable = false;
+            for( int i = 0; i < 5; i++)
+            {
+                futures_sell_listview.Items.Add(new ListViewItem());
+                futures_sell_listview.Items[i].Text = "0";
+            }
+            
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -226,17 +239,11 @@ namespace FuturesArbitrage
                 (int)obj_s["output1"]["bidp_rsqn4"], (int)obj_s["output1"]["bidp_rsqn5"], (int)obj_s["output1"]["bidp_rsqn6"], (int)obj_s["output1"]["bidp_rsqn7"],
                 (int)obj_s["output1"]["bidp_rsqn8"], (int)obj_s["output1"]["bidp_rsqn9"], (int)obj_s["output1"]["bidp_rsqn10"]};
 
-                future_sell1.Text = futs_askp[0].ToString();
-                future_sell2.Text = futs_askp[1].ToString();
-                future_sell3.Text = futs_askp[2].ToString();
-                future_sell4.Text = futs_askp[3].ToString();
-                future_sell5.Text = futs_askp[4].ToString();
-                //선물 매수호가 변경
-                future_buy1.Text = futs_bidp[0].ToString();
-                future_buy2.Text = futs_bidp[1].ToString();
-                future_buy3.Text = futs_bidp[2].ToString();
-                future_buy4.Text = futs_bidp[3].ToString();
-                future_buy5.Text = futs_bidp[4].ToString();
+                for (int i = 0; i < 5; i++)
+                {
+                    
+                    futures_sell_listview.Items[i].Text = (futs_askp[i]-testint).ToString();
+                }
 
 
 
