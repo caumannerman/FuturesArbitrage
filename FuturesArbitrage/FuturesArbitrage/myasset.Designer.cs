@@ -29,31 +29,33 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.logDataGridView = new System.Windows.Forms.DataGridView();
             this.myAssetGridView = new System.Windows.Forms.DataGridView();
             this.jongmokComboBox = new System.Windows.Forms.ComboBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.stock_sell_listview = new System.Windows.Forms.ListView();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.stock_buy_listview = new System.Windows.Forms.ListView();
             this.futures_sell_listview = new System.Windows.Forms.ListView();
             this.futures_buy_listview = new System.Windows.Forms.ListView();
             this.futures_selljr_listview = new System.Windows.Forms.ListView();
             this.futures_buyjr_listview = new System.Windows.Forms.ListView();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.abtChart_backwardation = new System.Windows.Forms.Button();
+            this.abtChart_contango = new System.Windows.Forms.Button();
+            this.abtChart_name = new System.Windows.Forms.Label();
+            this.arbitrageChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.logDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.myAssetGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.arbitrageChart)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Gray;
-            this.button1.Location = new System.Drawing.Point(1064, 12);
+            this.button1.Location = new System.Drawing.Point(1194, 9);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -61,26 +63,10 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // chart1
-            // 
-            chartArea7.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.chart1.Legends.Add(legend7);
-            this.chart1.Location = new System.Drawing.Point(596, 47);
-            this.chart1.Name = "chart1";
-            series7.ChartArea = "ChartArea1";
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            this.chart1.Series.Add(series7);
-            this.chart1.Size = new System.Drawing.Size(487, 282);
-            this.chart1.TabIndex = 1;
-            this.chart1.Text = "chart1";
-            // 
             // logDataGridView
             // 
             this.logDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.logDataGridView.Location = new System.Drawing.Point(12, 335);
+            this.logDataGridView.Location = new System.Drawing.Point(12, 391);
             this.logDataGridView.Name = "logDataGridView";
             this.logDataGridView.RowHeadersWidth = 51;
             this.logDataGridView.RowTemplate.Height = 27;
@@ -90,7 +76,7 @@
             // myAssetGridView
             // 
             this.myAssetGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.myAssetGridView.Location = new System.Drawing.Point(559, 335);
+            this.myAssetGridView.Location = new System.Drawing.Point(563, 395);
             this.myAssetGridView.Name = "myAssetGridView";
             this.myAssetGridView.RowHeadersWidth = 51;
             this.myAssetGridView.RowTemplate.Height = 27;
@@ -118,16 +104,6 @@
             this.stock_sell_listview.Size = new System.Drawing.Size(78, 147);
             this.stock_sell_listview.TabIndex = 36;
             this.stock_sell_listview.UseCompatibleStateImageBehavior = false;
-            // 
-            // listBox1
-            // 
-            this.listBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(1103, 335);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 94);
-            this.listBox1.TabIndex = 37;
             // 
             // stock_buy_listview
             // 
@@ -178,46 +154,97 @@
             this.futures_buyjr_listview.TabIndex = 42;
             this.futures_buyjr_listview.UseCompatibleStateImageBehavior = false;
             // 
+            // abtChart_backwardation
+            // 
+            this.abtChart_backwardation.Location = new System.Drawing.Point(1053, 13);
+            this.abtChart_backwardation.Name = "abtChart_backwardation";
+            this.abtChart_backwardation.Size = new System.Drawing.Size(85, 23);
+            this.abtChart_backwardation.TabIndex = 46;
+            this.abtChart_backwardation.Text = "Backwardation";
+            this.abtChart_backwardation.UseVisualStyleBackColor = true;
+            // 
+            // abtChart_contango
+            // 
+            this.abtChart_contango.Location = new System.Drawing.Point(962, 13);
+            this.abtChart_contango.Name = "abtChart_contango";
+            this.abtChart_contango.Size = new System.Drawing.Size(85, 23);
+            this.abtChart_contango.TabIndex = 45;
+            this.abtChart_contango.Text = "Contango";
+            this.abtChart_contango.UseVisualStyleBackColor = true;
+            // 
+            // abtChart_name
+            // 
+            this.abtChart_name.AutoSize = true;
+            this.abtChart_name.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.abtChart_name.Location = new System.Drawing.Point(559, 13);
+            this.abtChart_name.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.abtChart_name.Name = "abtChart_name";
+            this.abtChart_name.Size = new System.Drawing.Size(79, 19);
+            this.abtChart_name.TabIndex = 44;
+            this.abtChart_name.Text = "CJ ENM";
+            // 
+            // arbitrageChart
+            // 
+            chartArea4.Name = "ChartArea1";
+            this.arbitrageChart.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.arbitrageChart.Legends.Add(legend4);
+            this.arbitrageChart.Location = new System.Drawing.Point(559, 40);
+            this.arbitrageChart.Margin = new System.Windows.Forms.Padding(2);
+            this.arbitrageChart.Name = "arbitrageChart";
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.arbitrageChart.Series.Add(series4);
+            this.arbitrageChart.Size = new System.Drawing.Size(600, 350);
+            this.arbitrageChart.TabIndex = 43;
+            this.arbitrageChart.Text = "chart2";
+            // 
             // myasset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1328, 590);
+            this.ClientSize = new System.Drawing.Size(1328, 646);
+            this.Controls.Add(this.abtChart_backwardation);
+            this.Controls.Add(this.abtChart_contango);
+            this.Controls.Add(this.abtChart_name);
+            this.Controls.Add(this.arbitrageChart);
             this.Controls.Add(this.futures_buyjr_listview);
             this.Controls.Add(this.futures_selljr_listview);
             this.Controls.Add(this.futures_buy_listview);
             this.Controls.Add(this.futures_sell_listview);
             this.Controls.Add(this.stock_buy_listview);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.stock_sell_listview);
             this.Controls.Add(this.jongmokComboBox);
             this.Controls.Add(this.myAssetGridView);
             this.Controls.Add(this.logDataGridView);
-            this.Controls.Add(this.chart1);
             this.Controls.Add(this.button1);
             this.Name = "myasset";
             this.Text = "myasset";
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.logDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.myAssetGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.arbitrageChart)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.DataGridView logDataGridView;
         private System.Windows.Forms.DataGridView myAssetGridView;
         private System.Windows.Forms.ComboBox jongmokComboBox;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ListView stock_sell_listview;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListView stock_buy_listview;
         private System.Windows.Forms.ListView futures_sell_listview;
         private System.Windows.Forms.ListView futures_buy_listview;
         private System.Windows.Forms.ListView futures_selljr_listview;
         private System.Windows.Forms.ListView futures_buyjr_listview;
+        private System.Windows.Forms.Button abtChart_backwardation;
+        private System.Windows.Forms.Button abtChart_contango;
+        private System.Windows.Forms.Label abtChart_name;
+        private System.Windows.Forms.DataVisualization.Charting.Chart arbitrageChart;
     }
 }

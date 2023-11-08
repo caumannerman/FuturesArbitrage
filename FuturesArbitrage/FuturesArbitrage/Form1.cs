@@ -101,8 +101,8 @@ namespace FuturesArbitrage
 			chart4.Series.Clear();
 			chart5.Series.Clear();
 			chart6.Series.Clear();
-
-			chart1.Series.Add("선물매수1호가");
+            
+            chart1.Series.Add("선물매수1호가");
 			chart1.Series["선물매수1호가"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 			chart1.Series["선물매수1호가"].Color = Color.SkyBlue;
 		
@@ -355,7 +355,7 @@ namespace FuturesArbitrage
 				//얼마의 차익을 얻을 수 있는지 보냄
 
 
-				//chart3 
+				//chart1
 				// 매수차익거래 선물 이론가격
 				chart1.Series["선물매수1호가"].Points.AddXY(x1, futs_bidp[0]);
 
@@ -460,12 +460,6 @@ namespace FuturesArbitrage
 				StreamReader reader_f = new StreamReader(stream_f, Encoding.UTF8);
 				string text_f = reader_f.ReadToEnd();
 				JObject obj_f = JObject.Parse(text_f);
-
-				//string notice = obj["output1"]["askp1"].ToString();
-				//Console.WriteLine(((int) obj["output1"]["askp1"]).GetType().Name);
-				//Console.WriteLine((int)obj["output1"]["askp1"]);
-
-
 
 				//선물 매수호가1~5
 				int[] futs_bidp = { (int)obj_f["output2"]["futs_bidp1"], (int)obj_f["output2"]["futs_bidp2"] , (int)obj_f["output2"]["futs_bidp3"] ,

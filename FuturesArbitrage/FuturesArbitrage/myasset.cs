@@ -29,6 +29,14 @@ namespace FuturesArbitrage
         static string[] stock_name = { "CJ ENM", "CJ 제일제당", "KCC", "LG에너지솔루션", "LG이노텍", "금호석유", "메리츠금융지주", "삼성중공업", "엘앤에프", "오리온", "와이지엔터테인먼트", "이오테크닉스", "카카오페이", "파트론", "한국전력", "한온시스템", "현대로템", "현대모비스" };
         static string[] stock_code = {"035760", "097950", "002380", "373220", "011070", "011780", "138040", "010140", "066970", "271560", "122870", "039030", "377300", "091700", "015760", "018880", "064350", "012330"};
         static string[] futures_code = {"1DTT11000", "1D1T11000", "1D3T11000", "1F5T11000", "1BYT11000", "1C3T11000", "1FKT11000", "1BFT11000", "1FMT11000", "1FJT11000", "1CQT11000", "1GCT11000", "1F7T11000", "1E3T11000", "115T11000", "1CYT11000", "1G6T11000", "120T11000" };
+        ///////////////////////////////// 그래프 그리는 데 필요한 변수 ///////////////////////////////////////
+        int k = 0;
+        double r_lending = 0.04;
+        double r_borrow = 0.06;
+        int T = 6;
+        //차익거래 차트 x축 좌표
+        double arbt_chart_x = 0.0;
+
 
         //선물 매수호가1~5
         int[] futs_bidp = { 0,0,0,0,0 };
@@ -78,8 +86,7 @@ namespace FuturesArbitrage
         public myasset()
         {
             InitializeComponent();
-            
-            
+
             logDataGridView.Columns.Add("COL1", "ll1");
             logDataGridView.Columns.Add("COL2", "ll2");
             logDataGridView.Columns.Add("COL3", "ll3");
@@ -103,20 +110,36 @@ namespace FuturesArbitrage
 
 
         }
+        private void init_chart()
+        {
+            ///////////////////////////////////////////////////// 차익거래 차트 설정 ////////////////////////////////////////////
+            arbitrageChart.Series.Clear();
+            arbitrageChart.Series.Add("선물매수1호가");
+            arbitrageChart.Series["선물매수1호가"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            arbitrageChart.Series["선물매수1호가"].Color = Color.SkyBlue;
 
+            // 선물 매도 1호가 (내가매수) -> 매도차익거래
+            arbitrageChart.Series.Add("선물매도1호가");
+            arbitrageChart.Series["선물매도1호가"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            arbitrageChart.Series["선물매도1호가"].Color = Color.DarkBlue;
+
+            arbitrageChart.Series.Add("매수차익 하한(이론가)");
+            arbitrageChart.Series["매수차익 하한(이론가)"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            arbitrageChart.Series["매수차익 하한(이론가)"].Color = Color.Red;
+
+            arbitrageChart.Series.Add("매도차익 상한(이론가)");
+            arbitrageChart.Series["매도차익 상한(이론가)"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            arbitrageChart.Series["매도차익 상한(이론가)"].Color = Color.Orange;
+        }
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             System.Console.WriteLine("load되엉ㅆ습니다.");
             timer1.Tick += timer1_Tick;
             timer1.Interval = 300;
+            init_chart();
 
-            listBox1.Items.Add("VIP 회원");
-            listBox1.Items.Add("정회원");
-            listBox1.Items.Add("준회원");
-            listBox1.Items.Add("일일 회원");
-            listBox1.SelectedIndex = 1;
-
+            ///////////////////////////////////////////////////// 호가창 ////////////////////////////////////////////
             stock_sell_listview.GridLines = false;
             stock_sell_listview.View = View.Details;
             stock_sell_listview.Items.Clear();
@@ -179,10 +202,6 @@ namespace FuturesArbitrage
                 futures_buyjr_listview.Items.Add(new ListViewItem());
                 futures_buyjr_listview.Items[i].Text = "0";
             }
-
-
-
-
         }
 
        
@@ -203,6 +222,19 @@ namespace FuturesArbitrage
             this.now_stock_name = stock_name[cb.SelectedIndex];
             this.now_stock_code = stock_code[cb.SelectedIndex];
             this.now_futures_code = futures_code[cb.SelectedIndex];
+            //바뀐 종목 이름으로 변경
+            abtChart_name.Text = this.now_stock_name;
+            //종목이 바뀌었으니 chart를 지우고 다시 그려야함
+            arbitrageChart.Series.Clear();
+            init_chart();
+            arbt_chart_x = 0.0;
+            //arbitrageChart.Series["선물매수1호가"].Points.Clear();
+
+            //arbitrageChart.Series["선물매도1호가"].Points.Clear();
+
+            // 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
+            //arbitrageChart.Series["매수차익 하한(이론가)"].Points.Clear();
+            //arbitrageChart.Series["매도차익 상한(이론가)"].Points.Clear();
         }
 
         async void test1()
@@ -260,11 +292,8 @@ namespace FuturesArbitrage
                 int[] stock_askp_rsqn = { (int)obj_s["output1"]["askp_rsqn1"], (int)obj_s["output1"]["askp_rsqn2"], (int)obj_s["output1"]["askp_rsqn3"],
                 (int)obj_s["output1"]["askp_rsqn4"], (int)obj_s["output1"]["askp_rsqn5"], (int)obj_s["output1"]["askp_rsqn6"], (int)obj_s["output1"]["askp_rsqn7"],
                 (int)obj_s["output1"]["askp_rsqn8"], (int)obj_s["output1"]["askp_rsqn9"], (int)obj_s["output1"]["askp_rsqn10"]};
-                
-                
 
                 //이론가격보다 선물매수호가중 가장 높은 것 ( 선물매도할 때 받을 수 있는 최대가격 )이 이론가격보다 크면 매수차익거래 가능
-
 
                 //얼마의 차익을 얻을 수 있는지 보냄
 
@@ -304,6 +333,118 @@ namespace FuturesArbitrage
                     futures_buyjr_listview.Items[i].Text = (futs_bidp_rsqn[i]).ToString();
                 }
 
+
+                //////////////////////////////////////////   차트 그리기 /////////////////////////////////////////
+                //매도호가, 잔량으로 10주 살 때 평단을 S라 할 것임.
+                double S_buyingArbitrage = 0;
+                int count = 0;
+                for (int i = 0; i < 10; i++)
+                {
+                    if (count < 10)
+                    {
+                        count += stock_askp_rsqn[i];
+
+                        if (count <= 10)
+                        {
+                            S_buyingArbitrage += stock_askp[i] * stock_askp_rsqn[i];
+                        }
+                        else
+                        {
+                            S_buyingArbitrage += stock_askp[i] * (10 - count + stock_askp_rsqn[i]);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                //평단 완성
+                S_buyingArbitrage /= 10;
+
+                //현물 매수 평단을 S로 하여 선물이론가격 도출
+                double book_value = (S_buyingArbitrage + 2 * k) * Math.Pow(1 + r_borrow, T / 365);
+
+                //매수호가, 잔량으로 10주 팔 때 평단을 S라 할 것임.
+                double S_sellingArbitrage = 0;
+                int count2 = 0;
+                for (int i = 0; i < 10; i++)
+                {
+                    if (count2 < 10)
+                    {
+                        count2 += stock_bidp_rsqn[i];
+
+                        if (count <= 10)
+                        {
+                            S_sellingArbitrage += stock_bidp[i] * stock_bidp_rsqn[i];
+                        }
+                        else
+                        {
+                            S_sellingArbitrage += stock_bidp[i] * (10 - count2 + stock_bidp_rsqn[i]);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                //평단 완성
+                S_sellingArbitrage /= 10;
+
+                //현물 매도 평단을 S로 하여 선물이론가격 도출
+                double book_value2 = (S_sellingArbitrage + 2 * k) * Math.Pow(1 + r_lending, T / 365);
+
+
+                //chart1
+                // 매수차익거래 선물 이론가격
+                arbitrageChart.Series["선물매수1호가"].Points.AddXY(arbt_chart_x, futs_bidp[0]);
+
+                arbitrageChart.Series["선물매도1호가"].Points.AddXY(arbt_chart_x, futs_askp[0]);
+
+                // 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
+                arbitrageChart.Series["매수차익 하한(이론가)"].Points.AddXY(arbt_chart_x, book_value);
+                arbitrageChart.Series["매도차익 상한(이론가)"].Points.AddXY(arbt_chart_x, book_value2);
+                System.Console.WriteLine(book_value2);
+                System.Console.WriteLine(futs_askp[0]);
+                System.Console.WriteLine(futs_bidp[0]);
+                System.Console.WriteLine(book_value);
+
+                //매수차익거래 가능!!!
+                if (futs_bidp[0] > book_value)
+                {
+                    abtChart_contango.BackColor = Color.HotPink;
+                }
+                else
+                {
+                    abtChart_contango.BackColor = Color.DarkGray;
+                }
+                //매도차익거래 가능!!
+                if (futs_askp[0] < book_value2)
+                {
+                    abtChart_backwardation.BackColor = Color.HotPink;
+                }
+                else
+                {
+                    abtChart_backwardation.BackColor = Color.DarkGray;
+                }
+
+                if (arbitrageChart.Series["선물매수1호가"].Points.Count >= 125)
+                {
+                    arbitrageChart.Series["선물매수1호가"].Points.RemoveAt(0);
+                    arbitrageChart.Series["선물매도1호가"].Points.RemoveAt(0);
+                    arbitrageChart.Series["매수차익 하한(이론가)"].Points.RemoveAt(0);
+                    arbitrageChart.Series["매도차익 상한(이론가)"].Points.RemoveAt(0);
+
+                }
+
+                //chart2.ChartAreas[0].AxisX.Minimum = chart2.Series["선물매수1호가"].Points[0].XValue;
+                arbitrageChart.ChartAreas[0].AxisX.Minimum = arbitrageChart.Series["선물매수1호가"].Points[0].XValue;
+                arbitrageChart.ChartAreas[0].AxisX.Maximum = 50;
+                arbitrageChart.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(book_value, book_value2), futs_bidp[0]), futs_askp[0]) - 200;
+                arbitrageChart.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(book_value, book_value2), futs_bidp[0]), futs_askp[0]) + 200;
+
+                arbt_chart_x += 0.4; //그래프 상 오른쪽에 그려야하므로
 
 
             }
