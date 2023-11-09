@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.logDataGridView = new System.Windows.Forms.DataGridView();
             this.myAssetGridView = new System.Windows.Forms.DataGridView();
@@ -65,18 +65,30 @@
             // 
             // logDataGridView
             // 
+            this.logDataGridView.AllowUserToResizeRows = false;
+            this.logDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.logDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.logDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.logDataGridView.Location = new System.Drawing.Point(12, 391);
+            this.logDataGridView.Location = new System.Drawing.Point(97, 305);
             this.logDataGridView.Name = "logDataGridView";
+            this.logDataGridView.ReadOnly = true;
+            this.logDataGridView.RowHeadersVisible = false;
             this.logDataGridView.RowHeadersWidth = 51;
-            this.logDataGridView.RowTemplate.Height = 27;
-            this.logDataGridView.Size = new System.Drawing.Size(524, 243);
+            this.logDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.logDataGridView.RowTemplate.Height = 28;
+            this.logDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.logDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.logDataGridView.ShowCellToolTips = false;
+            this.logDataGridView.ShowEditingIcon = false;
+            this.logDataGridView.Size = new System.Drawing.Size(524, 385);
             this.logDataGridView.TabIndex = 2;
             // 
             // myAssetGridView
             // 
             this.myAssetGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.myAssetGridView.Location = new System.Drawing.Point(563, 395);
+            this.myAssetGridView.Location = new System.Drawing.Point(769, 411);
             this.myAssetGridView.Name = "myAssetGridView";
             this.myAssetGridView.RowHeadersWidth = 51;
             this.myAssetGridView.RowTemplate.Height = 27;
@@ -99,7 +111,7 @@
             // stock_sell_listview
             // 
             this.stock_sell_listview.HideSelection = false;
-            this.stock_sell_listview.Location = new System.Drawing.Point(61, 29);
+            this.stock_sell_listview.Location = new System.Drawing.Point(1112, 90);
             this.stock_sell_listview.Name = "stock_sell_listview";
             this.stock_sell_listview.Size = new System.Drawing.Size(78, 147);
             this.stock_sell_listview.TabIndex = 36;
@@ -108,7 +120,7 @@
             // stock_buy_listview
             // 
             this.stock_buy_listview.HideSelection = false;
-            this.stock_buy_listview.Location = new System.Drawing.Point(143, 182);
+            this.stock_buy_listview.Location = new System.Drawing.Point(1194, 243);
             this.stock_buy_listview.Name = "stock_buy_listview";
             this.stock_buy_listview.Size = new System.Drawing.Size(78, 147);
             this.stock_buy_listview.TabIndex = 38;
@@ -120,17 +132,17 @@
             this.futures_sell_listview.GridLines = true;
             this.futures_sell_listview.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.futures_sell_listview.HideSelection = false;
-            this.futures_sell_listview.Location = new System.Drawing.Point(282, 29);
+            this.futures_sell_listview.Location = new System.Drawing.Point(97, 29);
             this.futures_sell_listview.Name = "futures_sell_listview";
             this.futures_sell_listview.Scrollable = false;
-            this.futures_sell_listview.Size = new System.Drawing.Size(78, 147);
+            this.futures_sell_listview.Size = new System.Drawing.Size(62, 239);
             this.futures_sell_listview.TabIndex = 39;
             this.futures_sell_listview.UseCompatibleStateImageBehavior = false;
             // 
             // futures_buy_listview
             // 
             this.futures_buy_listview.HideSelection = false;
-            this.futures_buy_listview.Location = new System.Drawing.Point(367, 182);
+            this.futures_buy_listview.Location = new System.Drawing.Point(449, 132);
             this.futures_buy_listview.Name = "futures_buy_listview";
             this.futures_buy_listview.Size = new System.Drawing.Size(78, 147);
             this.futures_buy_listview.TabIndex = 40;
@@ -139,18 +151,18 @@
             // futures_selljr_listview
             // 
             this.futures_selljr_listview.HideSelection = false;
-            this.futures_selljr_listview.Location = new System.Drawing.Point(244, 29);
+            this.futures_selljr_listview.Location = new System.Drawing.Point(64, 29);
             this.futures_selljr_listview.Name = "futures_selljr_listview";
-            this.futures_selljr_listview.Size = new System.Drawing.Size(33, 147);
+            this.futures_selljr_listview.Size = new System.Drawing.Size(33, 239);
             this.futures_selljr_listview.TabIndex = 41;
             this.futures_selljr_listview.UseCompatibleStateImageBehavior = false;
             // 
             // futures_buyjr_listview
             // 
             this.futures_buyjr_listview.HideSelection = false;
-            this.futures_buyjr_listview.Location = new System.Drawing.Point(451, 182);
+            this.futures_buyjr_listview.Location = new System.Drawing.Point(159, 29);
             this.futures_buyjr_listview.Name = "futures_buyjr_listview";
-            this.futures_buyjr_listview.Size = new System.Drawing.Size(33, 147);
+            this.futures_buyjr_listview.Size = new System.Drawing.Size(33, 239);
             this.futures_buyjr_listview.TabIndex = 42;
             this.futures_buyjr_listview.UseCompatibleStateImageBehavior = false;
             // 
@@ -185,17 +197,17 @@
             // 
             // arbitrageChart
             // 
-            chartArea4.Name = "ChartArea1";
-            this.arbitrageChart.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.arbitrageChart.Legends.Add(legend4);
-            this.arbitrageChart.Location = new System.Drawing.Point(559, 40);
+            chartArea2.Name = "ChartArea1";
+            this.arbitrageChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.arbitrageChart.Legends.Add(legend2);
+            this.arbitrageChart.Location = new System.Drawing.Point(642, 13);
             this.arbitrageChart.Margin = new System.Windows.Forms.Padding(2);
             this.arbitrageChart.Name = "arbitrageChart";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.arbitrageChart.Series.Add(series4);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.arbitrageChart.Series.Add(series2);
             this.arbitrageChart.Size = new System.Drawing.Size(600, 350);
             this.arbitrageChart.TabIndex = 43;
             this.arbitrageChart.Text = "chart2";
@@ -204,7 +216,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1328, 646);
+            this.ClientSize = new System.Drawing.Size(1328, 765);
             this.Controls.Add(this.abtChart_backwardation);
             this.Controls.Add(this.abtChart_contango);
             this.Controls.Add(this.abtChart_name);

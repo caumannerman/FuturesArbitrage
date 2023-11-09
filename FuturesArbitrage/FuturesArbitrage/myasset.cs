@@ -86,19 +86,30 @@ namespace FuturesArbitrage
         public myasset()
         {
             InitializeComponent();
+            //기본 첫 열 삭제
+            logDataGridView.RowHeadersVisible = false;
+            logDataGridView.ColumnHeadersVisible = false;
+            ////첫 행 삭제
+            
+            logDataGridView.Columns.Clear();
+            logDataGridView.Rows.Clear();
+            logDataGridView.Columns.Add("COL1", "매도미체결건수");
+            logDataGridView.Columns.Add("COL2", "매도잔량");
+            logDataGridView.Columns.Add("COL3", "호가");
+            logDataGridView.Columns.Add("COL4", "매수잔량");
+            logDataGridView.Columns.Add("COL5", "매수미체결건수");
+            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
+            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
+            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
+            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
+            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
+            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
+            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
+            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
+            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
+            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
+            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
 
-            logDataGridView.Columns.Add("COL1", "ll1");
-            logDataGridView.Columns.Add("COL2", "ll2");
-            logDataGridView.Columns.Add("COL3", "ll3");
-            logDataGridView.Columns.Add("COL4", "ll4");
-            logDataGridView.Columns.Add("COL5", "ll5");
-            logDataGridView.Rows.Add("ID 1", "제목 1번", "사용중", "2019/03/11", "2019/03/18");
-            logDataGridView.Rows.Add("ID 2", "제목 2번", "미사용", "2019/03/12", "2019/03/18");
-            logDataGridView.Rows.Add("ID 3", "제목 3번", "미사용", "2019/03/13", "2019/03/18");
-            logDataGridView.Rows.Add("ID 4", "제목 4번", "사용중", "2019/03/14", "2019/03/18");
-            logDataGridView.Rows.Add("ID 4", "제목 4번", "사용중", "2019/03/14", "2019/03/18");
-            logDataGridView.Rows.Add("ID 4", "제목 4번", "사용중", "2019/03/14", "2019/03/18");
-            logDataGridView.Rows.Add("ID 4", "제목 4번", "사용중", "2019/03/14", "2019/03/18");
 
             for (int i = 0; i < book_code.Length; i++)
             {
@@ -312,9 +323,12 @@ namespace FuturesArbitrage
                 int[] stock_bidp_rsqn = { (int)obj_s["output1"]["bidp_rsqn1"], (int)obj_s["output1"]["bidp_rsqn2"], (int)obj_s["output1"]["bidp_rsqn3"],
                 (int)obj_s["output1"]["bidp_rsqn4"], (int)obj_s["output1"]["bidp_rsqn5"], (int)obj_s["output1"]["bidp_rsqn6"], (int)obj_s["output1"]["bidp_rsqn7"],
                 (int)obj_s["output1"]["bidp_rsqn8"], (int)obj_s["output1"]["bidp_rsqn9"], (int)obj_s["output1"]["bidp_rsqn10"]};
+                
+                // ListView 호가창 그리기 
                 //선물 매도호가 
                 for (int i = 0; i < 5; i++)
                 {
+
                     futures_sell_listview.Items[i].Text = (futs_askp[4-i]).ToString();
                 }
                 //선물 매도호가잔량
@@ -332,6 +346,14 @@ namespace FuturesArbitrage
                 {
                     futures_buyjr_listview.Items[i].Text = (futs_bidp_rsqn[i]).ToString();
                 }
+
+
+                //logDataGridView
+                for(int i = 0; i < 5; i++)
+                {
+                    logDataGridView.Rows[0].Cells[i].Value = "11";
+                }
+                
 
 
                 //////////////////////////////////////////   차트 그리기 /////////////////////////////////////////
