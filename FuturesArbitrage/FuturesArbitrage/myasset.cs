@@ -152,6 +152,52 @@ namespace FuturesArbitrage
             stock_order_chart.Rows.Add("", "", "0", "0", "0");
             stock_order_chart.Rows.Add("", "", "0", "0", "0");
 
+            /////////////////////////////////////////////////// log view //////////////////////////////////////////////////
+            //기본 첫 열 삭제
+            fep_log_view.RowHeadersVisible = false;
+            fep_log_view.ColumnHeadersVisible = true;
+            ////첫 행 삭제
+            fep_log_view.Columns.Clear();
+            fep_log_view.Rows.Clear();
+            fep_log_view.Columns.Add("COL1", "메시지 길이");
+            fep_log_view.Columns.Add("COL2", "메시지 타입");
+            fep_log_view.Columns.Add("COL3", "응답코드");
+            fep_log_view.Columns.Add("COL4", "메시지 번호");
+            fep_log_view.Columns.Add("COL5", "메시지 개수");
+            fep_log_view.Columns.Add("COL6", "보드ID");
+            fep_log_view.Columns.Add("COL7", "주문번호");
+            fep_log_view.Columns.Add("COL8", "표준종목코드");
+            fep_log_view.Columns.Add("COL9", "계좌번호");
+            fep_log_view.Columns.Add("COL10", "회원기준 체결번호");
+            fep_log_view.Columns.Add("COL11", "체결가격");
+            fep_log_view.Columns.Add("COL12", "체결수량");
+            fep_log_view.Columns.Add("COL13", "체결유형코드");
+            fep_log_view.Columns.Add("COL14", "체결시각");
+            fep_log_view.Columns.Add("COL15", "최근월물체결가격");
+            fep_log_view.Columns.Add("COL15", "차근월물체결가격");
+            fep_log_view.Columns.Add("COL15", "매도/매수 구분코드");
+            fep_log_view.Columns.Add("COL15", "회원사용영역");
+            fep_log_view.Rows.Add("0", "0", "0", "", "");
+            fep_log_view.Rows.Add("0", "0", "0", "", "");
+            fep_log_view.Rows.Add("0", "0", "0", "", "");
+            fep_log_view.Rows.Add("0", "0", "0", "", "");
+            fep_log_view.Rows.Add("0", "0", "0", "", "");
+            fep_log_view.Rows.Add("0", "0", "0", "", "");
+            fep_log_view.Rows.Add("0", "0", "0", "", "");
+            fep_log_view.Rows.Add("0", "0", "0", "", "");
+            fep_log_view.Rows.Add("0", "0", "0", "", "");
+            fep_log_view.Rows.Add("0", "0", "0", "", "");
+            fep_log_view.Rows.Add("", "", "0", "0", "0");
+            fep_log_view.Rows.Add("", "", "0", "0", "0");
+            fep_log_view.Rows.Add("", "", "0", "0", "0");
+            fep_log_view.Rows.Add("", "", "0", "0", "0");
+            fep_log_view.Rows.Add("", "", "0", "0", "0");
+            fep_log_view.Rows.Add("", "", "0", "0", "0");
+            fep_log_view.Rows.Add("", "", "0", "0", "0");
+            fep_log_view.Rows.Add("", "", "0", "0", "0");
+            fep_log_view.Rows.Add("", "", "0", "0", "0");
+            fep_log_view.Rows.Add("", "", "0", "0", "0");
+
             //색상 변경 매수-red, 매도-blue
             for (int i = 0; i < 10; i++)
             {

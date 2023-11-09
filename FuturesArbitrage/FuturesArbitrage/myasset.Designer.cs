@@ -47,15 +47,19 @@
             this.abtChart_name = new System.Windows.Forms.Label();
             this.arbitrageChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.stock_order_chart = new System.Windows.Forms.DataGridView();
+            this.fep_log_view = new System.Windows.Forms.DataGridView();
+            this.asset_view = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.futures_order_chart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arbitrageChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stock_order_chart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fep_log_view)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.asset_view)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Gray;
-            this.button1.Location = new System.Drawing.Point(1194, 9);
+            this.button1.Location = new System.Drawing.Point(1230, 9);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -125,7 +129,7 @@
             this.futures_sell_listview.GridLines = true;
             this.futures_sell_listview.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.futures_sell_listview.HideSelection = false;
-            this.futures_sell_listview.Location = new System.Drawing.Point(1126, 385);
+            this.futures_sell_listview.Location = new System.Drawing.Point(1210, 40);
             this.futures_sell_listview.Name = "futures_sell_listview";
             this.futures_sell_listview.Scrollable = false;
             this.futures_sell_listview.Size = new System.Drawing.Size(62, 239);
@@ -144,7 +148,7 @@
             // futures_selljr_listview
             // 
             this.futures_selljr_listview.HideSelection = false;
-            this.futures_selljr_listview.Location = new System.Drawing.Point(1093, 385);
+            this.futures_selljr_listview.Location = new System.Drawing.Point(1177, 40);
             this.futures_selljr_listview.Name = "futures_selljr_listview";
             this.futures_selljr_listview.Size = new System.Drawing.Size(33, 239);
             this.futures_selljr_listview.TabIndex = 41;
@@ -153,7 +157,7 @@
             // futures_buyjr_listview
             // 
             this.futures_buyjr_listview.HideSelection = false;
-            this.futures_buyjr_listview.Location = new System.Drawing.Point(1188, 385);
+            this.futures_buyjr_listview.Location = new System.Drawing.Point(1272, 40);
             this.futures_buyjr_listview.Name = "futures_buyjr_listview";
             this.futures_buyjr_listview.Size = new System.Drawing.Size(33, 239);
             this.futures_buyjr_listview.TabIndex = 42;
@@ -229,11 +233,61 @@
             this.stock_order_chart.Size = new System.Drawing.Size(533, 350);
             this.stock_order_chart.TabIndex = 47;
             // 
+            // fep_log_view
+            // 
+            this.fep_log_view.AllowUserToResizeColumns = false;
+            this.fep_log_view.AllowUserToResizeRows = false;
+            this.fep_log_view.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fep_log_view.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.fep_log_view.ColumnHeadersHeight = 29;
+            this.fep_log_view.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.fep_log_view.Location = new System.Drawing.Point(575, 379);
+            this.fep_log_view.Name = "fep_log_view";
+            this.fep_log_view.ReadOnly = true;
+            this.fep_log_view.RowHeadersVisible = false;
+            this.fep_log_view.RowHeadersWidth = 51;
+            this.fep_log_view.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.fep_log_view.RowTemplate.Height = 28;
+            this.fep_log_view.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.fep_log_view.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.fep_log_view.ShowCellToolTips = false;
+            this.fep_log_view.ShowEditingIcon = false;
+            this.fep_log_view.Size = new System.Drawing.Size(715, 214);
+            this.fep_log_view.TabIndex = 48;
+            // 
+            // asset_view
+            // 
+            this.asset_view.AllowUserToResizeColumns = false;
+            this.asset_view.AllowUserToResizeRows = false;
+            this.asset_view.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.asset_view.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.asset_view.ColumnHeadersHeight = 29;
+            this.asset_view.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.asset_view.Location = new System.Drawing.Point(575, 610);
+            this.asset_view.Name = "asset_view";
+            this.asset_view.ReadOnly = true;
+            this.asset_view.RowHeadersVisible = false;
+            this.asset_view.RowHeadersWidth = 51;
+            this.asset_view.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.asset_view.RowTemplate.Height = 28;
+            this.asset_view.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.asset_view.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.asset_view.ShowCellToolTips = false;
+            this.asset_view.ShowEditingIcon = false;
+            this.asset_view.Size = new System.Drawing.Size(715, 106);
+            this.asset_view.TabIndex = 49;
+            // 
             // myasset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1328, 765);
+            this.Controls.Add(this.asset_view);
+            this.Controls.Add(this.fep_log_view);
             this.Controls.Add(this.stock_order_chart);
             this.Controls.Add(this.abtChart_backwardation);
             this.Controls.Add(this.abtChart_contango);
@@ -253,6 +307,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.futures_order_chart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.arbitrageChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stock_order_chart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fep_log_view)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.asset_view)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,5 +331,7 @@
         private System.Windows.Forms.Label abtChart_name;
         private System.Windows.Forms.DataVisualization.Charting.Chart arbitrageChart;
         private System.Windows.Forms.DataGridView stock_order_chart;
+        private System.Windows.Forms.DataGridView fep_log_view;
+        private System.Windows.Forms.DataGridView asset_view;
     }
 }
