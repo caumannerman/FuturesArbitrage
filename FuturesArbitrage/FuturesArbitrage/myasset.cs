@@ -17,7 +17,7 @@ namespace FuturesArbitrage
 {
     public partial class myasset : Form
     {
-        string access_token = "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6IjNlMTA4NjY2LTM5M2YtNGY1YS05ZTU3LTBiMDY0YzFmZDRmOSIsImlzcyI6InVub2d3IiwiZXhwIjoxNjk5NTA1Nzg3LCJpYXQiOjE2OTk0MTkzODcsImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.LNfdn7RbmwcmaXsOOEdpFmnN5XcTLuLuRJbzyjeO3P2zglJiVjyLMWOEdm5Q6dyZIjH7wLmwwcW5J70BodIwjg";
+        string access_token = "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6IjcyNDlkNzQ0LWQ3YzQtNDhkNy1hZjU4LTUwZTIwN2UzM2M0NiIsImlzcyI6InVub2d3IiwiZXhwIjoxNjk5NTkyMzYyLCJpYXQiOjE2OTk1MDU5NjIsImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.eiomw9opIuA3sTSrfoZul9SbY7EEuIItGCgxYnawTK4bs7lXNt6VEduOXHjuFin12CpySEST3aCNE7P-Rbj9Vg";
         //현재 선택된 북코드와 북 이름
         // Default는 CJ ENM
         private string now_book_code = "KR7035760008";
@@ -86,31 +86,84 @@ namespace FuturesArbitrage
         public myasset()
         {
             InitializeComponent();
+            /////////////////////////////////////////////////// 선물 호가창 //////////////////////////////////////////////////
             //기본 첫 열 삭제
-            logDataGridView.RowHeadersVisible = false;
-            logDataGridView.ColumnHeadersVisible = false;
+            futures_order_chart.RowHeadersVisible = false;
+            futures_order_chart.ColumnHeadersVisible = false;
             ////첫 행 삭제
+            futures_order_chart.Columns.Clear();
+            futures_order_chart.Rows.Clear();
+            futures_order_chart.Columns.Add("COL1", "매도미체결건수");
+            futures_order_chart.Columns.Add("COL2", "매도잔량");
+            futures_order_chart.Columns.Add("COL3", "호가");
+            futures_order_chart.Columns.Add("COL4", "매수잔량");
+            futures_order_chart.Columns.Add("COL5", "매수미체결건수");
+            futures_order_chart.Rows.Add("0", "0", "0", "", "");
+            futures_order_chart.Rows.Add("0", "0", "0", "", "");
+            futures_order_chart.Rows.Add("0", "0", "0", "", "");
+            futures_order_chart.Rows.Add("0", "0", "0", "", "");
+            futures_order_chart.Rows.Add("0", "0", "0", "", "");
+            futures_order_chart.Rows.Add("", "", "0", "0", "0");
+            futures_order_chart.Rows.Add("", "", "0", "0", "0");
+            futures_order_chart.Rows.Add("", "", "0", "0", "0");
+            futures_order_chart.Rows.Add("", "", "0", "0", "0");
+            futures_order_chart.Rows.Add("", "", "0", "0", "0");
             
-            logDataGridView.Columns.Clear();
-            logDataGridView.Rows.Clear();
-            logDataGridView.Columns.Add("COL1", "매도미체결건수");
-            logDataGridView.Columns.Add("COL2", "매도잔량");
-            logDataGridView.Columns.Add("COL3", "호가");
-            logDataGridView.Columns.Add("COL4", "매수잔량");
-            logDataGridView.Columns.Add("COL5", "매수미체결건수");
-            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
-            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
-            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
-            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
-            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
-            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
-            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
-            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
-            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
-            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
-            logDataGridView.Rows.Add("0", "0", "0", "0", "0");
+            for(int i = 0; i < 5; i++)
+            {
+                futures_order_chart[0, i].Style.BackColor = Color.FromArgb(190, 210, 255);
+                futures_order_chart[1, i].Style.BackColor = Color.FromArgb(190, 210, 255);
+                futures_order_chart[3, i + 5].Style.BackColor = Color.FromArgb(240, 180, 180);
+                futures_order_chart[ 4, i+5].Style.BackColor = Color.FromArgb(240, 180, 180);
+            }
+            /////////////////////////////////////////////////// 선물 호가창 //////////////////////////////////////////////////
 
 
+            /////////////////////////////////////////////////// 현물(주식) 호가창 //////////////////////////////////////////////////
+            //기본 첫 열 삭제
+            stock_order_chart.RowHeadersVisible = false;
+            stock_order_chart.ColumnHeadersVisible = false;
+            ////첫 행 삭제
+            stock_order_chart.Columns.Clear();
+            stock_order_chart.Rows.Clear();
+            stock_order_chart.Columns.Add("COL1", "매도미체결건수");
+            stock_order_chart.Columns.Add("COL2", "매도잔량");
+            stock_order_chart.Columns.Add("COL3", "호가");
+            stock_order_chart.Columns.Add("COL4", "매수잔량");
+            stock_order_chart.Columns.Add("COL5", "매수미체결건수");
+            stock_order_chart.Rows.Add("0", "0", "0", "", "");
+            stock_order_chart.Rows.Add("0", "0", "0", "", "");
+            stock_order_chart.Rows.Add("0", "0", "0", "", "");
+            stock_order_chart.Rows.Add("0", "0", "0", "", "");
+            stock_order_chart.Rows.Add("0", "0", "0", "", "");
+            stock_order_chart.Rows.Add("0", "0", "0", "", "");
+            stock_order_chart.Rows.Add("0", "0", "0", "", "");
+            stock_order_chart.Rows.Add("0", "0", "0", "", "");
+            stock_order_chart.Rows.Add("0", "0", "0", "", "");
+            stock_order_chart.Rows.Add("0", "0", "0", "", "");
+            stock_order_chart.Rows.Add("", "", "0", "0", "0");
+            stock_order_chart.Rows.Add("", "", "0", "0", "0");
+            stock_order_chart.Rows.Add("", "", "0", "0", "0");
+            stock_order_chart.Rows.Add("", "", "0", "0", "0");
+            stock_order_chart.Rows.Add("", "", "0", "0", "0");
+            stock_order_chart.Rows.Add("", "", "0", "0", "0");
+            stock_order_chart.Rows.Add("", "", "0", "0", "0");
+            stock_order_chart.Rows.Add("", "", "0", "0", "0");
+            stock_order_chart.Rows.Add("", "", "0", "0", "0");
+            stock_order_chart.Rows.Add("", "", "0", "0", "0");
+
+            //색상 변경 매수-red, 매도-blue
+            for (int i = 0; i < 10; i++)
+            {
+                stock_order_chart[0, i].Style.BackColor = Color.FromArgb(190, 210, 255);
+                stock_order_chart[1, i].Style.BackColor = Color.FromArgb(190, 210, 255);
+                stock_order_chart[3, i + 10].Style.BackColor = Color.FromArgb(240, 180, 180);
+                stock_order_chart[4, i + 10].Style.BackColor = Color.FromArgb(240, 180, 180);
+            }
+            /////////////////////////////////////////////////// 현물(주식) 호가창 //////////////////////////////////////////////////
+
+
+            ////////////////////////////////////// 종목 선택 콤보박스 초기화 //////////////////////////////////////
             for (int i = 0; i < book_code.Length; i++)
             {
                 data[i] = book_code[i] + "  " + stock_name[i];
@@ -149,7 +202,9 @@ namespace FuturesArbitrage
             timer1.Tick += timer1_Tick;
             timer1.Interval = 300;
             init_chart();
-
+            // DataGridView 기본 선택 셀 없애기
+            futures_order_chart.ClearSelection();
+            stock_order_chart.ClearSelection();
             ///////////////////////////////////////////////////// 호가창 ////////////////////////////////////////////
             stock_sell_listview.GridLines = false;
             stock_sell_listview.View = View.Details;
@@ -324,11 +379,12 @@ namespace FuturesArbitrage
                 (int)obj_s["output1"]["bidp_rsqn4"], (int)obj_s["output1"]["bidp_rsqn5"], (int)obj_s["output1"]["bidp_rsqn6"], (int)obj_s["output1"]["bidp_rsqn7"],
                 (int)obj_s["output1"]["bidp_rsqn8"], (int)obj_s["output1"]["bidp_rsqn9"], (int)obj_s["output1"]["bidp_rsqn10"]};
                 
+                
+
                 // ListView 호가창 그리기 
                 //선물 매도호가 
                 for (int i = 0; i < 5; i++)
                 {
-
                     futures_sell_listview.Items[i].Text = (futs_askp[4-i]).ToString();
                 }
                 //선물 매도호가잔량
@@ -349,11 +405,36 @@ namespace FuturesArbitrage
 
 
                 //logDataGridView
+                //매도호가 5개
                 for(int i = 0; i < 5; i++)
                 {
-                    logDataGridView.Rows[0].Cells[i].Value = "11";
+                    ////////////////////////////////////// 선물 chart /////////////////////////////////
+                    //매도호가 5개
+                    futures_order_chart.Rows[i].Cells[2].Value = futs_askp[4-i];
+                    //매수호가 5개
+                    futures_order_chart.Rows[i + 5].Cells[2].Value = futs_bidp[i];
+                    //매도호가잔량 5개
+                    futures_order_chart.Rows[i].Cells[1].Value = futs_askp_rsqn[4 - i];
+                    //매수호가잔량 5개
+                    futures_order_chart.Rows[i+5].Cells[3].Value = futs_bidp_rsqn[i];
+
+                }
+
+                for(int i = 0; i < 10; i++)
+                {
+                    ////////////////////////////////////// 현물 chart /////////////////////////////////
+                    //매도호가 10개
+                    stock_order_chart.Rows[i].Cells[2].Value = stock_askp[9 - i];
+                    //매수호가 10개
+                    stock_order_chart.Rows[i + 10].Cells[2].Value = stock_bidp[i];
+                    //매도호가잔량 10개
+                    stock_order_chart.Rows[i].Cells[1].Value = stock_askp_rsqn[9 - i];
+                    //매수호가잔량 10개
+                    stock_order_chart.Rows[i + 10].Cells[3].Value = stock_bidp_rsqn[i];
                 }
                 
+
+
 
 
                 //////////////////////////////////////////   차트 그리기 /////////////////////////////////////////
@@ -594,6 +675,11 @@ namespace FuturesArbitrage
         private void button22_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void logDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            futures_order_chart.ClearSelection();
         }
     }
 }
