@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.futures_order_chart = new System.Windows.Forms.DataGridView();
             this.jongmokComboBox = new System.Windows.Forms.ComboBox();
@@ -134,17 +134,17 @@
             // 
             // arbitrageChart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.arbitrageChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.arbitrageChart.Legends.Add(legend2);
+            chartArea3.Name = "ChartArea1";
+            this.arbitrageChart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.arbitrageChart.Legends.Add(legend3);
             this.arbitrageChart.Location = new System.Drawing.Point(980, 496);
             this.arbitrageChart.Margin = new System.Windows.Forms.Padding(2);
             this.arbitrageChart.Name = "arbitrageChart";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.arbitrageChart.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.arbitrageChart.Series.Add(series3);
             this.arbitrageChart.Size = new System.Drawing.Size(619, 320);
             this.arbitrageChart.TabIndex = 43;
             this.arbitrageChart.Text = "chart2";
@@ -218,7 +218,7 @@
             this.all_book_gridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.all_book_gridview.ColumnHeadersHeight = 29;
             this.all_book_gridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.all_book_gridview.Location = new System.Drawing.Point(12, 117);
+            this.all_book_gridview.Location = new System.Drawing.Point(12, 121);
             this.all_book_gridview.Name = "all_book_gridview";
             this.all_book_gridview.ReadOnly = true;
             this.all_book_gridview.RowHeadersVisible = false;

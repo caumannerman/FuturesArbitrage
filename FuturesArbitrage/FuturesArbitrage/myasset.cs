@@ -90,6 +90,23 @@ namespace FuturesArbitrage
         public myasset()
         {
             InitializeComponent();
+
+            /////////////////////////////////////////////////// 선물 호가창 //////////////////////////////////////////////////
+            ////첫 행 삭제
+            asset_view.Columns.Clear();
+            asset_view.Rows.Clear();
+            futures_order_chart.RowHeadersVisible = false;
+            asset_view.Columns.Add("COL1", "종목명");
+            asset_view.Columns.Add("COL2", "T이론가");
+            asset_view.Columns.Add("COL3", "T평가금");
+            asset_view.Columns.Add("COL4", "T실현손익");
+            asset_view.Columns.Add("COL5", "누적 이론가");
+            asset_view.Columns.Add("COL6", "총 평가금");
+            asset_view.Columns.Add("COL7", "총 실현손익");
+            asset_view.Columns.Add("COL7", "총 실현손익2");
+
+
+
             /////////////////////////////////////////////////// 선물 호가창 //////////////////////////////////////////////////
             //기본 첫 열 삭제
             futures_order_chart.RowHeadersVisible = false;
