@@ -252,6 +252,8 @@ namespace FuturesArbitrage
             this.now_futures_code = futures_code[cb.SelectedIndex];
             //바뀐 종목 이름으로 변경
             abtChart_name.Text = this.now_stock_name;
+            stock_chart_name.Text = this.now_stock_name;
+            futures_chart_name.Text = this.now_stock_name;
             //종목이 바뀌었으니 chart를 지우고 다시 그려야함
             arbitrageChart.Series.Clear();
             init_chart();
@@ -584,41 +586,11 @@ namespace FuturesArbitrage
             }
         }
 
-        private void button27_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button26_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button25_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button24_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button23_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button22_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void logDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             futures_order_chart.ClearSelection();
         }
-
         private void get_log_button_Click(object sender, EventArgs e)
         {
             try
@@ -650,5 +622,6 @@ namespace FuturesArbitrage
                 Console.WriteLine($"Exception={ex2.Message}");
             }
         }
+
     }
 }
