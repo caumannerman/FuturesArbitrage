@@ -136,21 +136,12 @@ namespace FuturesArbitrage
             stock_order_chart.Rows.Add("0", "0", "0", "", "");
             stock_order_chart.Rows.Add("0", "0", "0", "", "");
             stock_order_chart.Rows.Add("0", "0", "0", "", "");
-            stock_order_chart.Rows.Add("0", "0", "0", "", "");
-            stock_order_chart.Rows.Add("0", "0", "0", "", "");
-            stock_order_chart.Rows.Add("0", "0", "0", "", "");
-            stock_order_chart.Rows.Add("0", "0", "0", "", "");
-            stock_order_chart.Rows.Add("0", "0", "0", "", "");
             stock_order_chart.Rows.Add("", "", "0", "0", "0");
             stock_order_chart.Rows.Add("", "", "0", "0", "0");
             stock_order_chart.Rows.Add("", "", "0", "0", "0");
             stock_order_chart.Rows.Add("", "", "0", "0", "0");
             stock_order_chart.Rows.Add("", "", "0", "0", "0");
-            stock_order_chart.Rows.Add("", "", "0", "0", "0");
-            stock_order_chart.Rows.Add("", "", "0", "0", "0");
-            stock_order_chart.Rows.Add("", "", "0", "0", "0");
-            stock_order_chart.Rows.Add("", "", "0", "0", "0");
-            stock_order_chart.Rows.Add("", "", "0", "0", "0");
+            
 
             /////////////////////////////////////////////////// log view //////////////////////////////////////////////////
             //기본 첫 열 삭제
@@ -199,12 +190,12 @@ namespace FuturesArbitrage
             fep_log_view.Rows.Add("", "", "0", "0", "0");
 
             //색상 변경 매수-red, 매도-blue
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 stock_order_chart[0, i].Style.BackColor = Color.FromArgb(190, 210, 255);
                 stock_order_chart[1, i].Style.BackColor = Color.FromArgb(190, 210, 255);
-                stock_order_chart[3, i + 10].Style.BackColor = Color.FromArgb(240, 180, 180);
-                stock_order_chart[4, i + 10].Style.BackColor = Color.FromArgb(240, 180, 180);
+                stock_order_chart[3, i + 5].Style.BackColor = Color.FromArgb(240, 180, 180);
+                stock_order_chart[4, i + 5].Style.BackColor = Color.FromArgb(240, 180, 180);
             }
             /////////////////////////////////////////////////// 현물(주식) 호가창 //////////////////////////////////////////////////
 
@@ -466,17 +457,17 @@ namespace FuturesArbitrage
 
                 }
 
-                for(int i = 0; i < 10; i++)
+                for(int i = 0; i < 5; i++)
                 {
                     ////////////////////////////////////// 현물 chart /////////////////////////////////
                     //매도호가 10개
-                    stock_order_chart.Rows[i].Cells[2].Value = stock_askp[9 - i];
+                    stock_order_chart.Rows[i].Cells[2].Value = stock_askp[4 - i];
                     //매수호가 10개
-                    stock_order_chart.Rows[i + 10].Cells[2].Value = stock_bidp[i];
+                    stock_order_chart.Rows[i + 5].Cells[2].Value = stock_bidp[i];
                     //매도호가잔량 10개
-                    stock_order_chart.Rows[i].Cells[1].Value = stock_askp_rsqn[9 - i];
+                    stock_order_chart.Rows[i].Cells[1].Value = stock_askp_rsqn[4 - i];
                     //매수호가잔량 10개
-                    stock_order_chart.Rows[i + 10].Cells[3].Value = stock_bidp_rsqn[i];
+                    stock_order_chart.Rows[i + 5].Cells[3].Value = stock_bidp_rsqn[i];
                 }
                 
 

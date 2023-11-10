@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.futures_order_chart = new System.Windows.Forms.DataGridView();
             this.jongmokComboBox = new System.Windows.Forms.ComboBox();
@@ -71,13 +71,10 @@
             // 
             this.futures_order_chart.AllowUserToResizeColumns = false;
             this.futures_order_chart.AllowUserToResizeRows = false;
-            this.futures_order_chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.futures_order_chart.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.futures_order_chart.ColumnHeadersHeight = 29;
             this.futures_order_chart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.futures_order_chart.Location = new System.Drawing.Point(12, 40);
+            this.futures_order_chart.Location = new System.Drawing.Point(610, 40);
             this.futures_order_chart.Name = "futures_order_chart";
             this.futures_order_chart.ReadOnly = true;
             this.futures_order_chart.RowHeadersVisible = false;
@@ -88,14 +85,14 @@
             this.futures_order_chart.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.futures_order_chart.ShowCellToolTips = false;
             this.futures_order_chart.ShowEditingIcon = false;
-            this.futures_order_chart.Size = new System.Drawing.Size(533, 350);
+            this.futures_order_chart.Size = new System.Drawing.Size(364, 350);
             this.futures_order_chart.TabIndex = 2;
             this.futures_order_chart.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.logDataGridView_CellContentClick);
             // 
             // jongmokComboBox
             // 
             this.jongmokComboBox.FormattingEnabled = true;
-            this.jongmokComboBox.Location = new System.Drawing.Point(61, 0);
+            this.jongmokComboBox.Location = new System.Drawing.Point(30, 9);
             this.jongmokComboBox.Name = "jongmokComboBox";
             this.jongmokComboBox.Size = new System.Drawing.Size(314, 23);
             this.jongmokComboBox.TabIndex = 20;
@@ -185,7 +182,7 @@
             // 
             this.abtChart_name.AutoSize = true;
             this.abtChart_name.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.abtChart_name.Location = new System.Drawing.Point(559, 13);
+            this.abtChart_name.Location = new System.Drawing.Point(878, 11);
             this.abtChart_name.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.abtChart_name.Name = "abtChart_name";
             this.abtChart_name.Size = new System.Drawing.Size(79, 19);
@@ -194,17 +191,17 @@
             // 
             // arbitrageChart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.arbitrageChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.arbitrageChart.Legends.Add(legend2);
-            this.arbitrageChart.Location = new System.Drawing.Point(642, 13);
+            chartArea6.Name = "ChartArea1";
+            this.arbitrageChart.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.arbitrageChart.Legends.Add(legend6);
+            this.arbitrageChart.Location = new System.Drawing.Point(1027, 40);
             this.arbitrageChart.Margin = new System.Windows.Forms.Padding(2);
             this.arbitrageChart.Name = "arbitrageChart";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.arbitrageChart.Series.Add(series2);
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.arbitrageChart.Series.Add(series6);
             this.arbitrageChart.Size = new System.Drawing.Size(600, 350);
             this.arbitrageChart.TabIndex = 43;
             this.arbitrageChart.Text = "chart2";
@@ -213,13 +210,10 @@
             // 
             this.stock_order_chart.AllowUserToResizeColumns = false;
             this.stock_order_chart.AllowUserToResizeRows = false;
-            this.stock_order_chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.stock_order_chart.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.stock_order_chart.ColumnHeadersHeight = 29;
             this.stock_order_chart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.stock_order_chart.Location = new System.Drawing.Point(12, 396);
+            this.stock_order_chart.Location = new System.Drawing.Point(613, 396);
             this.stock_order_chart.Name = "stock_order_chart";
             this.stock_order_chart.ReadOnly = true;
             this.stock_order_chart.RowHeadersVisible = false;
@@ -227,10 +221,10 @@
             this.stock_order_chart.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.stock_order_chart.RowTemplate.Height = 28;
             this.stock_order_chart.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.stock_order_chart.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.stock_order_chart.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.stock_order_chart.ShowCellToolTips = false;
             this.stock_order_chart.ShowEditingIcon = false;
-            this.stock_order_chart.Size = new System.Drawing.Size(533, 350);
+            this.stock_order_chart.Size = new System.Drawing.Size(361, 350);
             this.stock_order_chart.TabIndex = 47;
             // 
             // fep_log_view
@@ -243,7 +237,7 @@
             this.fep_log_view.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.fep_log_view.ColumnHeadersHeight = 29;
             this.fep_log_view.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.fep_log_view.Location = new System.Drawing.Point(575, 379);
+            this.fep_log_view.Location = new System.Drawing.Point(1038, 379);
             this.fep_log_view.Name = "fep_log_view";
             this.fep_log_view.ReadOnly = true;
             this.fep_log_view.RowHeadersVisible = false;
@@ -254,7 +248,7 @@
             this.fep_log_view.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.fep_log_view.ShowCellToolTips = false;
             this.fep_log_view.ShowEditingIcon = false;
-            this.fep_log_view.Size = new System.Drawing.Size(715, 214);
+            this.fep_log_view.Size = new System.Drawing.Size(619, 214);
             this.fep_log_view.TabIndex = 48;
             // 
             // asset_view
@@ -267,7 +261,7 @@
             this.asset_view.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.asset_view.ColumnHeadersHeight = 29;
             this.asset_view.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.asset_view.Location = new System.Drawing.Point(575, 610);
+            this.asset_view.Location = new System.Drawing.Point(1038, 610);
             this.asset_view.Name = "asset_view";
             this.asset_view.ReadOnly = true;
             this.asset_view.RowHeadersVisible = false;
@@ -278,14 +272,14 @@
             this.asset_view.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.asset_view.ShowCellToolTips = false;
             this.asset_view.ShowEditingIcon = false;
-            this.asset_view.Size = new System.Drawing.Size(715, 106);
+            this.asset_view.Size = new System.Drawing.Size(619, 106);
             this.asset_view.TabIndex = 49;
             // 
             // myasset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1328, 765);
+            this.ClientSize = new System.Drawing.Size(1695, 765);
             this.Controls.Add(this.asset_view);
             this.Controls.Add(this.fep_log_view);
             this.Controls.Add(this.stock_order_chart);
