@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.futures_order_chart = new System.Windows.Forms.DataGridView();
             this.jongmokComboBox = new System.Windows.Forms.ComboBox();
@@ -44,6 +44,7 @@
             this.fep_log_view = new System.Windows.Forms.DataGridView();
             this.asset_view = new System.Windows.Forms.DataGridView();
             this.all_book_gridview = new System.Windows.Forms.DataGridView();
+            this.get_log_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.futures_order_chart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arbitrageChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stock_order_chart)).BeginInit();
@@ -129,17 +130,17 @@
             // 
             // arbitrageChart
             // 
-            chartArea3.Name = "ChartArea1";
-            this.arbitrageChart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.arbitrageChart.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.arbitrageChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.arbitrageChart.Legends.Add(legend1);
             this.arbitrageChart.Location = new System.Drawing.Point(980, 497);
             this.arbitrageChart.Margin = new System.Windows.Forms.Padding(2);
             this.arbitrageChart.Name = "arbitrageChart";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.arbitrageChart.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.arbitrageChart.Series.Add(series1);
             this.arbitrageChart.Size = new System.Drawing.Size(548, 316);
             this.arbitrageChart.TabIndex = 43;
             this.arbitrageChart.Text = "chart2";
@@ -180,7 +181,6 @@
             this.fep_log_view.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.fep_log_view.RowTemplate.Height = 28;
             this.fep_log_view.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.fep_log_view.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.fep_log_view.ShowCellToolTips = false;
             this.fep_log_view.ShowEditingIcon = false;
             this.fep_log_view.Size = new System.Drawing.Size(619, 349);
@@ -228,11 +228,22 @@
             this.all_book_gridview.Size = new System.Drawing.Size(574, 650);
             this.all_book_gridview.TabIndex = 50;
             // 
+            // get_log_button
+            // 
+            this.get_log_button.Location = new System.Drawing.Point(1131, 8);
+            this.get_log_button.Name = "get_log_button";
+            this.get_log_button.Size = new System.Drawing.Size(84, 23);
+            this.get_log_button.TabIndex = 51;
+            this.get_log_button.Text = "로그 받기";
+            this.get_log_button.UseVisualStyleBackColor = true;
+            this.get_log_button.Click += new System.EventHandler(this.get_log_button_Click);
+            // 
             // myasset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1695, 765);
+            this.Controls.Add(this.get_log_button);
             this.Controls.Add(this.all_book_gridview);
             this.Controls.Add(this.asset_view);
             this.Controls.Add(this.fep_log_view);
@@ -271,5 +282,6 @@
         private System.Windows.Forms.DataGridView fep_log_view;
         private System.Windows.Forms.DataGridView asset_view;
         private System.Windows.Forms.DataGridView all_book_gridview;
+        private System.Windows.Forms.Button get_log_button;
     }
 }

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using Microsoft.Office.Interop.Excel;
 
 namespace FuturesArbitrage
 {
@@ -36,6 +37,9 @@ namespace FuturesArbitrage
         int T = 6;
         //차익거래 차트 x축 좌표
         double arbt_chart_x = 0.0;
+
+        //ㄹfep log의 id
+        int id = 1;
 
 
         //선물 매수호가1~5
@@ -165,29 +169,11 @@ namespace FuturesArbitrage
             fep_log_view.Columns.Add("COL13", "체결유형코드");
             fep_log_view.Columns.Add("COL14", "체결시각");
             fep_log_view.Columns.Add("COL15", "최근월물체결가격");
-            fep_log_view.Columns.Add("COL15", "차근월물체결가격");
-            fep_log_view.Columns.Add("COL15", "매도/매수 구분코드");
-            fep_log_view.Columns.Add("COL15", "회원사용영역");
-            fep_log_view.Rows.Add("0", "0", "0", "", "");
-            fep_log_view.Rows.Add("0", "0", "0", "", "");
-            fep_log_view.Rows.Add("0", "0", "0", "", "");
-            fep_log_view.Rows.Add("0", "0", "0", "", "");
-            fep_log_view.Rows.Add("0", "0", "0", "", "");
-            fep_log_view.Rows.Add("0", "0", "0", "", "");
-            fep_log_view.Rows.Add("0", "0", "0", "", "");
-            fep_log_view.Rows.Add("0", "0", "0", "", "");
-            fep_log_view.Rows.Add("0", "0", "0", "", "");
-            fep_log_view.Rows.Add("0", "0", "0", "", "");
-            fep_log_view.Rows.Add("", "", "0", "0", "0");
-            fep_log_view.Rows.Add("", "", "0", "0", "0");
-            fep_log_view.Rows.Add("", "", "0", "0", "0");
-            fep_log_view.Rows.Add("", "", "0", "0", "0");
-            fep_log_view.Rows.Add("", "", "0", "0", "0");
-            fep_log_view.Rows.Add("", "", "0", "0", "0");
-            fep_log_view.Rows.Add("", "", "0", "0", "0");
-            fep_log_view.Rows.Add("", "", "0", "0", "0");
-            fep_log_view.Rows.Add("", "", "0", "0", "0");
-            fep_log_view.Rows.Add("", "", "0", "0", "0");
+            fep_log_view.Columns.Add("COL16", "차근월물체결가격");
+            fep_log_view.Columns.Add("COL17", "매도/매수 구분코드");
+            fep_log_view.Columns.Add("COL18", "회원사용영역");
+            fep_log_view.Rows.Add("", "", "", "", "");
+            
 
             //색상 변경 매수-red, 매도-blue
             for (int i = 0; i < 5; i++)
@@ -631,6 +617,38 @@ namespace FuturesArbitrage
         private void logDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             futures_order_chart.ClearSelection();
+        }
+
+        private void get_log_button_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //주식 매수매도 호가
+                string URL = "http://127.0.0.1:8080/api/v1/ts/" + id.ToString();
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                string text = reader.ReadToEnd();
+                JObject obj = JObject.Parse(text);
+
+                fep_log_view.Rows.Add(obj["id"], obj["sdontknow"], obj["sissueCode"], obj["strdType"], obj["srpCode"], obj["sseq"], obj["smsgGb"], 
+                    obj["sorderNo"], obj["sacctNo"], obj["strdTime"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["strdPrice"], obj["strdNo"],
+                    obj["strdQty"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sbookCode"] );
+                id++;
+                
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+            }
         }
     }
 }
