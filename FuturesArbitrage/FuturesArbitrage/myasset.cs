@@ -79,7 +79,7 @@ namespace FuturesArbitrage
 
             test1();
             testint++;
-            stock_sell_listview.Items[0].SubItems[0].Text = testint.ToString();
+
         }
 
 
@@ -242,69 +242,8 @@ namespace FuturesArbitrage
             // DataGridView 기본 선택 셀 없애기
             futures_order_chart.ClearSelection();
             stock_order_chart.ClearSelection();
-            ///////////////////////////////////////////////////// 호가창 ////////////////////////////////////////////
-            stock_sell_listview.GridLines = false;
-            stock_sell_listview.View = View.Details;
-            stock_sell_listview.Items.Clear();
-            stock_sell_listview.Columns.Clear();
-            stock_sell_listview.Columns.Add("매도호가", 150);
+            
 
-            String[] aa = { "10" };
-            ListViewItem newitem = new ListViewItem(aa);
-            //newitem.SubItems.Add("99");
-            stock_sell_listview.Items.Add(newitem);
-
-            //선물매도호가창
-            futures_sell_listview.GridLines = true;
-            futures_sell_listview.View = View.List;
-            futures_sell_listview.Items.Clear();
-            futures_sell_listview.Columns.Clear();
-            futures_sell_listview.Columns.Add("선물매도호가", 150);
-            futures_sell_listview.Scrollable = false;
-            for( int i = 0; i < 5; i++)
-            {
-                futures_sell_listview.Items.Add(new ListViewItem());
-                futures_sell_listview.Items[i].Text = "0";
-            }
-            //선물매도호가 잔량창
-            futures_selljr_listview.GridLines = true;
-            futures_selljr_listview.View = View.List;
-            futures_selljr_listview.Items.Clear();
-            futures_selljr_listview.Columns.Clear();
-            futures_selljr_listview.Columns.Add("선물매도호가", 150);
-            futures_selljr_listview.HeaderStyle = ColumnHeaderStyle.None;
-            futures_selljr_listview.Scrollable = false;
-            for (int i = 0; i < 5; i++)
-            {
-                futures_selljr_listview.Items.Add(new ListViewItem());
-                futures_selljr_listview.Items[i].Text = "0";
-            }
-            //선물매수호가 
-            futures_buy_listview.GridLines = true;
-            futures_buy_listview.View = View.List;
-            futures_buy_listview.Items.Clear();
-            futures_buy_listview.Columns.Clear();
-            futures_buy_listview.Columns.Add("선물매수호가", 150);
-            futures_buy_listview.HeaderStyle = ColumnHeaderStyle.None;
-            futures_buy_listview.Scrollable = false;
-            for (int i = 0; i < 5; i++)
-            {
-                futures_buy_listview.Items.Add(new ListViewItem());
-                futures_buy_listview.Items[i].Text = "0";
-            }
-            //선물매수호가 잔량
-            futures_buyjr_listview.GridLines = true;
-            futures_buyjr_listview.View = View.List;
-            futures_buyjr_listview.Items.Clear();
-            futures_buyjr_listview.Columns.Clear();
-            futures_buyjr_listview.Columns.Add("선물매수호가 잔량", 150);
-            futures_buyjr_listview.HeaderStyle = ColumnHeaderStyle.None;
-            futures_buyjr_listview.Scrollable = false;
-            for (int i = 0; i < 5; i++)
-            {
-                futures_buyjr_listview.Items.Add(new ListViewItem());
-                futures_buyjr_listview.Items[i].Text = "0";
-            }
         }
 
        
@@ -415,31 +354,6 @@ namespace FuturesArbitrage
                 int[] stock_bidp_rsqn = { (int)obj_s["output1"]["bidp_rsqn1"], (int)obj_s["output1"]["bidp_rsqn2"], (int)obj_s["output1"]["bidp_rsqn3"],
                 (int)obj_s["output1"]["bidp_rsqn4"], (int)obj_s["output1"]["bidp_rsqn5"], (int)obj_s["output1"]["bidp_rsqn6"], (int)obj_s["output1"]["bidp_rsqn7"],
                 (int)obj_s["output1"]["bidp_rsqn8"], (int)obj_s["output1"]["bidp_rsqn9"], (int)obj_s["output1"]["bidp_rsqn10"]};
-                
-                
-
-                // ListView 호가창 그리기 
-                //선물 매도호가 
-                for (int i = 0; i < 5; i++)
-                {
-                    futures_sell_listview.Items[i].Text = (futs_askp[4-i]).ToString();
-                }
-                //선물 매도호가잔량
-                for (int i = 0; i < 5; i++)
-                {
-                    futures_selljr_listview.Items[i].Text = (futs_askp_rsqn[4 - i]).ToString();
-                }
-                //선물 매수호가
-                for (int i = 0; i < 5; i++)
-                {
-                    futures_buy_listview.Items[i].Text = (futs_bidp[i]).ToString();
-                }
-                //선물 매수호가잔량
-                for (int i = 0; i < 5; i++)
-                {
-                    futures_buyjr_listview.Items[i].Text = (futs_bidp_rsqn[i]).ToString();
-                }
-
 
                 //logDataGridView
                 //매도호가 5개
