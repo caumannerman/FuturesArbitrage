@@ -171,24 +171,25 @@ namespace FuturesArbitrage
             ////첫 행 삭제
             fep_log_view.Columns.Clear();
             fep_log_view.Rows.Clear();
-            fep_log_view.Columns.Add("COL1", "메시지 길이");
-            fep_log_view.Columns.Add("COL2", "메시지 타입");
-            fep_log_view.Columns.Add("COL3", "응답코드");
-            fep_log_view.Columns.Add("COL4", "메시지 번호");
-            fep_log_view.Columns.Add("COL5", "메시지 개수");
-            fep_log_view.Columns.Add("COL6", "보드ID");
-            fep_log_view.Columns.Add("COL7", "주문번호");
-            fep_log_view.Columns.Add("COL8", "표준종목코드");
-            fep_log_view.Columns.Add("COL9", "계좌번호");
-            fep_log_view.Columns.Add("COL10", "회원기준 체결번호");
-            fep_log_view.Columns.Add("COL11", "체결가격");
-            fep_log_view.Columns.Add("COL12", "체결수량");
-            fep_log_view.Columns.Add("COL13", "체결유형코드");
-            fep_log_view.Columns.Add("COL14", "체결시각");
+            fep_log_view.Columns.Add("COL1", "체결시각");
+            fep_log_view.Columns.Add("COL2", "Book 코드");
+            fep_log_view.Columns.Add("COL3", "isinCode");
+            fep_log_view.Columns.Add("COL4", "체결수량");
+            fep_log_view.Columns.Add("COL5", "체결가격");
+            fep_log_view.Columns.Add("COL6", "주문번호");
+
+            fep_log_view.Columns.Add("COL7", "메시지 길이");
+            fep_log_view.Columns.Add("COL8", "메시지 타입");
+            fep_log_view.Columns.Add("COL9", "응답코드");
+            fep_log_view.Columns.Add("COL10", "메시지 번호");
+            fep_log_view.Columns.Add("COL11", "메시지 개수");
+            fep_log_view.Columns.Add("COL12", "계좌번호");
+            fep_log_view.Columns.Add("COL13", "회원기준 체결번호");
+            fep_log_view.Columns.Add("COL14", "체결유형코드");
             fep_log_view.Columns.Add("COL15", "최근월물체결가격");
             fep_log_view.Columns.Add("COL16", "차근월물체결가격");
             fep_log_view.Columns.Add("COL17", "매도/매수 구분코드");
-            fep_log_view.Columns.Add("COL18", "회원사용영역");
+            fep_log_view.Columns.Add("COL18", "보드ID");
             fep_log_view.Rows.Add("", "", "", "", "");
             
 
@@ -620,10 +621,10 @@ namespace FuturesArbitrage
                 StreamReader reader = new StreamReader(stream, Encoding.UTF8);
                 string text = reader.ReadToEnd();
                 JObject obj = JObject.Parse(text);
-
-                fep_log_view.Rows.Add(obj["id"], obj["sdontknow"], obj["sissueCode"], obj["strdType"], obj["srpCode"], obj["sseq"], obj["smsgGb"], 
-                    obj["sorderNo"], obj["sacctNo"], obj["strdTime"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["strdPrice"], obj["strdNo"],
-                    obj["strdQty"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sbookCode"] );
+                
+                fep_log_view.Rows.Add(obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"], 
+                    obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
+                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"] );
                 id++;
                 
             }
