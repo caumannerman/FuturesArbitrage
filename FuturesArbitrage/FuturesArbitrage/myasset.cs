@@ -18,7 +18,7 @@ namespace FuturesArbitrage
 {
     public partial class myasset : Form
     {
-        string access_token = "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6IjVmN2NhM2FkLTg0OTUtNDA5NS1iY2I5LTU0MDdlYjI5ZjYyYSIsImlzcyI6InVub2d3IiwiZXhwIjoxNjk5NjY3NTczLCJpYXQiOjE2OTk1ODExNzMsImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.Kbfy01esVVeuc2q1-OwLtOBu8OmpZmH8SmHKB_Z_Ez0q-PLeFoX6XK9x4am-xNkDWVi_FnBIqW5BaK2L-jJkow";
+        string access_token = "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6IjEyOGJlZjExLWRkMmEtNGZjZi1iMjRhLTliMzc3NDE3YTg0MiIsImlzcyI6InVub2d3IiwiZXhwIjoxNjk5Nzc2NDU4LCJpYXQiOjE2OTk2OTAwNTgsImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.E8YwBPQ5h7I7x9SxHq8xWhRHLww1kVww7eD4grb5ViJKkKu5MK3FE01InTZur44jzxJVf2tn3e1Sss1V1HLMyQ";
         //현재 선택된 북코드와 북 이름
         // Default는 CJ ENM
         private string now_book_code = "KR7035760008";
@@ -89,13 +89,13 @@ namespace FuturesArbitrage
 
         public myasset()
         {
-            InitializeComponent();
+            InitializeComponent();  
 
-            /////////////////////////////////////////////////// 선물 호가창 //////////////////////////////////////////////////
+            /////////////////////////////////////////////////// 총 손익창 //////////////////////////////////////////////////
             ////첫 행 삭제
             asset_view.Columns.Clear();
             asset_view.Rows.Clear();
-            futures_order_chart.RowHeadersVisible = false;
+            asset_view.RowHeadersVisible = false;
             asset_view.Columns.Add("COL1", "종목명");
             asset_view.Columns.Add("COL2", "T이론가");
             asset_view.Columns.Add("COL3", "T평가금");
@@ -103,8 +103,36 @@ namespace FuturesArbitrage
             asset_view.Columns.Add("COL5", "누적 이론가");
             asset_view.Columns.Add("COL6", "총 평가금");
             asset_view.Columns.Add("COL7", "총 실현손익");
-            asset_view.Columns.Add("COL7", "총 실현손익2");
+            asset_view.Columns.Add("COL8", "총 실현손익2");
+            asset_view.Rows.Add("0", "0", "0", "0", "0", "0", "0", "0");
 
+
+
+
+            /////////////////////////////////////////////////// 우리사 관리종목 현황창 //////////////////////////////////////////////////
+
+            all_book_gridview.Rows.Clear();
+            all_book_gridview.Columns.Clear();
+            all_book_gridview.RowHeadersVisible = false;
+            all_book_gridview.ColumnHeadersVisible = true;
+            all_book_gridview.Columns.Add("COL1", "주식종목명 ");
+            all_book_gridview.Columns.Add("COL2", "북코드");
+            all_book_gridview.Columns.Add("COL3", "S종목코드  ");
+            all_book_gridview.Columns.Add("COL4", "F종목코드  ");
+
+            all_book_gridview.Columns.Add("COL5", "F청산가능수량 ");
+            all_book_gridview.Columns.Add("COL6", "F평가금액 ");
+            all_book_gridview.Columns.Add("COL7", "F평가손익 ");
+
+            all_book_gridview.Columns.Add("COL8", "S보유수량 ");
+            all_book_gridview.Columns.Add("COL9", "S평가금액 ");
+            all_book_gridview.Columns.Add("COL10", "S평가손익");
+            // col10과 col7의 합이다.
+            all_book_gridview.Columns.Add("COL11", "북평가손익");
+            for(int i = 0; i < book_code.Length; i++)
+            {
+                all_book_gridview.Rows.Add(stock_name[i], book_code[i], stock_code[i], futures_code[i], "", "", "", "", "", "", "");
+            }
 
 
             /////////////////////////////////////////////////// 선물 호가창 //////////////////////////////////////////////////
@@ -162,7 +190,7 @@ namespace FuturesArbitrage
             stock_order_chart.Rows.Add("", "", "0", "0", "0");
             stock_order_chart.Rows.Add("", "", "0", "0", "0");
             stock_order_chart.Rows.Add("", "", "0", "0", "0");
-            
+            /////////////////////////////////////////////////// 현물(주식) 호가창 //////////////////////////////////////////////////
 
             /////////////////////////////////////////////////// log view //////////////////////////////////////////////////
             //기본 첫 열 삭제
@@ -283,6 +311,59 @@ namespace FuturesArbitrage
             // 매수차익거래 선물 매수1호가 ( 내가 매도할 가격 )
             //arbitrageChart.Series["매수차익 하한(이론가)"].Points.Clear();
             //arbitrageChart.Series["매도차익 상한(이론가)"].Points.Clear();
+        }
+
+        async void setup_asset_view()
+        {
+            
+            //futures_order_chart.Rows[i].Cells[2].Value = futs_askp[4 - i];
+            //static string[] book_code = { "KR7035760008", "KR7097950000", "KR7002380004", "KR7373220003", "KR7011070000", "KR7011780004", "KR7138040001", "KR7010140002", "KR7066970005", "KR7271560005", "KR7122870009", "KR7039030002", "KR7377300009", "KR7091700005", "KR7015760002", "KR701880005", "KR7064350002", "KR7012330007" };
+            //static string[] stock_name = { "CJ ENM", "CJ 제일제당", "KCC", "LG에너지솔루션", "LG이노텍", "금호석유", "메리츠금융지주", "삼성중공업", "엘앤에프", "오리온", "와이지엔터테인먼트", "이오테크닉스", "카카오페이", "파트론", "한국전력", "한온시스템", "현대로템", "현대모비스" };
+            //static string[] stock_code = { "035760", "097950", "002380", "373220", "011070", "011780", "138040", "010140", "066970", "271560", "122870", "039030", "377300", "091700", "015760", "018880", "064350", "012330" };
+            //static string[] futures_code = {"1DTT12000", "1D1T12000", "1D3T12000", "1F5T12000", "1BYT12000", "1C3T12000", "
+            try
+            {
+                //주식 잔고조회
+                string URL = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/trading/inquire-balance?CANO=73085780&ACNT_PRDT_CD=01&AFHR_FLPR_YN=N&OFL_YN&INQR_DVSN=02&UNPR_DVSN=01&FUND_STTL_ICLD_YN=N&FNCG_AMT_AUTO_RDPT_YN=N&PRCS_DVSN=00&CTX_AREA_FK100&CTX_AREA_NK100";
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                request.Headers.Add("Authorization", access_token);
+                request.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
+                request.Headers.Add("appsecret", "VUn2CzaKPT1oTzwfBiXlY2ASg8SEndHMk/h5ukdZOElQVP5dfnfnv3OiTqw3aKYGR1NRYg17q05zOFlFhW8CdwYzMPI2wmqB9cNgx2f03O1ROveEw6Kr/CeGojxZBPMVU2MMzun4Gapcq1zu+lWYhbkDK/fAfmeCD+ftD2WMWPrJw9UBG0c=");
+                request.Headers.Add("tr_id", "TTTC8434R");
+                HttpWebResponse response_s = (HttpWebResponse)request.GetResponse();
+                Stream stream_s = response_s.GetResponseStream();
+                StreamReader reader_s = new StreamReader(stream_s, Encoding.UTF8);
+                string text_s = reader_s.ReadToEnd();
+                JObject obj_s = JObject.Parse(text_s);
+
+
+                // 주식 종목명, 북코드, S종목콛, F종목코드, F청산가능수량, F평가금액, f평가손익, S보유수량, S평가금액, S평가손익
+
+
+                // for문 돌면서 18개 종목에 대하여 출력해줘야함.
+                // 주식 보유수량 obj_s["output1"]["hldg_qty"]
+                // 주식 평가금액 obj_s["output1"]["evlu_amt"]
+                // 주식 평가손익금액 obj_s["output1"]["evlu_pfls_amt"]
+
+                for (int i = 0; i < book_code.Length; i++)
+                {
+                    all_book_gridview.Rows[i].Cells[7].Value = obj_s["output1"]["hldg_qty"];
+                    all_book_gridview.Rows[i].Cells[8].Value = obj_s["output1"]["evlu_amt"];
+                    all_book_gridview.Rows[i].Cells[9].Value = obj_s["output1"]["evlu_pfls_amt"];
+                }
+
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+            }
         }
 
         async void test1()
