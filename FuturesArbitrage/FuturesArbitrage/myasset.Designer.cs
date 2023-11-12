@@ -50,6 +50,7 @@
             this.futures_chart_name = new System.Windows.Forms.Label();
             this.stock_chart_name = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.dateComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.futures_order_chart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arbitrageChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stock_order_chart)).BeginInit();
@@ -292,11 +293,21 @@
             this.label3.TabIndex = 56;
             this.label3.Text = "Book잔고 현황";
             // 
+            // dateComboBox
+            // 
+            this.dateComboBox.FormattingEnabled = true;
+            this.dateComboBox.Location = new System.Drawing.Point(348, 8);
+            this.dateComboBox.Name = "dateComboBox";
+            this.dateComboBox.Size = new System.Drawing.Size(314, 23);
+            this.dateComboBox.TabIndex = 57;
+            this.dateComboBox.SelectedIndexChanged += new System.EventHandler(this.dateComboBox_SelectedIndexChanged);
+            // 
             // myasset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1722, 868);
+            this.Controls.Add(this.dateComboBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.stock_chart_name);
             this.Controls.Add(this.futures_chart_name);
@@ -347,5 +358,6 @@
         private System.Windows.Forms.Label futures_chart_name;
         private System.Windows.Forms.Label stock_chart_name;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox dateComboBox;
     }
 }
