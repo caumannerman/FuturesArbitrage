@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.futures_order_chart = new System.Windows.Forms.DataGridView();
             this.jongmokComboBox = new System.Windows.Forms.ComboBox();
@@ -53,6 +53,8 @@
             this.dateComboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.bool_total_chart_name = new System.Windows.Forms.Label();
+            this.get_stock_log_button = new System.Windows.Forms.Button();
+            this.get_futures_log_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.futures_order_chart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arbitrageChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stock_order_chart)).BeginInit();
@@ -64,7 +66,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Gray;
-            this.button1.Location = new System.Drawing.Point(1230, 9);
+            this.button1.Location = new System.Drawing.Point(1400, 10);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -138,17 +140,17 @@
             // 
             // arbitrageChart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.arbitrageChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.arbitrageChart.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.arbitrageChart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.arbitrageChart.Legends.Add(legend3);
             this.arbitrageChart.Location = new System.Drawing.Point(980, 554);
             this.arbitrageChart.Margin = new System.Windows.Forms.Padding(2);
             this.arbitrageChart.Name = "arbitrageChart";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.arbitrageChart.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.arbitrageChart.Series.Add(series3);
             this.arbitrageChart.Size = new System.Drawing.Size(619, 347);
             this.arbitrageChart.TabIndex = 43;
             this.arbitrageChart.Text = "chart2";
@@ -235,7 +237,7 @@
             // 
             // get_log_button
             // 
-            this.get_log_button.Location = new System.Drawing.Point(1131, 8);
+            this.get_log_button.Location = new System.Drawing.Point(1106, 10);
             this.get_log_button.Name = "get_log_button";
             this.get_log_button.Size = new System.Drawing.Size(84, 23);
             this.get_log_button.TabIndex = 51;
@@ -325,11 +327,33 @@
             this.bool_total_chart_name.TabIndex = 60;
             this.bool_total_chart_name.Text = "CJ ENM";
             // 
+            // get_stock_log_button
+            // 
+            this.get_stock_log_button.Location = new System.Drawing.Point(1196, 9);
+            this.get_stock_log_button.Name = "get_stock_log_button";
+            this.get_stock_log_button.Size = new System.Drawing.Size(97, 23);
+            this.get_stock_log_button.TabIndex = 61;
+            this.get_stock_log_button.Text = "현물log받기";
+            this.get_stock_log_button.UseVisualStyleBackColor = true;
+            this.get_stock_log_button.Click += new System.EventHandler(this.get_stock_log_button_Click);
+            // 
+            // get_futures_log_button
+            // 
+            this.get_futures_log_button.Location = new System.Drawing.Point(1299, 9);
+            this.get_futures_log_button.Name = "get_futures_log_button";
+            this.get_futures_log_button.Size = new System.Drawing.Size(95, 23);
+            this.get_futures_log_button.TabIndex = 62;
+            this.get_futures_log_button.Text = "선물log받기";
+            this.get_futures_log_button.UseVisualStyleBackColor = true;
+            this.get_futures_log_button.Click += new System.EventHandler(this.get_futures_log_button_Click);
+            // 
             // myasset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1722, 908);
+            this.Controls.Add(this.get_futures_log_button);
+            this.Controls.Add(this.get_stock_log_button);
             this.Controls.Add(this.bool_total_chart_name);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dateComboBox);
@@ -386,5 +410,7 @@
         private System.Windows.Forms.ComboBox dateComboBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label bool_total_chart_name;
+        private System.Windows.Forms.Button get_stock_log_button;
+        private System.Windows.Forms.Button get_futures_log_button;
     }
 }

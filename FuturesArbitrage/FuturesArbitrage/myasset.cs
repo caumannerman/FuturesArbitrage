@@ -350,7 +350,7 @@ namespace FuturesArbitrage
         // Spring Boot API 5가지.
 
         // API 1번
-        async void api1_get_log(String bookcode, String date)
+        async Task api1_get_log(String bookcode, String date)
         {
             try
             {
@@ -393,10 +393,98 @@ namespace FuturesArbitrage
                 Console.WriteLine($"Exception={ex2.Message}");
             }
         }
+        // API 1번
+        async Task api1_get_stock_log(String bookcode, String date)
+        {
+            try
+            {
+                //주식 매수매도 호가
+                string URL = "http://127.0.0.1:8080/api/v1/get/notvisited1/stock?bookcode=" + bookcode + "&date=" + date;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                string text = reader.ReadToEnd();
+                JObject obj = JObject.Parse(text);
+
+                fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"],
+                    obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
+                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"], obj["visited"], obj["id"]);
+                //API2번이 patch를 보내야하기 때문에 id를 저장.
+                this.former_log_id = (String)obj["id"];
+
+                //API4번에서 사용하기 위해
+                // KR7~~ 혹은 KR4~~
+                this.now_issue_code = (String)obj["sissueCode"];
+                this.now_trd_price = (String)obj["strdPrice"];
+                this.now_trd_quantity = (String)obj["strdQty"];
+                this.now_sside = (String)obj["sside"];
+
+                /* Console.WriteLine(this.now_issue_code);
+                 Console.WriteLine(this.now_trd_price);
+                 Console.WriteLine(this.now_trd_quantity);
+                 Console.WriteLine(this.now_sside);*/
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+            }
+        }
+        // API 1번
+        async Task api1_get_futures_log(String bookcode, String date)
+        {
+            try
+            {
+                //주식 매수매도 호가
+                string URL = "http://127.0.0.1:8080/api/v1/get/notvisited1/futures?bookcode=" + bookcode + "&date=" + date;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                string text = reader.ReadToEnd();
+                JObject obj = JObject.Parse(text);
+
+                fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"],
+                    obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
+                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"], obj["visited"], obj["id"]);
+                //API2번이 patch를 보내야하기 때문에 id를 저장.
+                this.former_log_id = (String)obj["id"];
+
+                //API4번에서 사용하기 위해
+                // KR7~~ 혹은 KR4~~
+                this.now_issue_code = (String)obj["sissueCode"];
+                this.now_trd_price = (String)obj["strdPrice"];
+                this.now_trd_quantity = (String)obj["strdQty"];
+                this.now_sside = (String)obj["sside"];
+
+                /* Console.WriteLine(this.now_issue_code);
+                 Console.WriteLine(this.now_trd_price);
+                 Console.WriteLine(this.now_trd_quantity);
+                 Console.WriteLine(this.now_sside);*/
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+            }
+        }
 
         // API 2번
         // 직전에 받아온 log의 id를 사용하여 해당 log를 받아온적 있다고 DB에 visited처리.
-        async void api2_patch_log()
+        async Task api2_patch_log()
         {
             try
             {
@@ -431,7 +519,7 @@ namespace FuturesArbitrage
 
         // API 3번
         // 받아온 적 있는 로그 리스트를 받아옴. 
-        async void api3_get_log_list(String bookcode, String date)
+        async Task api3_get_log_list(String bookcode, String date)
         {
             try
             {
@@ -476,7 +564,7 @@ namespace FuturesArbitrage
         }
 
         // API 4번
-        async void api4_patch_asset()
+        async Task api4_patch_asset()
         {
             try
             {
@@ -489,6 +577,8 @@ namespace FuturesArbitrage
                 StreamReader reader = new StreamReader(stream, Encoding.UTF8);
                 string text = reader.ReadToEnd();
                 JObject obj = JObject.Parse(text);
+                Console.WriteLine("api4에서 patch합니다...");
+                Console.WriteLine(now_issue_code);
             }
             catch (HttpRequestException ex)
             {
@@ -504,7 +594,7 @@ namespace FuturesArbitrage
         }
 
         // API 5번
-        async void api5_get_asset(String bookcode, String date)
+        async Task api5_get_asset(String bookcode, String date)
         {
             try
             {
@@ -872,21 +962,50 @@ namespace FuturesArbitrage
         {
             futures_order_chart.ClearSelection();
         }
-        private void get_log_button_Click(object sender, EventArgs e)
+        private async void get_log_button_Click(object sender, EventArgs e)
         {
 
             // 이곳은 sync하게 실행되어야 한다.
             // api 호출 
             // API 1번 호출.
             // 받은 적 없는 log를 받아와 따로 구조체 저장 없이 바로 row에 뿌려줌
-            api1_get_log("M:" + this.now_book_code, this.now_date);
+            await api1_get_log("M:" + this.now_book_code, this.now_date);
 
             //이제 방금 API 1번으로 받아온 로그에 대하여 DB상에 visited처리해줘야한다. (API 2번으로 PATCH)
-            api2_patch_log();
+            await api2_patch_log();
 
             // API 4번 방금 받아온 로그를 수익 테이블에 적용해야한다 (Patch)
-            api4_patch_asset();
+            await api4_patch_asset();
         }
 
+        private async void get_stock_log_button_Click(object sender, EventArgs e)
+        {
+            // 이곳은 sync하게 실행되어야 한다.
+            // api 호출 
+            // API 1번 호출.
+            // 받은 적 없는 log를 받아와 따로 구조체 저장 없이 바로 row에 뿌려줌
+            await api1_get_stock_log("M:" + this.now_book_code, this.now_date);
+
+            //이제 방금 API 1번으로 받아온 로그에 대하여 DB상에 visited처리해줘야한다. (API 2번으로 PATCH)
+            await api2_patch_log();
+
+            // API 4번 방금 받아온 로그를 수익 테이블에 적용해야한다 (Patch)
+            await api4_patch_asset();
+        }
+
+        private async void get_futures_log_button_Click(object sender, EventArgs e)
+        {
+            // 이곳은 sync하게 실행되어야 한다.
+            // api 호출 
+            // API 1번 호출.
+            // 받은 적 없는 log를 받아와 따로 구조체 저장 없이 바로 row에 뿌려줌
+            await api1_get_futures_log("M:" + this.now_book_code, this.now_date);
+
+            //이제 방금 API 1번으로 받아온 로그에 대하여 DB상에 visited처리해줘야한다. (API 2번으로 PATCH)
+            await api2_patch_log();
+
+            // API 4번 방금 받아온 로그를 수익 테이블에 적용해야한다 (Patch)
+            await api4_patch_asset();
+        }
     }
 }
