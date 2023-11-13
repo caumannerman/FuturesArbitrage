@@ -43,7 +43,7 @@ namespace FuturesArbitrage
         double arbt_chart_x = 0.0;
 
         //ㄹfep log의 id
-        int id = 1;
+        String former_log_id = "0"; 
 
 
         //선물 매수호가1~5
@@ -225,6 +225,12 @@ namespace FuturesArbitrage
             fep_log_view.Columns.Add("COL16", "차근월물체결가격");
             fep_log_view.Columns.Add("COL17", "매도/매수 구분코드");
             fep_log_view.Columns.Add("COL18", "보드ID");
+            fep_log_view.Columns.Add("COL19", "보드ID");
+            fep_log_view.Columns.Add("COL20", "보드ID");
+            fep_log_view.Columns.Add("COL21", "보드ID");
+            fep_log_view.Columns.Add("COL22", "보드ID");
+            fep_log_view.Columns.Add("COL23", "보드ID");
+            fep_log_view.Columns.Add("COL24", "visited"); fep_log_view.Columns.Add("COL25", "tableID");
             fep_log_view.Rows.Add("", "", "", "", "");
             
 
@@ -405,8 +411,44 @@ namespace FuturesArbitrage
 
                 fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"],
                     obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
-                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"]);
-                
+                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"], obj["visited"], obj["id"]);
+                //API2번이 patch를 보내야하기 때문에 id를 저장.
+                this.former_log_id = (String) obj["id"];
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+            }
+        }
+
+        // API 2번
+        // 직전에 받아온 log의 id를 사용하여 해당 log를 받아온적 있다고 DB에 visited처리.
+        async void api2_patch_log()
+        {
+            try
+            {
+                //주식 매수매도 호가
+                string URL = "http://127.0.0.1:8080/api/v1/patch/logvisited?id=" + this.former_log_id;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                request.Method = "PATCH";
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                string text = reader.ReadToEnd();
+                JObject obj = JObject.Parse(text);
+
+                // visited 된 것 차트에 수정해주기.
+                fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"],
+                    obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
+                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"], obj["visited"], obj["id"]);
+
             }
             catch (HttpRequestException ex)
             {
@@ -781,6 +823,8 @@ namespace FuturesArbitrage
             // 받은 적 없는 log를 받아와 따로 구조체 저장 없이 바로 row에 뿌려줌
             api1_get_log("M:" + this.now_book_code, this.now_date);
 
+            //이제 방금 API 1번으로 받아온 로그에 대하여 DB상에 visited처리해줘야한다. (API 2번으로 PATCH)
+            api2_patch_log();
 
 
         }
