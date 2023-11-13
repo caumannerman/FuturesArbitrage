@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Microsoft.Office.Interop.Excel;
+using Newtonsoft.Json;
 
 namespace FuturesArbitrage
 {
@@ -320,6 +321,9 @@ namespace FuturesArbitrage
             arbitrageChart.Series.Clear();
             init_chart();
             arbt_chart_x = 0.0;
+
+            // API3번 호출 ( 해당 종목, 날짜에서 받았던 로그만 visited30 GET 받아오기)
+            api3_get_log_list(this.now_book_code, this.now_date);
             //arbitrageChart.Series["선물매수1호가"].Points.Clear();
 
             //arbitrageChart.Series["선물매도1호가"].Points.Clear();
@@ -335,8 +339,9 @@ namespace FuturesArbitrage
             this.now_date = date_arr[cb.SelectedIndex];
 
             // API3번 호출 ( 해당 종목, 날짜에서 받았던 로그만 visited30 GET 받아오기)
+            api3_get_log_list(this.now_book_code, this.now_date);
 
-            
+
         }
 
         async void setup_asset_view()
@@ -446,7 +451,52 @@ namespace FuturesArbitrage
 
                 // visited 된 것 차트에 수정해주기.
                 fep_log_view.Rows[0].Cells[23].Value = obj["visited"];
-               
+
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+            }
+        }
+
+        // API 3번
+        // 받아온 적 있는 로그 리스트를 받아옴. 
+        async void api3_get_log_list(String bookcode, String date)
+        {
+            try
+            {
+                //주식 매수매도 호가
+                string URL = "http://127.0.0.1:8080/api/v1/get/visited30?bookcode=" + "M:" + bookcode + "&date=" + date;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                string text = reader.ReadToEnd();
+                //JObject obj = JObject.Parse(text);
+
+                var obj = JsonConvert.DeserializeObject<List<TS>>(text);
+
+                //일단 받아놓았던 다른 날짜의 로그를 다 지움
+                fep_log_view.Rows.Clear();
+                // 이전에 받았었던 최대 30개의 로그 차트에 표시
+                for(int i=0; i< obj.Count; i++)
+                {
+                    fep_log_view.Rows.Add(obj[i].strdTime, obj[i].sbookCode, obj[i].sissueCode, obj[i].strdQty, obj[i].strdPrice, obj[i].sorderNo, obj[i].smsgGb,
+                    obj[i].sseq, obj[i].sacctNo, obj[i].id, obj[i].slength, obj[i].strCode, obj[i].sdataCnt, obj[i].srpCode, obj[i].strdNo,
+                    obj[i].strdType, obj[i].sfarTrdPrice, obj[i].sside, obj[i].sbalanceType, obj[i].sfiller, obj[i].spurpose, obj[i].snearTrdPrice, obj[i].sdontknow, obj[i].visited, obj[i].id);
+                }
+
+                
+                //fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"],
+                //  obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
+                //obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"], obj["visited"], obj["id"]);
 
             }
             catch (HttpRequestException ex)
@@ -824,8 +874,6 @@ namespace FuturesArbitrage
 
             //이제 방금 API 1번으로 받아온 로그에 대하여 DB상에 visited처리해줘야한다. (API 2번으로 PATCH)
             api2_patch_log();
-
-
         }
 
         
