@@ -314,9 +314,10 @@ namespace FuturesArbitrage
             this.now_stock_code = stock_code[cb.SelectedIndex];
             this.now_futures_code = futures_code[cb.SelectedIndex];
             //바뀐 종목 이름으로 변경
-            abtChart_name.Text = this.now_stock_name;
-            stock_chart_name.Text = this.now_stock_name;
-            futures_chart_name.Text = this.now_stock_name;
+            abtChart_name.Text = "(" + this.now_stock_name + ")";
+            stock_chart_name.Text = "(" + this.now_stock_name + ")";
+            futures_chart_name.Text = "(" + this.now_stock_name + ")";
+            bool_total_chart_name.Text = "(" + this.now_stock_name + ")";
             //종목이 바뀌었으니 chart를 지우고 다시 그려야함
             arbitrageChart.Series.Clear();
             init_chart();
@@ -512,6 +513,35 @@ namespace FuturesArbitrage
             }
         }
 
+        // API 4번
+        async void api4_patch_asset(String bookcode, String date, String buyquantity)
+        {
+            try
+            {
+                //주식 매수매도 호가
+                string URL = "http://127.0.0.1:8080/api/v1/patch/totalasset?bookcode=" + "M:" + bookcode + "&date=" + date + "&buyquantity=" + buyquantity;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                request.Method = "PATCH";
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                string text = reader.ReadToEnd();
+                JObject obj = JObject.Parse(text);
+
+                
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+            }
+        }
 
         // API 5번
         async void api5_get_asset(String bookcode, String date)
@@ -874,6 +904,9 @@ namespace FuturesArbitrage
 
             //이제 방금 API 1번으로 받아온 로그에 대하여 DB상에 visited처리해줘야한다. (API 2번으로 PATCH)
             api2_patch_log();
+
+            // API 4번 방금 받아온 로그를 수익 테이블에 적용해야한다 (Patch)
+
         }
 
         
