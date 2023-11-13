@@ -445,9 +445,8 @@ namespace FuturesArbitrage
                 JObject obj = JObject.Parse(text);
 
                 // visited 된 것 차트에 수정해주기.
-                fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"],
-                    obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
-                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"], obj["visited"], obj["id"]);
+                fep_log_view.Rows[0].Cells[23].Value = obj["visited"];
+               
 
             }
             catch (HttpRequestException ex)
