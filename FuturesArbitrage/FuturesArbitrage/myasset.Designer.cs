@@ -51,7 +51,6 @@
             this.stock_chart_name = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dateComboBox = new System.Windows.Forms.ComboBox();
-            this.bookAsset_comboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.bool_total_chart_name = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.futures_order_chart)).BeginInit();
@@ -305,14 +304,6 @@
             this.dateComboBox.TabIndex = 57;
             this.dateComboBox.SelectedIndexChanged += new System.EventHandler(this.dateComboBox_SelectedIndexChanged);
             // 
-            // bookAsset_comboBox
-            // 
-            this.bookAsset_comboBox.FormattingEnabled = true;
-            this.bookAsset_comboBox.Location = new System.Drawing.Point(140, 153);
-            this.bookAsset_comboBox.Name = "bookAsset_comboBox";
-            this.bookAsset_comboBox.Size = new System.Drawing.Size(314, 23);
-            this.bookAsset_comboBox.TabIndex = 58;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -341,7 +332,6 @@
             this.ClientSize = new System.Drawing.Size(1722, 908);
             this.Controls.Add(this.bool_total_chart_name);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.bookAsset_comboBox);
             this.Controls.Add(this.dateComboBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.stock_chart_name);
@@ -394,7 +384,6 @@
         private System.Windows.Forms.Label stock_chart_name;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox dateComboBox;
-        private System.Windows.Forms.ComboBox bookAsset_comboBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label bool_total_chart_name;
     }

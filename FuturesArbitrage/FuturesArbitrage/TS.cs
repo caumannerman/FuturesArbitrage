@@ -35,4 +35,14 @@ namespace FuturesArbitrage
         public String sissueCode { get; set; }
         public String spurpose { get; set; }
     }
+
+    public class TotalAsset
+    {
+        public String sissuecode { get; set; }
+        public String date { get; set; }
+        public String sbookcode { get; set; }
+        public int quantity { get; set; }
+        public Double pricesum { get; set; }
+        public Double realprofit { get; set; }
+    }
 }

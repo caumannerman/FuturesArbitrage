@@ -17,6 +17,7 @@ namespace FuturesArbitrage
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new myasset());
-		}
+            //Application.Run(new StartForm());
+        }
 	}
 }
