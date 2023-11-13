@@ -18,7 +18,7 @@ namespace FuturesArbitrage
 {
     public partial class myasset : Form
     {
-        string access_token = "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6IjEyOGJlZjExLWRkMmEtNGZjZi1iMjRhLTliMzc3NDE3YTg0MiIsImlzcyI6InVub2d3IiwiZXhwIjoxNjk5Nzc2NDU4LCJpYXQiOjE2OTk2OTAwNTgsImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.E8YwBPQ5h7I7x9SxHq8xWhRHLww1kVww7eD4grb5ViJKkKu5MK3FE01InTZur44jzxJVf2tn3e1Sss1V1HLMyQ";
+        string access_token = "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6IjkyMjY1ZTk3LWQwYmMtNGJlMy1hOTljLTc2ZDMwMDQ2MTgyYyIsImlzcyI6InVub2d3IiwiZXhwIjoxNjk5OTIwNjg5LCJpYXQiOjE2OTk4MzQyODksImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.YRk48LVCgZtWOdSJ2LaHsA48GfjB_MadEkYRhHX1C8AJ3kjgDOj3RDhg73cfrDYhlgxH2dxuvuPZfAFzLQGu5g";
         //현재 선택된 북코드와 북 이름
         // Default는 CJ ENM
         private string now_book_code = "KR7035760008";
@@ -88,6 +88,9 @@ namespace FuturesArbitrage
             test1();
             testint++;
 
+            // API 5번 호출 ( 해당 종목,해당 날짜 수익 내역 GET 받아오기)
+            api5_get_asset("M:"+this.now_book_code, this.now_date);
+
         }
 
 
@@ -108,7 +111,7 @@ namespace FuturesArbitrage
             asset_view.Columns.Add("COL6", "총 평가금");
             asset_view.Columns.Add("COL7", "총 실현손익");
             asset_view.Columns.Add("COL8", "총 실현손익2");
-            asset_view.Rows.Add("0", "0", "0", "0", "0", "0", "0", "0");
+            asset_view.Rows.Add("1", "1", "1", "1", "1", "1", "1", "1");
 
 
 
@@ -320,6 +323,16 @@ namespace FuturesArbitrage
             //arbitrageChart.Series["매도차익 상한(이론가)"].Points.Clear();
         }
 
+        private void dateComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = sender as ComboBox;
+            this.now_date = date_arr[cb.SelectedIndex];
+
+            // API3번 호출 ( 해당 종목, 날짜에서 받았던 로그만 visited30 GET 받아오기)
+
+            
+        }
+
         async void setup_asset_view()
         {
             
@@ -359,6 +372,74 @@ namespace FuturesArbitrage
                     all_book_gridview.Rows[i].Cells[9].Value = obj_s["output1"]["evlu_pfls_amt"];
                 }
 
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+            }
+        }
+
+
+        // Spring Boot API 5가지.
+
+        // API 1번
+        async void api1_get_log(String bookcode, String date)
+        {
+            try
+            {
+                //주식 매수매도 호가
+                string URL = "http://127.0.0.1:8080/api/v1/get/notvisited1?bookcode=" + bookcode + "&date=" + date;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                string text = reader.ReadToEnd();
+                JObject obj = JObject.Parse(text);
+
+                fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"],
+                    obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
+                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"]);
+                
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+            }
+        }
+
+
+        // API 5번
+        async void api5_get_asset(String bookcode, String date)
+        {
+            try
+            {
+                //주식 매수매도 호가
+                string URL = "http://127.0.0.1:8080/api/v1/get/totalasset?bookcode=" + bookcode + "&date=" + date;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                string text = reader.ReadToEnd();
+                JObject obj = JObject.Parse(text);
+
+                asset_view.Rows[0].Cells[1].Value = obj["buyquantity"];
+                asset_view.Rows[0].Cells[2].Value = obj["buytotalprice"];
+                asset_view.Rows[0].Cells[3].Value = obj["sellquantity"];
+                asset_view.Rows[0].Cells[4].Value = obj["selltotalprice"];
             }
             catch (HttpRequestException ex)
             {
@@ -477,10 +558,6 @@ namespace FuturesArbitrage
                     //매수호가잔량 10개
                     stock_order_chart.Rows[i + 5].Cells[3].Value = stock_bidp_rsqn[i];
                 }
-                
-
-
-
 
                 //////////////////////////////////////////   차트 그리기 /////////////////////////////////////////
                 //매도호가, 잔량으로 10주 살 때 평단을 S라 할 것임.
@@ -699,39 +776,17 @@ namespace FuturesArbitrage
         }
         private void get_log_button_Click(object sender, EventArgs e)
         {
-            try
-            {
-                //주식 매수매도 호가
-                string URL = "http://127.0.0.1:8080/api/v1/ts/" + id.ToString();
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                Stream stream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
-                string text = reader.ReadToEnd();
-                JObject obj = JObject.Parse(text);
-                
-                fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"], 
-                    obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
-                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"] );
-                id++;
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"ex.Message={ex.Message}");
-                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
 
-                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
-            }
-            catch (Exception ex2)
-            {
-                Console.WriteLine($"Exception={ex2.Message}");
-            }
+            // API 1번 호출.
+            // 받은 적 없는 log를 받아와 따로 구조체 저장 없이 바로 row에 뿌려줌
+            api1_get_log("M:" + this.now_book_code, this.now_date);
+
+
+
         }
 
-        private void dateComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox cb = sender as ComboBox;
-            this.now_date = date_arr[cb.SelectedIndex];
-        }
+        
+
+     
     }
 }
