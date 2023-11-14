@@ -44,5 +44,6 @@ namespace FuturesArbitrage
         public int quantity { get; set; }
         public Double pricesum { get; set; }
         public Double realprofit { get; set; }
+        public String lastupdatetime { get; set; }
     }
 }

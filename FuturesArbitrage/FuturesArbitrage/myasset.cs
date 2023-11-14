@@ -611,7 +611,7 @@ namespace FuturesArbitrage
                 //JObject obj = JObject.Parse(text);
 
                 var obj = JsonConvert.DeserializeObject<List<TotalAsset>>(text);
-                // TotalAsset 클래스 멤버 변수들 : String sissuecode, String date, String sbookcode, int quantity, Double pricesum,Double realprofit 
+                // TotalAsset 클래스 멤버 변수들 : String sissuecode, String date, String sbookcode, int quantity, Double pricesum,Double realprofit , String lastupdatetime
 
                 //일단 받아놓았던 다른 날짜의 로그를 다 지움
                 all_book_gridview.Rows.Clear();
