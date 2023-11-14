@@ -27,6 +27,7 @@ namespace FuturesArbitrage
         private string now_stock_code = "035760";
         private string now_futures_code = "1DTT12000";
         private string now_date = "231030";
+        private string now_time = "090000000";
         // now_issue_code를 선언한 이유 => "로그받기" 버튼을 누를 때, now_date(날짜)와 now_book_code(어떤 종목인지)는 선택되어있다.
         // API4번 ( 방금 불러온 로그 손익을 PATCH하여 DB손익 데이터에 적용시켜주는 것)을 하기 위해서는
         // 손익 테이블인 totalasset의 P.K인 date와 issuecode가 필요하다. 따라서 우리는 API1번으로 방문이력 없는 로그 하나를 가져올 때마다
@@ -375,11 +376,13 @@ namespace FuturesArbitrage
                 this.now_trd_price = (String)obj["strdPrice"];
                 this.now_trd_quantity = (String)obj["strdQty"];
                 this.now_sside = (String)obj["sside"];
-         
-               /* Console.WriteLine(this.now_issue_code);
+                this.now_time = (String)obj["strdTime"];
+
+                Console.WriteLine(this.now_issue_code);
                 Console.WriteLine(this.now_trd_price);
                 Console.WriteLine(this.now_trd_quantity);
-                Console.WriteLine(this.now_sside);*/
+                Console.WriteLine(this.now_sside);
+                Console.WriteLine(this.now_time);
             }
             catch (HttpRequestException ex)
             {
@@ -568,8 +571,8 @@ namespace FuturesArbitrage
         {
             try
             {
-                //주식 매수매도 호가
-                string URL = "http://127.0.0.1:8080/api/v1/patch/totalasset?issuecode=" + this.now_issue_code + "&date=" + this.now_date + "&quantity=" + this.now_trd_quantity +"&price=" + this.now_trd_price + "&side=" + this.now_sside;
+                //
+                string URL = "http://127.0.0.1:8080/api/v1/patch/totalasset?issuecode=" + this.now_issue_code + "&date=" + this.now_date + "&quantity=" + this.now_trd_quantity +"&price=" + this.now_trd_price + "&side=" + this.now_sside + "&time=" + this.now_time;
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
                 request.Method = "PATCH";
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -598,7 +601,7 @@ namespace FuturesArbitrage
         {
             try
             {
-                //주식 매수매도 호가
+                //손익 테이블에서 가져오기. 
                 string URL = "http://127.0.0.1:8080/api/v1/get/totalasset?bookcode=" + bookcode + "&date=" + date;
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -615,14 +618,11 @@ namespace FuturesArbitrage
                 //all_book_gridview도 수정해야함. ( book에 속하는 두 issuecode들 에 대하여)
                 // Column순서 : isincode, 종목명,     이론가***, T잔고, T누적금액, T누적단가, T이론손익***, T평가손익***, T실현손익
                 for (int i = 0; i < obj.Count; i++)
-                { // 
+                {   
                     all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2,12))], 100, obj[i].quantity, obj[i].pricesum, (double) (obj[i].pricesum / obj[i].quantity),
                         100, 100, obj[i].realprofit);
                 }
-
                 //이후에 두 book 합산한 손익을 asset_view에 표현해야함.
-
-
             }
             catch (HttpRequestException ex)
             {

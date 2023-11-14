@@ -47,9 +47,9 @@ namespace FuturesArbitrage
 
 		int k = 0;
 		double r_lending = 0.04;
-		double r_borrow = 0.06;
+		double r_borrow = 0.04;
 		int T = 6;
-		string access_token = "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6IjNlMTA4NjY2LTM5M2YtNGY1YS05ZTU3LTBiMDY0YzFmZDRmOSIsImlzcyI6InVub2d3IiwiZXhwIjoxNjk5NTA1Nzg3LCJpYXQiOjE2OTk0MTkzODcsImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.LNfdn7RbmwcmaXsOOEdpFmnN5XcTLuLuRJbzyjeO3P2zglJiVjyLMWOEdm5Q6dyZIjH7wLmwwcW5J70BodIwjg";
+		string access_token = "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6Ijc5NTBmNzUxLWY2NmEtNDYwOC1iNGIyLWE1NzRhNWEzYjdkOSIsImlzcyI6InVub2d3IiwiZXhwIjoxNzAwMDAwMDU0LCJpYXQiOjE2OTk5MTM2NTQsImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.iyu6u92BbWN0WjALwoM42MXUQHHjjFq7rcEMjAZovWPsDlY6iJr1W4X3nPLIiA4orWQWefI7UjvpWm5_x-Lpsg";
 
         //엑셀에서 가져와야하는 것 : 주식 현재가, 만기일까지 남은 일수, 선물 현재가  ( 가격, 수량 )
         //현재가, 남은 일 수까지 활용해서 이론가격 가져옴. 
