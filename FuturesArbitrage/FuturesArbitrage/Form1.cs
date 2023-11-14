@@ -243,7 +243,7 @@ namespace FuturesArbitrage
 				JObject obj_s = JObject.Parse(text_s);
 
 				//선물 매수매도 호가
-				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=114T11000";
+				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=114T12000";
 				HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(URL2);
 				request2.Headers.Add("Authorization", access_token);
 				request2.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
@@ -448,7 +448,7 @@ namespace FuturesArbitrage
 
 
 				//선물 매수매도 호가
-				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=112T11000";
+				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=112T12000";
 				HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(URL2);
                 request2.Headers.Add("Authorization", access_token); 
 				request2.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
@@ -659,7 +659,7 @@ namespace FuturesArbitrage
 
 
 				//선물 매수매도 호가
-				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=111T11000";
+				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=111T12000";
 				HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(URL2);
                 request2.Headers.Add("Authorization", access_token); 
 				request2.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
@@ -873,7 +873,7 @@ namespace FuturesArbitrage
 
 
 				//선물 매수매도 호가
-				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=116T11000";
+				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=116T12000";
 				HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(URL2);
                 request2.Headers.Add("Authorization", access_token); 
 				request2.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
@@ -1093,7 +1093,7 @@ namespace FuturesArbitrage
 
 
 				//선물 매수매도 호가
-				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=115T11000";
+				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=115T12000";
 				HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(URL2);
                 request2.Headers.Add("Authorization", access_token); 
 				request2.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
@@ -1303,7 +1303,7 @@ namespace FuturesArbitrage
 
 
 				//선물 매수매도 호가
-				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=122T11000";
+				string URL2 = "https://openapi.koreainvestment.com:9443/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?FID_COND_MRKT_DIV_CODE=JF&FID_INPUT_ISCD=122T12000";
 				HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(URL2);
                 request2.Headers.Add("Authorization", access_token); 
 				request2.Headers.Add("appkey", "PSbri9T298VyxfJ004x9MnCQnx7gKJR8v658");
@@ -1487,8 +1487,6 @@ namespace FuturesArbitrage
 		}
 		private void timer1_Tick(object sender, EventArgs e)
 		{
-			
-			string URL = "http://127.0.0.1:5000/total";
 
 			test1( r_lending,  r_borrow,  T);
 			test2(r_lending, r_borrow, T);

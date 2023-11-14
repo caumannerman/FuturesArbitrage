@@ -19,7 +19,7 @@ namespace FuturesArbitrage
 {
     public partial class myasset : Form
     {
-        string access_token = "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6IjkyMjY1ZTk3LWQwYmMtNGJlMy1hOTljLTc2ZDMwMDQ2MTgyYyIsImlzcyI6InVub2d3IiwiZXhwIjoxNjk5OTIwNjg5LCJpYXQiOjE2OTk4MzQyODksImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.YRk48LVCgZtWOdSJ2LaHsA48GfjB_MadEkYRhHX1C8AJ3kjgDOj3RDhg73cfrDYhlgxH2dxuvuPZfAFzLQGu5g";
+        string access_token = "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6Ijc5NTBmNzUxLWY2NmEtNDYwOC1iNGIyLWE1NzRhNWEzYjdkOSIsImlzcyI6InVub2d3IiwiZXhwIjoxNzAwMDAwMDU0LCJpYXQiOjE2OTk5MTM2NTQsImp0aSI6IlBTYnJpOVQyOThWeXhmSjAwNHg5TW5DUW54N2dLSlI4djY1OCJ9.iyu6u92BbWN0WjALwoM42MXUQHHjjFq7rcEMjAZovWPsDlY6iJr1W4X3nPLIiA4orWQWefI7UjvpWm5_x-Lpsg";
         //현재 선택된 북코드와 북 이름
         // Default는 CJ ENM
         private string now_book_code = "KR7035760008";
@@ -35,6 +35,8 @@ namespace FuturesArbitrage
         private string now_issue_code = "";
         private string now_trd_price = "";
         private string now_trd_quantity = "";
+        private string now_current_price_stock = "";
+        private string now_current_price_futures = "";
         //매도: 1, 매수: 2
         private string now_sside = "";
 
@@ -99,6 +101,8 @@ namespace FuturesArbitrage
             test1();
             testint++;
 
+            // 먼저 현재가 받아오고.
+           /* api6_get_nowprice();*/
             // API 5번 호출 ( 해당 종목,해당 날짜 수익 내역 GET 받아오기)
             api5_get_asset("M:"+this.now_book_code, this.now_date);
             all_book_gridview.ClearSelection();
@@ -122,7 +126,7 @@ namespace FuturesArbitrage
             asset_view.Columns.Add("COL5", "총 이론손익");
             asset_view.Columns.Add("COL6", "총 평가손익");
             asset_view.Columns.Add("COL7", "총 실현손익");
-            asset_view.Rows.Add("1", "1", "1", "1", "1", "1", "1");
+            asset_view.Rows.Add("KR7035760008", "52", "3403570", "57342", "2947050", "2947050", "0");
 
             /////////////////////////////////////////////////// 우리사 관리종목 현황창 //////////////////////////////////////////////////
 
@@ -132,14 +136,15 @@ namespace FuturesArbitrage
             all_book_gridview.ColumnHeadersVisible = true;
             all_book_gridview.Columns.Add("COL1", "isincode ");
             all_book_gridview.Columns.Add("COL2", "종목명");
-            all_book_gridview.Columns.Add("COL3", "이론가");
-            
-            all_book_gridview.Columns.Add("COL4", "T잔고");
-            all_book_gridview.Columns.Add("COL5", "T누적금액");
-            all_book_gridview.Columns.Add("COL6", "T누적단가");
-            all_book_gridview.Columns.Add("COL7", "T이론손익");
-            all_book_gridview.Columns.Add("COL8", "T평가손익");
-            all_book_gridview.Columns.Add("COL9", "T실현손익");
+            all_book_gridview.Columns.Add("COL3", "현재가");
+            all_book_gridview.Columns.Add("COL4", "이론가");
+
+            all_book_gridview.Columns.Add("COL5", "T잔고");
+            all_book_gridview.Columns.Add("COL6", "T누적금액");
+            all_book_gridview.Columns.Add("COL7", "T누적단가");
+            all_book_gridview.Columns.Add("COL8", "T이론손익");
+            all_book_gridview.Columns.Add("COL9", "T평가손익");
+            all_book_gridview.Columns.Add("COL10", "T실현손익");
             /*for(int i = 0; i < book_code.Length; i++)
             {
                 all_book_gridview.Rows.Add(stock_name[i], book_code[i], stock_code[i], futures_code[i], "", "", "", "", "", "", "");
@@ -288,7 +293,7 @@ namespace FuturesArbitrage
             base.OnLoad(e);
             System.Console.WriteLine("load되엉ㅆ습니다.");
             timer1.Tick += timer1_Tick;
-            timer1.Interval = 300;
+            timer1.Interval = 500;
             init_chart();
             // DataGridView 기본 선택 셀 없애기
             futures_order_chart.ClearSelection();
@@ -613,16 +618,38 @@ namespace FuturesArbitrage
                 var obj = JsonConvert.DeserializeObject<List<TotalAsset>>(text);
                 // TotalAsset 클래스 멤버 변수들 : String sissuecode, String date, String sbookcode, int quantity, Double pricesum,Double realprofit , String lastupdatetime
 
-                //일단 받아놓았던 다른 날짜의 로그를 다 지움
-                all_book_gridview.Rows.Clear();
-                //all_book_gridview도 수정해야함. ( book에 속하는 두 issuecode들 에 대하여)
-                // Column순서 : isincode, 종목명,     이론가***, T잔고, T누적금액, T누적단가, T이론손익***, T평가손익***, T실현손익
-                for (int i = 0; i < obj.Count; i++)
-                {   
-                    all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2,12))], 100, obj[i].quantity, obj[i].pricesum, (double) (obj[i].pricesum / obj[i].quantity),
-                        100, 100, obj[i].realprofit);
+
+                // 1.일단 지금의 현재가 받아와야함. 
+                // 멤버변수 now_current_price에 저장됨!
+
+                // 2.그렇게 받아온 현재가로 이론가, 평가손익 계산해서 출력하기.. ( 현물, 선물 모두)
+                //
+                 for (int i = 0; i < obj.Count; i++)
+                {
+                    await api6_get_nowprice(obj[i].sissuecode);
                 }
-                //이후에 두 book 합산한 손익을 asset_view에 표현해야함.
+                    //일단 받아놓았던 다른 날짜의 로그를 다 지움
+                    all_book_gridview.Rows.Clear();
+                //all_book_gridview도 수정해야함. ( book에 속하는 두 issuecode들 에 대하여)
+                // Column순서 : isincode, 종목명,현재가,     이론가***, T잔고, T누적금액, T누적단가, T이론손익***, T평가손익***, T실현손익
+                for (int i = 0; i < obj.Count; i++)
+                {   //KR7이면 현물
+                    if (obj[i].sissuecode.Substring(0, 3).Equals("KR7"))
+                    {
+                        all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2, 12))], this.now_current_price_stock, obj[i].quantity, obj[i].pricesum, (double)(obj[i].pricesum / obj[i].quantity),
+                        100, 100, obj[i].realprofit);
+                    }//KR4면 선물
+                    else
+                    {
+                        all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2, 12))], this.now_current_price_futures, obj[i].quantity, obj[i].pricesum, (double)(obj[i].pricesum / obj[i].quantity),
+                        100, 100, obj[i].realprofit);
+                    }
+                }
+                
+                //3. 두개를 합산해서 UI 맨 위에 합산 손익 표시하기!
+
+
+
             }
             catch (HttpRequestException ex)
             {
@@ -634,6 +661,49 @@ namespace FuturesArbitrage
             catch (Exception ex2)
             {
                 Console.WriteLine($"Exception={ex2.Message}");
+            }
+        }
+
+         async Task api6_get_nowprice(String issuecode)
+        {
+            try
+            {
+                //현재가 테이블에서 가져오기
+                // sissuecode, date, lastupdatetime 세개를 url매개변수로 보내서 받아와야함.
+                //현재가 테이블에서 가져오기
+                // 멤버변수 now_current_price에 저장됨!
+                string URL = "http://127.0.0.1:8080/api/v1/get/currentprice?issuecode=" + issuecode + "&date=" + this.now_date + "&time=" + this.now_time;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                string text = reader.ReadToEnd();
+                JObject obj = JObject.Parse(text);
+                //KR7이면 현물
+                if (issuecode.Substring(0, 3).Equals("KR7"))
+                {
+                    this.now_current_price_stock = (String)obj["price"];
+                }//KR4면 선물
+                else
+                {
+                    this.now_current_price_futures = (String)obj["price"];
+                }
+
+                    
+               
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+               
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+
             }
         }
 

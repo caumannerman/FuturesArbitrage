@@ -45,7 +45,7 @@ namespace FuturesArbitrage
 			switch (this.action)
 			{
 				case enmAction.ignore:
-					timer1.Interval = 5000;
+					timer1.Interval = 300;
 					action = enmAction.close;
 					break;
 
