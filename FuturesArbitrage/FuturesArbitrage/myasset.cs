@@ -50,7 +50,7 @@ namespace FuturesArbitrage
         ///////////////////////////////// 그래프 그리는 데 필요한 변수 ///////////////////////////////////////
         int k = 0;
         double r_lending = 0.04;
-        double r_borrow = 0.06;
+        double r_borrow = 0.04;
         int T = 6;
         //차익거래 차트 x축 좌표
         double arbt_chart_x = 0.0;
@@ -631,25 +631,37 @@ namespace FuturesArbitrage
                     //일단 받아놓았던 다른 날짜의 로그를 다 지움
                     all_book_gridview.Rows.Clear();
                 //all_book_gridview도 수정해야함. ( book에 속하는 두 issuecode들 에 대하여)
-                // Column순서 : isincode, 종목명,현재가,     이론가***, T잔고, T누적금액, T누적단가, T이론손익***, T평가손익***, T실현손익
+                // Column순서 : isincode, 종목명,현재가,     이론가*, T잔고, T누적금액, T누적단가, T이론손익, T평가손익*, T실현손익
                 for (int i = 0; i < obj.Count; i++)
                 {   //KR7이면 현물
                     if (obj[i].sissuecode.Substring(0, 3).Equals("KR7"))
-                    {
-                        all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2, 12))], this.now_current_price_stock, obj[i].quantity, obj[i].pricesum, (double)(obj[i].pricesum / obj[i].quantity),
-                        100, 100, obj[i].realprofit);
+                    { // 현물은 이론가가 현재가랑 같게 하였음.
+                        all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2, 12))], this.now_current_price_stock, 
+                            this.now_current_price_stock, obj[i].quantity, obj[i].pricesum, (double)(obj[i].pricesum / obj[i].quantity),
+                         ( (Double.Parse(this.now_current_price_stock)) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity, (Double.Parse(this.now_current_price_stock) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity, obj[i].realprofit);
                     }//KR4면 선물
                     else
-                    {
-                        all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2, 12))], this.now_current_price_futures, obj[i].quantity, obj[i].pricesum, (double)(obj[i].pricesum / obj[i].quantity),
-                        100, 100, obj[i].realprofit);
+                    { //선물의 이론가는 (현물 현재가 ) * (1 + r) ^ T /365
+                        
+                        all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2, 12))], this.now_current_price_futures, 
+                            Double.Parse(this.now_current_price_stock) * Math.Pow(1+r_lending, (double)T / 365), obj[i].quantity, obj[i].pricesum * 10, (double)(obj[i].pricesum / obj[i].quantity), (Double.Parse(this.now_current_price_stock) * Math.Pow(1 + r_lending, (double)T) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity * 10,
+                        (Double.Parse(this.now_current_price_futures) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity * 10, obj[i].realprofit);
                     }
                 }
-                
+
                 //3. 두개를 합산해서 UI 맨 위에 합산 손익 표시하기!
+                // 1.북코드, 2. 누적잔고, 3.누적금액, 4.누적단가, 5.총 이론손익, 6.총 평가손익, 7.총 실현손익
 
+                asset_view.Rows.Clear();
+                int total_val2 = int.Parse(all_book_gridview.Rows[0].Cells[4].FormattedValue.ToString()) * 10 + int.Parse(all_book_gridview.Rows[1].Cells[4].FormattedValue.ToString());
+                double total_val3 = Double.Parse(all_book_gridview.Rows[0].Cells[5].FormattedValue.ToString()) + Double.Parse(all_book_gridview.Rows[1].Cells[5].FormattedValue.ToString());
+                double total_val5 = Double.Parse(all_book_gridview.Rows[0].Cells[7].FormattedValue.ToString()) + Double.Parse(all_book_gridview.Rows[1].Cells[7].FormattedValue.ToString());
+                double total_val6 = Double.Parse(all_book_gridview.Rows[0].Cells[8].FormattedValue.ToString()) + Double.Parse(all_book_gridview.Rows[1].Cells[8].FormattedValue.ToString());
+                double total_val7 = Double.Parse(all_book_gridview.Rows[0].Cells[9].FormattedValue.ToString()) + Double.Parse(all_book_gridview.Rows[1].Cells[9].FormattedValue.ToString());
 
-
+                asset_view.Rows.Add(this.now_book_code, total_val2, total_val3, total_val3 / total_val2,
+                    total_val5, total_val6, total_val7
+                    );
             }
             catch (HttpRequestException ex)
             {
