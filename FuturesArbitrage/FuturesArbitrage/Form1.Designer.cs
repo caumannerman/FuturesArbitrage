@@ -29,24 +29,24 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button1 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -76,6 +76,15 @@
             this.hdc_backwardation = new System.Windows.Forms.Button();
             this.hkjr_backwardation = new System.Windows.Forms.Button();
             this.sdi_backwardation = new System.Windows.Forms.Button();
+            this.dateComboBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.my_futures = new System.Windows.Forms.Label();
+            this.my_stock = new System.Windows.Forms.Label();
+            this.msc = new System.Windows.Forms.Label();
+            this.msc_sh = new System.Windows.Forms.Label();
+            this.mdc_sh = new System.Windows.Forms.Label();
+            this.mdc = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
@@ -86,18 +95,18 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea7.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.chart1.Legends.Add(legend7);
             this.chart1.Location = new System.Drawing.Point(11, 36);
-            this.chart1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(600, 350);
+            series7.ChartArea = "ChartArea1";
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            this.chart1.Series.Add(series7);
+            this.chart1.Size = new System.Drawing.Size(1777, 689);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -105,7 +114,7 @@
             // 
             this.button1.BackColor = System.Drawing.Color.Aqua;
             this.button1.Location = new System.Drawing.Point(17, 776);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(138, 61);
             this.button1.TabIndex = 1;
@@ -119,46 +128,46 @@
             // 
             // chart2
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart2.Legends.Add(legend2);
+            chartArea8.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.chart2.Legends.Add(legend8);
             this.chart2.Location = new System.Drawing.Point(618, 36);
-            this.chart2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chart2.Margin = new System.Windows.Forms.Padding(2);
             this.chart2.Name = "chart2";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart2.Series.Add(series2);
+            series8.ChartArea = "ChartArea1";
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            this.chart2.Series.Add(series8);
             this.chart2.Size = new System.Drawing.Size(600, 350);
             this.chart2.TabIndex = 2;
             this.chart2.Text = "chart2";
             // 
             // chart3
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart3.Legends.Add(legend3);
+            chartArea9.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea9);
+            legend9.Name = "Legend1";
+            this.chart3.Legends.Add(legend9);
             this.chart3.Location = new System.Drawing.Point(1222, 36);
-            this.chart3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chart3.Margin = new System.Windows.Forms.Padding(2);
             this.chart3.Name = "chart3";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chart3.Series.Add(series3);
+            series9.ChartArea = "ChartArea1";
+            series9.Legend = "Legend1";
+            series9.Name = "Series1";
+            this.chart3.Series.Add(series9);
             this.chart3.Size = new System.Drawing.Size(600, 350);
             this.chart3.TabIndex = 3;
             this.chart3.Text = "chart3";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(1693, 854);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Location = new System.Drawing.Point(1726, 773);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(30, 37);
+            this.button2.Size = new System.Drawing.Size(96, 37);
             this.button2.TabIndex = 5;
-            this.button2.Text = "button2";
+            this.button2.Text = "back";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -183,51 +192,51 @@
             // 
             // chart4
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart4.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chart4.Legends.Add(legend4);
+            chartArea10.Name = "ChartArea1";
+            this.chart4.ChartAreas.Add(chartArea10);
+            legend10.Name = "Legend1";
+            this.chart4.Legends.Add(legend10);
             this.chart4.Location = new System.Drawing.Point(11, 419);
-            this.chart4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chart4.Margin = new System.Windows.Forms.Padding(2);
             this.chart4.Name = "chart4";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chart4.Series.Add(series4);
+            series10.ChartArea = "ChartArea1";
+            series10.Legend = "Legend1";
+            series10.Name = "Series1";
+            this.chart4.Series.Add(series10);
             this.chart4.Size = new System.Drawing.Size(600, 350);
             this.chart4.TabIndex = 22;
             this.chart4.Text = "chart4";
             // 
             // chart5
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chart5.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart5.Legends.Add(legend5);
+            chartArea11.Name = "ChartArea1";
+            this.chart5.ChartAreas.Add(chartArea11);
+            legend11.Name = "Legend1";
+            this.chart5.Legends.Add(legend11);
             this.chart5.Location = new System.Drawing.Point(620, 419);
-            this.chart5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chart5.Margin = new System.Windows.Forms.Padding(2);
             this.chart5.Name = "chart5";
-            series5.ChartArea = "ChartArea1";
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.chart5.Series.Add(series5);
+            series11.ChartArea = "ChartArea1";
+            series11.Legend = "Legend1";
+            series11.Name = "Series1";
+            this.chart5.Series.Add(series11);
             this.chart5.Size = new System.Drawing.Size(600, 350);
             this.chart5.TabIndex = 23;
             this.chart5.Text = "chart5";
             // 
             // chart6
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chart6.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.chart6.Legends.Add(legend6);
+            chartArea12.Name = "ChartArea1";
+            this.chart6.ChartAreas.Add(chartArea12);
+            legend12.Name = "Legend1";
+            this.chart6.Legends.Add(legend12);
             this.chart6.Location = new System.Drawing.Point(1223, 419);
-            this.chart6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chart6.Margin = new System.Windows.Forms.Padding(2);
             this.chart6.Name = "chart6";
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.chart6.Series.Add(series6);
+            series12.ChartArea = "ChartArea1";
+            series12.Legend = "Legend1";
+            series12.Name = "Series1";
+            this.chart6.Series.Add(series12);
             this.chart6.Size = new System.Drawing.Size(600, 350);
             this.chart6.TabIndex = 24;
             this.chart6.Text = "chart6";
@@ -248,7 +257,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label12.Location = new System.Drawing.Point(615, 12);
+            this.label12.Location = new System.Drawing.Point(1601, 8);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(93, 19);
@@ -259,7 +268,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label13.Location = new System.Drawing.Point(1218, 15);
+            this.label13.Location = new System.Drawing.Point(1605, 12);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(89, 19);
@@ -310,7 +319,7 @@
             // 
             // skt_contango
             // 
-            this.skt_contango.Location = new System.Drawing.Point(713, 12);
+            this.skt_contango.Location = new System.Drawing.Point(1699, 8);
             this.skt_contango.Name = "skt_contango";
             this.skt_contango.Size = new System.Drawing.Size(85, 23);
             this.skt_contango.TabIndex = 32;
@@ -319,7 +328,7 @@
             // 
             // se_contango
             // 
-            this.se_contango.Location = new System.Drawing.Point(1312, 12);
+            this.se_contango.Location = new System.Drawing.Point(1699, 9);
             this.se_contango.Name = "se_contango";
             this.se_contango.Size = new System.Drawing.Size(85, 23);
             this.se_contango.TabIndex = 33;
@@ -364,7 +373,7 @@
             // 
             // skt_backwardation
             // 
-            this.skt_backwardation.Location = new System.Drawing.Point(804, 12);
+            this.skt_backwardation.Location = new System.Drawing.Point(1790, 8);
             this.skt_backwardation.Name = "skt_backwardation";
             this.skt_backwardation.Size = new System.Drawing.Size(85, 23);
             this.skt_backwardation.TabIndex = 38;
@@ -373,7 +382,7 @@
             // 
             // se_backwardation
             // 
-            this.se_backwardation.Location = new System.Drawing.Point(1402, 12);
+            this.se_backwardation.Location = new System.Drawing.Point(1789, 9);
             this.se_backwardation.Name = "se_backwardation";
             this.se_backwardation.Size = new System.Drawing.Size(85, 23);
             this.se_backwardation.TabIndex = 39;
@@ -407,11 +416,121 @@
             this.sdi_backwardation.Text = "Backwardation";
             this.sdi_backwardation.UseVisualStyleBackColor = true;
             // 
+            // dateComboBox
+            // 
+            this.dateComboBox.FormattingEnabled = true;
+            this.dateComboBox.Location = new System.Drawing.Point(285, 5);
+            this.dateComboBox.Name = "dateComboBox";
+            this.dateComboBox.Size = new System.Drawing.Size(314, 23);
+            this.dateComboBox.TabIndex = 43;
+            this.dateComboBox.SelectedIndexChanged += new System.EventHandler(this.dateComboBox_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Location = new System.Drawing.Point(616, 9);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 19);
+            this.label2.TabIndex = 44;
+            this.label2.Text = "보유F";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Location = new System.Drawing.Point(774, 6);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(61, 19);
+            this.label3.TabIndex = 45;
+            this.label3.Text = "보유S";
+            // 
+            // my_futures
+            // 
+            this.my_futures.AutoSize = true;
+            this.my_futures.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.my_futures.Location = new System.Drawing.Point(679, 8);
+            this.my_futures.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.my_futures.Name = "my_futures";
+            this.my_futures.Size = new System.Drawing.Size(20, 19);
+            this.my_futures.TabIndex = 46;
+            this.my_futures.Text = "0";
+            this.my_futures.Click += new System.EventHandler(this.my_futures_Click);
+            // 
+            // my_stock
+            // 
+            this.my_stock.AutoSize = true;
+            this.my_stock.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.my_stock.Location = new System.Drawing.Point(839, 6);
+            this.my_stock.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.my_stock.Name = "my_stock";
+            this.my_stock.Size = new System.Drawing.Size(20, 19);
+            this.my_stock.TabIndex = 47;
+            this.my_stock.Text = "0";
+            // 
+            // msc
+            // 
+            this.msc.AutoSize = true;
+            this.msc.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.msc.Location = new System.Drawing.Point(1065, 12);
+            this.msc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.msc.Name = "msc";
+            this.msc.Size = new System.Drawing.Size(20, 19);
+            this.msc.TabIndex = 49;
+            this.msc.Text = "0";
+            this.msc.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // msc_sh
+            // 
+            this.msc_sh.AutoSize = true;
+            this.msc_sh.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.msc_sh.Location = new System.Drawing.Point(932, 11);
+            this.msc_sh.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.msc_sh.Name = "msc_sh";
+            this.msc_sh.Size = new System.Drawing.Size(129, 19);
+            this.msc_sh.TabIndex = 48;
+            this.msc_sh.Text = "매수차익실현";
+            this.msc_sh.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // mdc_sh
+            // 
+            this.mdc_sh.AutoSize = true;
+            this.mdc_sh.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.mdc_sh.Location = new System.Drawing.Point(1256, 11);
+            this.mdc_sh.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.mdc_sh.Name = "mdc_sh";
+            this.mdc_sh.Size = new System.Drawing.Size(129, 19);
+            this.mdc_sh.TabIndex = 50;
+            this.mdc_sh.Text = "매도차익실현";
+            // 
+            // mdc
+            // 
+            this.mdc.AutoSize = true;
+            this.mdc.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.mdc.Location = new System.Drawing.Point(1384, 11);
+            this.mdc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.mdc.Name = "mdc";
+            this.mdc.Size = new System.Drawing.Size(20, 19);
+            this.mdc.TabIndex = 51;
+            this.mdc.Text = "0";
+            // 
             // aaaasas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1517, 853);
+            this.ClientSize = new System.Drawing.Size(1880, 917);
+            this.Controls.Add(this.mdc);
+            this.Controls.Add(this.mdc_sh);
+            this.Controls.Add(this.msc);
+            this.Controls.Add(this.msc_sh);
+            this.Controls.Add(this.my_stock);
+            this.Controls.Add(this.my_futures);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.dateComboBox);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.sdi_backwardation);
             this.Controls.Add(this.hkjr_backwardation);
             this.Controls.Add(this.hdc_backwardation);
@@ -439,8 +558,7 @@
             this.Controls.Add(this.chart3);
             this.Controls.Add(this.chart2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.chart1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "aaaasas";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -486,6 +604,15 @@
         private System.Windows.Forms.Button hdc_backwardation;
         private System.Windows.Forms.Button hkjr_backwardation;
         private System.Windows.Forms.Button sdi_backwardation;
+        private System.Windows.Forms.ComboBox dateComboBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label my_futures;
+        private System.Windows.Forms.Label my_stock;
+        private System.Windows.Forms.Label msc;
+        private System.Windows.Forms.Label msc_sh;
+        private System.Windows.Forms.Label mdc_sh;
+        private System.Windows.Forms.Label mdc;
     }
 }
 

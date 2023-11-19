@@ -35,7 +35,7 @@ namespace FuturesArbitrage
             SettingForm settingForm = new SettingForm();
             settingForm.Tag = this;
             settingForm.Show();
-            this.Hide();
+			this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)

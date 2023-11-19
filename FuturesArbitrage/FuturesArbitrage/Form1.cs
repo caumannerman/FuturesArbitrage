@@ -28,6 +28,16 @@ namespace FuturesArbitrage
 
 		double x1, x2, x3, x4, x5, x6;
 		double total = 0;
+		int new_id = 1;
+		string new_date = "231113";
+		string new_time = "090000";
+		long my_now_msc = 0;
+        long my_now_mdc = 0;
+        long my_stock_quantity = 0;
+		long my_futures_quantity = 0;
+		long now_possible_futures_quantity = 0;
+		int now_mb_bb = 0;
+
 		
         // excel 에서 받아온 데이터 저장할 배열
         int[] numbers = new int[1000];
@@ -56,7 +66,7 @@ namespace FuturesArbitrage
         // 이론가격보다 하나 높은 틱에 선물 매수, 매도 대고있다고 가정.
         // 매 순간 그 가격에 선물이 매수 혹은 매도될 때, 헷지할 수 있는 현물 가격과 수량을 계속 반복체크
         // 
-
+        string[] date_arr = { "231113", "231114", "231115", "231116" };
         public aaaasas()
 		{
 			InitializeComponent();
@@ -87,7 +97,9 @@ namespace FuturesArbitrage
 			r_borrow = Double.Parse( sv_borrow_interest_rate);
 			r_lending = Double.Parse(sv_loan_interest_rate);
 			T = int.Parse(sv_enddate);
-		}
+            dateComboBox.Items.AddRange(date_arr);
+            dateComboBox.Text = new_date;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
 		{
@@ -101,8 +113,24 @@ namespace FuturesArbitrage
 			chart4.Series.Clear();
 			chart5.Series.Clear();
 			chart6.Series.Clear();
-            
-            chart1.Series.Add("선물매수1호가");
+
+
+           
+            chart1.Series.Add("시장베이시스");
+            chart1.Series["시장베이시스"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart1.Series["시장베이시스"].Color = Color.Red;
+
+            chart1.Series.Add("이론베이시스");
+            chart1.Series["이론베이시스"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart1.Series["이론베이시스"].Color = Color.Blue;
+
+            chart1.Series.Add("시장B-이론B");
+            chart1.Series["시장B-이론B"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart1.Series["시장B-이론B"].Color = Color.Yellow;
+
+
+
+            /*chart1.Series.Add("선물매수1호가");
 			chart1.Series["선물매수1호가"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 			chart1.Series["선물매수1호가"].Color = Color.SkyBlue;
 		
@@ -120,10 +148,10 @@ namespace FuturesArbitrage
 
 			chart1.Series.Add("매도차익 상한(이론가)");
 			chart1.Series["매도차익 상한(이론가)"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-			chart1.Series["매도차익 상한(이론가)"].Color = Color.Orange;
+			chart1.Series["매도차익 상한(이론가)"].Color = Color.Orange;*/
 
 
-			chart2.Series.Add("선물매수1호가");
+            chart2.Series.Add("선물매수1호가");
 			chart2.Series["선물매수1호가"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 			chart2.Series["선물매수1호가"].Color = Color.SkyBlue;
 
@@ -223,7 +251,167 @@ namespace FuturesArbitrage
 				futures[i] = 1100 - i;
             }
         }
-		//KT
+
+        //KT
+        async Task new_test1(string date, string time)
+        {
+            try
+            {
+                //주식 매수매도 호가
+                string URL = "http://127.0.0.1:8080/api/v1/get/basis?date=" + date + "&time=" + time;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                
+                HttpWebResponse response_s = (HttpWebResponse)request.GetResponse();
+
+                Stream stream_s = response_s.GetResponseStream();
+                StreamReader reader_s = new StreamReader(stream_s, Encoding.UTF8);
+                string text_s = reader_s.ReadToEnd();
+                JObject obj_s = JObject.Parse(text_s);
+				int mbasis = (int)obj_s["mbasis"];
+				int bbasis = (int)obj_s["bbasis"];
+				int chai = (int)obj_s["mbasis"] - (int)obj_s["bbasis"];
+				// 시장b - 이론b 를 저장
+				this.now_mb_bb = chai;
+                
+
+                // 시장Basis - 이론 Basis 가 양수면 매수차익거래 가능
+                if (chai >=0)
+				{
+					chart1.Series["시장B-이론B"].Color = Color.Pink;
+                }// 시장Basis - 이론 Basis 가 음수면 매도차익거래 가능
+                else
+				{
+                    chart1.Series["시장B-이론B"].Color = Color.Purple;
+                }
+				this.new_time = (string) obj_s["time"];
+				Console.WriteLine("지금 시간 = ");
+                Console.WriteLine( this.new_time);
+
+                chart1.Series["시장베이시스"].Points.AddXY(x1, mbasis);
+
+                chart1.Series["이론베이시스"].Points.AddXY(x1, bbasis);
+                chart1.Series["시장B-이론B"].Points.AddXY(x1, chai);
+
+
+                if (chart1.Series["시장베이시스"].Points.Count >= 500)
+                {
+
+                    chart1.Series["시장베이시스"].Points.Clear();
+                    chart1.Series["이론베이시스"].Points.Clear();
+                    chart1.Series["시장B-이론B"].Points.Clear();
+
+                    x1 = 0.0;
+                }
+
+                chart1.ChartAreas[0].AxisX.Minimum = chart1.Series["시장B-이론B"].Points[0].XValue;
+                chart1.ChartAreas[0].AxisX.Maximum = 50;
+                chart1.ChartAreas[0].AxisY.Minimum = Math.Min(Math.Min(Math.Min(mbasis, bbasis), chai) - 1000, -2500);
+                chart1.ChartAreas[0].AxisY.Maximum = Math.Max(Math.Max(Math.Max(mbasis, bbasis), chai) + 1000, 2500);
+
+                x1 += 0.1; //그래프 상 오른쪽에 그려야하므로
+
+
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+            }
+        }
+
+        async void new_test2()
+        {
+            try
+            {
+                //주식 매수매도 호가
+                string URL = "http://127.0.0.1:8080/api/v1/get/futuresquantity?date=" + this.new_date + "&time=" + this.new_time;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+
+                HttpWebResponse response_s = (HttpWebResponse)request.GetResponse();
+
+                Stream stream_s = response_s.GetResponseStream();
+                StreamReader reader_s = new StreamReader(stream_s, Encoding.UTF8);
+                string text_s = reader_s.ReadToEnd();
+                JObject obj_s = JObject.Parse(text_s);
+                int quantity = (int)obj_s["quantity"];
+
+
+				this.now_possible_futures_quantity = quantity;
+
+				// 시장basis - 이론 basis가 양수라는 것 -> 매수차익거래 기회
+                if (this.now_mb_bb > 0)
+				{
+					// 매수차익거래 했다고 치자!
+					this.my_stock_quantity += quantity * 10;
+					this.my_futures_quantity -= quantity;
+					// 매수차익거래할 때는 
+					this.my_now_msc += now_mb_bb * quantity * 10;
+                }
+				else// 시장basis - 이론 basis가 음수라는것 -> 매도차익거래 기회
+				{
+                    // 매도차익거래 했다고 치자!
+					if( this.my_stock_quantity >= quantity * 10) // 공매도 없이 매도차익거래 할 수 있음
+					{
+                        showAlert(this.new_date + this.new_time +"매도차 함..");
+                        this.my_stock_quantity -= quantity * 10;
+                        this.my_futures_quantity += quantity;
+                        // 매도차익거래할 때는 
+                        this.my_now_mdc += -now_mb_bb * quantity * 10;
+                    }
+					else if(this.my_stock_quantity > 0) // 매도차익 일부만 가능
+					{
+                        showAlert(this.new_date + this.new_time + "매도차익거래 기회가 와서 공매도 없이 조금  실현 했다...");
+                        // 매도차익거래할 때는 
+                        this.my_now_mdc += -now_mb_bb * this.my_stock_quantity * 10;
+
+                        //주식을 매도하는 것을 최우선으로 !
+                        this.my_stock_quantity = 0;
+						//선물 청산할 수 있는 만큼만.
+                        this.my_futures_quantity += (int) this.my_stock_quantity / 10;
+
+                        
+                    }
+					else{ // 아예 잔고 없음
+                        showAlert(this.new_date + this.new_time + "매도차익거래 기회가 왔지만 공매도 못해서 불가!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    }
+                    
+                }
+
+
+
+                string new_date = "231113";
+                string new_time = "090000";
+                long my_now_sonic = 0;
+                long my_stock_quantity = 0;
+                long my_futures_quantity = 0;
+                long now_possible_futures_quantity = 0;
+
+                //
+
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ex.Message={ex.Message}");
+                Console.WriteLine($"ex.InnerException.Message = {ex.InnerException.Message}");
+
+                Console.WriteLine($"----------- 서버에 연결할수없습니다 ---------------------");
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine($"Exception={ex2.Message}");
+            }
+        }
+
+
+
+
+        //KT
         async void test1(double r_lending, double r_borrow, int T)
         {
 			try
@@ -1485,18 +1673,26 @@ namespace FuturesArbitrage
 				Console.WriteLine($"Exception={ex2.Message}");
 			}
 		}
-		private void timer1_Tick(object sender, EventArgs e)
+		private async void timer1_Tick(object sender, EventArgs e)
 		{
+			await new_test1(this.new_date, this.new_time );
+			//방금 받아온 basis들의 시간으로 체결가 가져옴.
+			new_test2();
 
-			test1( r_lending,  r_borrow,  T);
-			test2(r_lending, r_borrow, T);
+			//test1( r_lending,  r_borrow,  T);
+			/*test2(r_lending, r_borrow, T);
             test3(r_lending, r_borrow, T);
 			test4(r_lending, r_borrow, T);
 			test5(r_lending, r_borrow, T);
-			test6(r_lending, r_borrow, T);
+			test6(r_lending, r_borrow, T);*/
 
+			// 수량, 손익 계속 업데이트 
+			my_futures.Text =  this.my_futures_quantity.ToString();
+            my_stock.Text = this.my_stock_quantity.ToString();
+			msc.Text = this.my_now_msc.ToString();
+            mdc.Text = this.my_now_mdc.ToString();
 
-			/*using (WebClient wc = new WebClient())
+            /*using (WebClient wc = new WebClient())
 			{
                 var json = new WebClient().DownloadString(URL);
                 
@@ -1507,7 +1703,7 @@ namespace FuturesArbitrage
 
 
 
-			/* HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+            /* HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
 			 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
 			 Stream stream = response.GetResponseStream();
@@ -1519,7 +1715,7 @@ namespace FuturesArbitrage
 			 string notice = obj["S_buyingArbitrage"].ToString();
 			 Console.WriteLine(notice);*/
 
-			/*
+            /*
 			//chart1관련
 			chart1.Series["선물매수1호가"].Points.AddXY(x, 3 * Math.Sin(5 * x) + 5 * Math.Cos(3 * x));
 
@@ -1556,14 +1752,38 @@ namespace FuturesArbitrage
 			x2 += 0.1; //그래프 상 오른쪽에 그려야하므로
 			*/
 
-		}
+        }
 
 		private void label11_Click(object sender, EventArgs e)
 		{
 
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+        private void dateComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = sender as ComboBox;
+            this.new_date = date_arr[cb.SelectedIndex];
+			this.new_time = "090000";
+            
+            
+        }
+
+        private void my_futures_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
 		{
 			if (timer1.Enabled)
 			{
@@ -1592,9 +1812,9 @@ namespace FuturesArbitrage
         }
 		private void button2_Click(object sender, EventArgs e)
 		{
-            showAlert("~~ 체결 메세지");
-			///this.Alert("Test MEssage");
-		}
+            
+      
+        }
 
        
 

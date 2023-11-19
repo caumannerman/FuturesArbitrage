@@ -145,6 +145,7 @@ namespace FuturesArbitrage
             all_book_gridview.Columns.Add("COL8", "T이론손익");
             all_book_gridview.Columns.Add("COL9", "T평가손익");
             all_book_gridview.Columns.Add("COL10", "T실현손익");
+            all_book_gridview.Rows.Add( "", "", "", "", "", "", "", "", "", "");
             /*for(int i = 0; i < book_code.Length; i++)
             {
                 all_book_gridview.Rows.Add(stock_name[i], book_code[i], stock_code[i], futures_code[i], "", "", "", "", "", "", "");
@@ -215,33 +216,14 @@ namespace FuturesArbitrage
             ////첫 행 삭제
             fep_log_view.Columns.Clear();
             fep_log_view.Rows.Clear();
-            fep_log_view.Columns.Add("COL1", "체결시각");
-            fep_log_view.Columns.Add("COL2", "Book 코드");
-            fep_log_view.Columns.Add("COL3", "isinCode");
-            fep_log_view.Columns.Add("COL4", "체결수량");
-            fep_log_view.Columns.Add("COL5", "체결가격");
-            fep_log_view.Columns.Add("COL6", "주문번호");
-
-            fep_log_view.Columns.Add("COL7", "메시지 길이");
-            fep_log_view.Columns.Add("COL8", "메시지 타입");
-            fep_log_view.Columns.Add("COL9", "응답코드");
-            fep_log_view.Columns.Add("COL10", "메시지 번호");
-            fep_log_view.Columns.Add("COL11", "메시지 개수");
-            fep_log_view.Columns.Add("COL12", "계좌번호");
-            fep_log_view.Columns.Add("COL13", "회원기준 체결번호");
-            fep_log_view.Columns.Add("COL14", "체결유형코드");
-            fep_log_view.Columns.Add("COL15", "최근월물체결가격");
-            fep_log_view.Columns.Add("COL16", "차근월물체결가격");
-            fep_log_view.Columns.Add("COL17", "매도/매수 구분코드");
-            fep_log_view.Columns.Add("COL18", "보드ID");
-            fep_log_view.Columns.Add("COL19", "보드ID");
-            fep_log_view.Columns.Add("COL20", "보드ID");
-            fep_log_view.Columns.Add("COL21", "보드ID");
-            fep_log_view.Columns.Add("COL22", "보드ID");
-            fep_log_view.Columns.Add("COL23", "보드ID");
-            fep_log_view.Columns.Add("COL24", "visited"); fep_log_view.Columns.Add("COL25", "tableID");
-            fep_log_view.Rows.Add("", "", "", "", "");
-            
+            fep_log_view.Columns.Add("COL1", "체결날짜");
+            fep_log_view.Columns.Add("COL2", "체결시각");
+            fep_log_view.Columns.Add("COL3", "Book 코드");
+            fep_log_view.Columns.Add("COL4", "isinCode");
+            fep_log_view.Columns.Add("COL5", "체결수량");
+            fep_log_view.Columns.Add("COL6", "체결가격");
+            fep_log_view.Columns.Add("COL7", "매도/매수 구분코드");
+            fep_log_view.Columns.Add("COL8", "visited");
 
             //색상 변경 매수-red, 매도-blue
             for (int i = 0; i < 5; i++)
@@ -368,10 +350,9 @@ namespace FuturesArbitrage
                 StreamReader reader = new StreamReader(stream, Encoding.UTF8);
                 string text = reader.ReadToEnd();
                 JObject obj = JObject.Parse(text);
-
-                fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"],
-                    obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
-                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"], obj["visited"], obj["id"]);
+                //날짜, 시각, 북콛, isincode, 수량, 가격, 매도/매수 구분코드, visited
+                
+                fep_log_view.Rows.Insert(0, obj["date"], obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sside"], obj["visited"]);
                 //API2번이 patch를 보내야하기 때문에 id를 저장.
                 this.former_log_id = (String) obj["id"];
 
@@ -415,9 +396,8 @@ namespace FuturesArbitrage
                 string text = reader.ReadToEnd();
                 JObject obj = JObject.Parse(text);
 
-                fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"],
-                    obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
-                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"], obj["visited"], obj["id"]);
+
+                fep_log_view.Rows.Insert(0, obj["date"], obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sside"], obj["visited"]);
                 //API2번이 patch를 보내야하기 때문에 id를 저장.
                 this.former_log_id = (String)obj["id"];
 
@@ -459,9 +439,7 @@ namespace FuturesArbitrage
                 string text = reader.ReadToEnd();
                 JObject obj = JObject.Parse(text);
 
-                fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"],
-                    obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
-                    obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"], obj["visited"], obj["id"]);
+                fep_log_view.Rows.Insert(0, obj["date"], obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sside"], obj["visited"]);
                 //API2번이 patch를 보내야하기 때문에 id를 저장.
                 this.former_log_id = (String)obj["id"];
 
@@ -509,7 +487,6 @@ namespace FuturesArbitrage
                 // visited 된 것 차트에 수정해주기.
                 // 이렇게 수동으로 수정해주는 이유는, 로그를 받아올 때마다 visited = '1'인 로그들 전체를 계속 다시 받아올 수 없기 때문.
                 // 방문 이력 있는 전체 리스트를 받아오는 것은 날짜를 바꿀때, 혹은 book을 바꿀 때 뿐이다.
-                fep_log_view.Rows[0].Cells[23].Value = obj["visited"];
 
             }
             catch (HttpRequestException ex)
@@ -546,17 +523,9 @@ namespace FuturesArbitrage
                 fep_log_view.Rows.Clear();
                 // 이전에 받았었던 최대 30개의 로그 차트에 표시
                 for(int i=0; i< obj.Count; i++)
-                {
-                    fep_log_view.Rows.Add(obj[i].strdTime, obj[i].sbookCode, obj[i].sissueCode, obj[i].strdQty, obj[i].strdPrice, obj[i].sorderNo, obj[i].smsgGb,
-                    obj[i].sseq, obj[i].sacctNo, obj[i].id, obj[i].slength, obj[i].strCode, obj[i].sdataCnt, obj[i].srpCode, obj[i].strdNo,
-                    obj[i].strdType, obj[i].sfarTrdPrice, obj[i].sside, obj[i].sbalanceType, obj[i].sfiller, obj[i].spurpose, obj[i].snearTrdPrice, obj[i].sdontknow, obj[i].visited, obj[i].id);
+                {//fep_log_view.Rows.Insert(0, obj["date"], obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sside"], obj["visited"]);
+                    fep_log_view.Rows.Add(obj[i].date, obj[i].strdTime,obj[i].sbookCode, obj[i].sissueCode, obj[i].strdQty, obj[i].strdPrice, obj[i].sside, obj[i].visited);
                 }
-
-                
-                //fep_log_view.Rows.Insert(0, obj["strdTime"], obj["sbookCode"], obj["sissueCode"], obj["strdQty"], obj["strdPrice"], obj["sorderNo"], obj["smsgGb"],
-                //  obj["sseq"], obj["sacctNo"], obj["id"], obj["slength"], obj["strCode"], obj["sdataCnt"], obj["srpCode"], obj["strdNo"],
-                //obj["strdType"], obj["sfarTrdPrice"], obj["sside"], obj["sbalanceType"], obj["sfiller"], obj["spurpose"], obj["snearTrdPrice"], obj["sdontknow"], obj["visited"], obj["id"]);
-
             }
             catch (HttpRequestException ex)
             {
@@ -613,8 +582,6 @@ namespace FuturesArbitrage
                 Stream stream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(stream, Encoding.UTF8);
                 string text = reader.ReadToEnd();
-                //JObject obj = JObject.Parse(text);
-
                 var obj = JsonConvert.DeserializeObject<List<TotalAsset>>(text);
                 // TotalAsset 클래스 멤버 변수들 : String sissuecode, String date, String sbookcode, int quantity, Double pricesum,Double realprofit , String lastupdatetime
 
@@ -636,16 +603,26 @@ namespace FuturesArbitrage
                 {   //KR7이면 현물
                     if (obj[i].sissuecode.Substring(0, 3).Equals("KR7"))
                     { // 현물은 이론가가 현재가랑 같게 하였음.
-                        all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2, 12))], this.now_current_price_stock, 
-                            this.now_current_price_stock, obj[i].quantity, obj[i].pricesum, (double)(obj[i].pricesum / obj[i].quantity),
-                         ( (Double.Parse(this.now_current_price_stock)) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity, (Double.Parse(this.now_current_price_stock) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity, obj[i].realprofit);
+                        all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2, 12))], 
+                            this.now_current_price_stock, 
+                            this.now_current_price_stock, 
+                            obj[i].quantity, obj[i].pricesum, 
+                            (double)(obj[i].pricesum / obj[i].quantity),
+                         ( (Double.Parse(this.now_current_price_stock)) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity, 
+                         (Double.Parse(this.now_current_price_stock) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity, 
+                         obj[i].realprofit);
                     }//KR4면 선물
                     else
                     { //선물의 이론가는 (현물 현재가 ) * (1 + r) ^ T /365
                         
-                        all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2, 12))], this.now_current_price_futures, 
-                            Double.Parse(this.now_current_price_stock) * Math.Pow(1+r_lending, (double)T / 365), obj[i].quantity, obj[i].pricesum * 10, (double)(obj[i].pricesum / obj[i].quantity), (Double.Parse(this.now_current_price_stock) * Math.Pow(1 + r_lending, (double)T) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity * 10,
-                        (Double.Parse(this.now_current_price_futures) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity * 10, obj[i].realprofit);
+                        all_book_gridview.Rows.Add(obj[i].sissuecode, stock_name[Array.IndexOf(book_code, obj[i].sbookcode.Substring(2, 12))], 
+                            this.now_current_price_futures, 
+                            Double.Parse(this.now_current_price_stock) * Math.Pow(1+r_lending, ((double)T / 365)), 
+                            obj[i].quantity, obj[i].pricesum * 10, 
+                            (double)(obj[i].pricesum / obj[i].quantity), 
+                            (Double.Parse(this.now_current_price_stock) * Math.Pow(1 + r_lending, ((double)T/365)) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity * 10,
+                        (Double.Parse(this.now_current_price_futures) - (double)(obj[i].pricesum / obj[i].quantity)) * obj[i].quantity * 10, 
+                        obj[i].realprofit);
                     }
                 }
 
@@ -721,8 +698,6 @@ namespace FuturesArbitrage
 
         async void test1()
         {
-            Console.WriteLine("잘 받고가세요8");
-            Console.WriteLine(this.now_stock_code, this.now_futures_code);
             try
             {
                 //주식 매수매도 호가
@@ -754,10 +729,6 @@ namespace FuturesArbitrage
                 StreamReader reader_f = new StreamReader(stream_f, Encoding.UTF8);
                 string text_f = reader_f.ReadToEnd();
                 JObject obj_f = JObject.Parse(text_f);
-
-                Console.WriteLine(text_s);
-                Console.WriteLine("출력중.....");
-                Console.WriteLine(text_f);
 
 
                 //선물 매수호가1~5
@@ -1059,6 +1030,7 @@ namespace FuturesArbitrage
             // API 4번 방금 받아온 로그를 수익 테이블에 적용해야한다 (Patch)
             await api4_patch_asset();
         }
+
 
         private async void get_stock_log_button_Click(object sender, EventArgs e)
         {
